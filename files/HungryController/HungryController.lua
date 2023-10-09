@@ -8,8 +8,8 @@ local HealthStatus = EntityGetFirstComponent(Player, "DamageModelComponent")
 
 --Settings
 --Default max tummy size is 7500 so this is 1%
-local SatietyCostForEachPercent = 75
-local MaxHealthRestoredPerFrame = 0.05
+local SatietyCostForEachPercent = tonumber(ModSettingGet("HungryMina.CostForPercent"))
+local MaxHealthRestoredPerFrame = tonumber(ModSettingGet("HungryMina.MaxHealPerFrame"))/100
 
 --Cost tracking
 local ThisHealPercent = 0.0

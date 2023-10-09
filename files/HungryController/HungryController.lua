@@ -1,4 +1,5 @@
 dofile_once("data/scripts/game_helpers.lua")
+dofile_once("mods/HungryMina/files/DebugPrint.lua")
 
 --Entities/Components
 local Player = GetUpdatedEntityID()
@@ -14,10 +15,10 @@ local MaxHealthRestoredPerFrame = 0.05
 local ThisHealPercent = 0.0
 local ThisSatCost = 0.0
 
-print("[HM] HController > Tick on frame "..tostring(GameGetFrameNum()))
+dPrint("[HM] HController > Tick on frame "..tostring(GameGetFrameNum()))
 
---Tummy is not tracked while poly'd
-if (Tummy == nil) then
+--Check if Tummy or HealthStatus is missing
+if (Tummy == nil) or (HealthStatus == nil) then
     return
 end
 
@@ -46,7 +47,11 @@ if (ThisSatCost > CurrentSatiety) then
     ThisSatCost = CurrentSatiety
 end
 
-print("[HM] HController > Doing heal for "..tostring(ThisHealPercent).. " for "..tostring(ThisSatCost).." satiation")
+if (ThisSatCost == 0) or (ThisHealPercent == 0) then
+    return
+end
+
+dPrint("[HM] HController > Doing heal for "..tostring(ThisHealPercent).. " for "..tostring(ThisSatCost).." satiation")
 
 --Perform the heal
 heal_entity(Player, HealthMax * ThisHealPercent)

@@ -1,5 +1,7 @@
--- all functions below are optional and can be left out
+--Load dPrint
+dofile_once("mods/HungryMina/files/DebugPrint.lua")
 
+-- all functions below are optional and can be left out
 --[[
 
 function OnModPreInit()
@@ -37,10 +39,10 @@ function OnPlayerSpawned(player_entity)
 	local controller = EntityGetFirstComponent(player_entity, "LuaComponent", "HungryController")
 
 	if (controller == nil) then
-		print("[HM] Init > Add new HungryController to player")
+		dPrint("[HM] Init > Add new HungryController to player")
 		EntityLoadToEntity("mods/HungryMina/files/HungryController/HungryControllerEnt.xml", player_entity)
 	end
-	print("[HM] Init > OnPlayerSpawned Complete")
+	dPrint("[HM] Init > OnPlayerSpawned Complete")
 end
 
-print("[HM] Init > Hungry Mina loaded")
+print("Hungry Mina loaded")

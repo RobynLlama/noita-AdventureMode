@@ -13,9 +13,13 @@ Licensing:
 --Quick little hack to enable globally controlling print statements
 --without needing to comment out each one
 local DEBUG_PRINT = false
+local MODULE_TAG = "[HM] "
 
-function dPrint(message)
+---@param message string
+---@param from string
+---@return nil
+function dPrint(message, from)
     if (DEBUG_PRINT) then
-        print(message)
+        print(MODULE_TAG..from.." > "..message)
     end
 end

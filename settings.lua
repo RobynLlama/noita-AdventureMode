@@ -32,35 +32,87 @@ mod_settings_version = 1 -- This is a magic global that can be used to migrate s
 mod_settings = 
 {
 	{
-		id = "_",
-		ui_name = "Exposed Settings:",
-		not_setting = true,
-	},
-	{
-		category_id = "settings_regen",
-		ui_name = "Regneration Settings",
-		ui_description = "Fine-tune how the regen works",
+		category_id = "",
+		ui_name = "Tummy Simulation Settings",
+		ui_description = "Settings for player healing from food",
+		foldable = true,
+		_folded = false,
 		settings = {
 			{
-				id = "MaxHealPerFrame",
-				ui_name = "Max Heal Per Frame",
-				ui_description = "In percent, how much life can be restored in one frame",
-				value_default = 5,
-				value_min = 1,
-				value_max = 100,
-				value_display_formatting = " $0 Percent",
+				id = "TummySimType",
+				ui_name = "Tummy Simulation Type",
+				ui_description = "Basic\n    Only considers if the player has anything in the\n    tummy for healing\nAdvanced\n    Demands a more healthy lifestyle with per-material\n    rules",
+				value_default = "BAS",
+				values = { {"BAS","Basic"}, {"ADV","Advanced"}},
 				scope = MOD_SETTING_SCOPE_NEW_GAME,
 			},
 			{
-				id = "CostForPercent",
-				ui_name = "Satiety Cost Per Percent Heal",
-				ui_description = "Each percent of the player's life healed in a frame\nwill cost this much satiety. By defalt the stomach can\ncontain 7500 units of stuff",
-				value_default = "75",
-                text_max_length = 4,
-				allowed_characters = "0123456789",
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				ui_fn = mod_setting_vertical_spacing,
+				not_setting = true,
 			},
-		},
+			{
+				category_id = "tummy_basic_settings_root",
+				ui_name = "Basic Simulation Settings",
+				ui_description = "Settings for the basic tummy simulation",
+				foldable = true,
+				_folded = true,
+				settings = {
+					{
+						ui_fn = mod_setting_vertical_spacing,
+						not_setting = true,
+					},
+					{
+						category_id = "settings_regen",
+						ui_name = "Regneration Settings",
+						ui_description = "Fine-tune how the regen works",
+						settings = {
+							{
+								id = "MaxHealPerFrame",
+								ui_name = "Max Heal Per Frame",
+								ui_description = "In percent, how much life can be restored in one frame",
+								value_default = 5,
+								value_min = 1,
+								value_max = 100,
+								value_display_formatting = " $0 Percent",
+								scope = MOD_SETTING_SCOPE_NEW_GAME,
+							},
+							{
+								id = "CostForPercent",
+								ui_name = "Satiety Cost Per Percent Heal",
+								ui_description = "Each percent of the player's life healed in a frame\nwill cost this much satiety. By defalt the stomach can\ncontain 7500 units of stuff",
+								value_default = "75",
+								text_max_length = 4,
+								allowed_characters = "0123456789",
+								scope = MOD_SETTING_SCOPE_NEW_GAME,
+							},
+						},
+					},
+				},
+			},
+			{
+				category_id = "tummy_advanced_settings_root",
+				ui_name = "Advanced Simulation Settings",
+				ui_description = "Settings for the advanced tummy simulation",
+				foldable = true,
+				_folded = true,
+				settings = {
+					{
+						ui_fn = mod_setting_vertical_spacing,
+						not_setting = true,
+					},
+					{
+						id = "Adv_MaxStoredHealing",
+						ui_name = "Max Stored Healing",
+						ui_description = "How much healing the player can store for later",
+						value_default = 100,
+						value_min = 50,
+						value_max = 300,
+						value_display_formatting = " $0 Healing",
+						scope = MOD_SETTING_SCOPE_NEW_GAME,
+					},
+				},
+			},
+		}
 	},
 }
 

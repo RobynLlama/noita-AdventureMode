@@ -1,5 +1,19 @@
 {
     "Lua.diagnostics.globals": [
-        "heal_entity"
+        "heal_entity",
+        "dPrint",
+        "mod_setting_change_callback",
+        "mod_setting_bool_custom",
+        "mod_settings_version",
+        "mod_settings",
+        "mod_setting_get_id",
+        "mod_setting_group_x_offset",
+        "mod_setting_tooltip",
+        "MOD_SETTING_SCOPE_NEW_GAME",
+        "mod_setting_vertical_spacing",
+        "mod_settings_update",
+        "mod_settings_gui_count",
+        "mod_settings_gui",
+        "mod_settings_get_version"
     ]
 }

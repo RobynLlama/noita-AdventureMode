@@ -1,0 +1,26 @@
+<Entity>
+
+    <LuaComponent
+        script_source_file="mods/HungryMina/files/HungryControllerAdv/HungryControllerAdv.lua"
+        execute_every_n_frame="180"
+        _tags="HungryControllerAdv"
+    >
+    </LuaComponent>
+
+    <VariableStorageComponent
+        name="AdvTummySim_StoredHealing"
+        value_int="0"
+        _tags="HungryStorageComponent"
+    >
+    </VariableStorageComponent>
+
+    <UIIconComponent
+        icon_sprite_file="mods/HungryMina/files/HungryControllerAdv/img/store_waning.png"
+        name="Nourishment (Waning)"
+        description="Healing reserves: ?"
+        is_perk="true"
+        _tags="HungryMinaNourishIcon"
+    >
+    </UIIconComponent>
+
+</Entity>

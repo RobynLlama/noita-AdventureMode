@@ -15,7 +15,7 @@ local MaxHealthRestoredPerFrame = tonumber(ModSettingGet("HungryMina.MaxHealPerF
 local ThisHealPercent = 0.0
 local ThisSatCost = 0.0
 
-dPrint("[HM] HController > Tick on frame "..tostring(GameGetFrameNum()))
+dPrint("Tick on frame "..tostring(GameGetFrameNum()), "BASTummySim")
 
 --Check if Tummy or HealthStatus is missing
 if (Tummy == nil) or (HealthStatus == nil) then
@@ -51,7 +51,7 @@ if (ThisSatCost == 0) or (ThisHealPercent == 0) then
     return
 end
 
-dPrint("[HM] HController > Doing heal for "..tostring(ThisHealPercent).. " for "..tostring(ThisSatCost).." satiation")
+dPrint("Doing heal for "..tostring(ThisHealPercent).. " for "..tostring(ThisSatCost).." satiation", "BASTummySim")
 
 --Perform the heal
 heal_entity(Player, HealthMax * ThisHealPercent)

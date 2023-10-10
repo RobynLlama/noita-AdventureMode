@@ -46,15 +46,62 @@ end
 
 ]]--
 
-function OnPlayerSpawned(player_entity)
-	--Check if the player already has a controller entity
-	local controller = EntityGetFirstComponent(player_entity, "LuaComponent", "HungryController")
+local ControllerType = ModSettingGet("HungryMina.TummySimType")
 
-	if (controller == nil) then
-		dPrint("[HM] Init > Add new HungryController to player")
-		EntityLoadToEntity("mods/HungryMina/files/HungryController/HungryControllerEnt.xml", player_entity)
+function OnPlayerSpawned(player_entity)
+
+	--Fetch controllers for checking
+	local ControllerBas = EntityGetFirstComponent(player_entity, "LuaComponent", "HungryController")
+	local ControllerAdv = EntityGetFirstComponent(player_entity, "LuaComponent", "HungryControllerAdv")
+
+	if (ControllerType == "ADV") then
+		dPrint("Using advanced controller", "Init")
+
+		--Remove any existing basic controller
+		if (ControllerBas ~= nil) then
+			dPrint("Deleting an existing basic controller", "Init")
+			EntityRemoveComponent(player_entity, ControllerBas)
+		end
+
+		--Add ADV controller if we need it
+		if (ControllerAdv == nil) then
+			dPrint("Adding a new advanced controller", "Init")
+			EntityLoadToEntity("mods/HungryMina/files/HungryControllerAdv/HungryControllerAdvEnt.xml", player_entity)
+
+			--Modify player metabolism
+			local Comp = EntityGetFirstComponent(player_entity, "IngestionComponent")
+
+			if (Comp ~= nil) then
+				ComponentSetValue2(Comp, "ingestion_cooldown_delay_frames", 300)
+				ComponentSetValue2(Comp, "ingestion_reduce_every_n_frame", 3)
+			end
+		end
+	else
+		dPrint("Using Basic Controller", "Init")
+
+		--Remove any existing advanced controller
+		if (ControllerAdv ~= nil) then
+			dPrint("Deleting an existing advanced controller", "Init")
+			EntityRemoveComponent(player_entity, ControllerAdv)
+
+			--Modify player metabolism to default
+			local Comp = EntityGetFirstComponent(player_entity, "IngestionComponent")
+
+			if (Comp ~= nil) then
+				ComponentSetValue2(Comp, "ingestion_cooldown_delay_frames", 600)
+				ComponentSetValue2(Comp, "ingestion_reduce_every_n_frame", 5)
+			end
+		end
+
+		--Add the basic controller if we need it
+		if (ControllerBas == nil) then
+			dPrint("Adding a new basic controller", "Init")
+			EntityLoadToEntity("mods/HungryMina/files/HungryController/HungryControllerEnt.xml", player_entity)
+		end
+
 	end
-	dPrint("[HM] Init > OnPlayerSpawned Complete")
+
+	dPrint("Setup complete", "Init")
 end
 
 print("Hungry Mina loaded")

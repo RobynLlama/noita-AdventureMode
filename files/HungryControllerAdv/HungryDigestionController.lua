@@ -1,5 +1,5 @@
 --Load dPrint
-dofile_once("mods/HungryMina/files/DebugPrint.lua")
+dofile_once("mods/AdventureMode/files/DebugPrint.lua")
 
 --Entities
 local Player
@@ -84,7 +84,7 @@ function RunDigestHeartBeat(HealthStorage)
 
 
     --Load MaterialDataTable
-    dofile_once("mods/HungryMina/files/HungryControllerAdv/MaterialDataTable.lua")
+    dofile_once("mods/AdventureMode/files/HungryControllerAdv/MaterialDataTable.lua")
 
     local Material = GetMaterialInventoryMainMaterial(Player, false)
 

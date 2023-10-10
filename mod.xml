@@ -1,6 +1,6 @@
 <Mod
-	name="Hungry Mina"
-	description="Eat to gain regeneration"
+	name="Adventure Mode!"
+	description="Adds many options to scale difficulty and shake up the game a bit."
 	request_no_api_restrictions="0" 
 > 
 </Mod>

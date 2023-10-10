@@ -13,7 +13,7 @@ Licensing:
 --Quick little hack to enable globally controlling print statements
 --without needing to comment out each one
 local DEBUG_PRINT = false
-local MODULE_TAG = "[HM] "
+local MODULE_TAG = "[ADVENTURE] "
 
 ---@param message string
 ---@param from string

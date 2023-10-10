@@ -1,12 +1,12 @@
 --Load the Advanced controller components
-dofile_once("mods/HungryMina/files/DebugPrint.lua")
-dofile_once("mods/HungryMina/files/HungryControllerAdv/HungryDigestionController.lua")
-dofile_once("mods/HungryMina/files/HungryControllerAdv/HungryHealingController.lua")
+dofile_once("mods/AdventureMode/files/DebugPrint.lua")
+dofile_once("mods/AdventureMode/files/HungryControllerAdv/HungryDigestionController.lua")
+dofile_once("mods/AdventureMode/files/HungryControllerAdv/HungryHealingController.lua")
 
 local Player = GetUpdatedEntityID()
 local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", "HungryStorageComponent")
 local Icon = EntityGetFirstComponent(Player, "UIIconComponent", "HungryMinaNourishIcon")
-local MaximumStoredHealing = ModSettingGet("HungryMina.Adv_MaxStoredHealing")
+local MaximumStoredHealing = ModSettingGet("AdventureMode.Adv_MaxStoredHealing")
 
 if (Storage == nil) then
     dPrint("Unable to load storage object", "HungryControllerAdv")
@@ -45,14 +45,14 @@ if (Icon == nil) then
 end
 
 --Set Icon
-local IconPath = "mods/HungryMina/files/HungryControllerAdv/img/store_waning.png"
+local IconPath = "mods/AdventureMode/files/HungryControllerAdv/img/store_waning.png"
 local IconName = "Nourishment (Waning) "
 
 if (HealthStorage.StoredHealing > 0.50 * MaximumStoredHealing) then
-    IconPath = "mods/HungryMina/files/HungryControllerAdv/img/store_good.png"
+    IconPath = "mods/AdventureMode/files/HungryControllerAdv/img/store_good.png"
     IconName = "Nourishment (Good) "
 elseif (HealthStorage.StoredHealing > 0.25 * MaximumStoredHealing) then
-    IconPath = "mods/HungryMina/files/HungryControllerAdv/img/store_fair.png"
+    IconPath = "mods/AdventureMode/files/HungryControllerAdv/img/store_fair.png"
     IconName = "Nourishment (Fair) "
 end
 

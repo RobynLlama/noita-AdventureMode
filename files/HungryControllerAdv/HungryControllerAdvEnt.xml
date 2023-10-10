@@ -1,7 +1,7 @@
 <Entity>
 
     <LuaComponent
-        script_source_file="mods/HungryMina/files/HungryControllerAdv/HungryControllerAdv.lua"
+        script_source_file="mods/AdventureMode/files/HungryControllerAdv/HungryControllerAdv.lua"
         execute_every_n_frame="180"
         _tags="HungryControllerAdv"
     >
@@ -15,7 +15,7 @@
     </VariableStorageComponent>
 
     <UIIconComponent
-        icon_sprite_file="mods/HungryMina/files/HungryControllerAdv/img/store_waning.png"
+        icon_sprite_file="mods/AdventureMode/files/HungryControllerAdv/img/store_waning.png"
         name="Nourishment (Waning)"
         description="Healing reserves: ?"
         is_perk="true"

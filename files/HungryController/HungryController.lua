@@ -1,5 +1,5 @@
 dofile_once("data/scripts/game_helpers.lua")
-dofile_once("mods/HungryMina/files/DebugPrint.lua")
+dofile_once("mods/AdventureMode/files/DebugPrint.lua")
 
 --Entities/Components
 local Player = GetUpdatedEntityID()
@@ -8,8 +8,8 @@ local HealthStatus = EntityGetFirstComponent(Player, "DamageModelComponent")
 
 --Settings
 --Default max tummy size is 7500 so this is 1%
-local SatietyCostForEachPercent = tonumber(ModSettingGet("HungryMina.CostForPercent"))
-local MaxHealthRestoredPerFrame = tonumber(ModSettingGet("HungryMina.MaxHealPerFrame"))/100
+local SatietyCostForEachPercent = tonumber(ModSettingGet("AdventureMode.CostForPercent"))
+local MaxHealthRestoredPerFrame = tonumber(ModSettingGet("AdventureMode.MaxHealPerFrame"))/100
 
 --Cost tracking
 local ThisHealPercent = 0.0

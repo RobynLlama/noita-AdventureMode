@@ -11,7 +11,7 @@ Licensing:
 ]]--
 
 --Load dPrint
-dofile_once("mods/HungryMina/files/DebugPrint.lua")
+dofile_once("mods/AdventureMode/files/DebugPrint.lua")
 
 -- all functions below are optional and can be left out
 --[[
@@ -46,7 +46,7 @@ end
 
 ]]--
 
-local ControllerType = ModSettingGet("HungryMina.TummySimType")
+local ControllerType = ModSettingGet("AdventureMode.TummySimType")
 
 function OnPlayerSpawned(player_entity)
 
@@ -66,7 +66,7 @@ function OnPlayerSpawned(player_entity)
 		--Add ADV controller if we need it
 		if (ControllerAdv == nil) then
 			dPrint("Adding a new advanced controller", "Init")
-			EntityLoadToEntity("mods/HungryMina/files/HungryControllerAdv/HungryControllerAdvEnt.xml", player_entity)
+			EntityLoadToEntity("mods/AdventureMode/files/HungryControllerAdv/HungryControllerAdvEnt.xml", player_entity)
 
 			--Modify player metabolism
 			local Comp = EntityGetFirstComponent(player_entity, "IngestionComponent")
@@ -96,7 +96,7 @@ function OnPlayerSpawned(player_entity)
 		--Add the basic controller if we need it
 		if (ControllerBas == nil) then
 			dPrint("Adding a new basic controller", "Init")
-			EntityLoadToEntity("mods/HungryMina/files/HungryController/HungryControllerEnt.xml", player_entity)
+			EntityLoadToEntity("mods/AdventureMode/files/HungryController/HungryControllerEnt.xml", player_entity)
 		end
 
 	end

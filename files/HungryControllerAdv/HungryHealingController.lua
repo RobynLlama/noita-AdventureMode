@@ -1,5 +1,5 @@
 dofile_once("data/scripts/game_helpers.lua")
-dofile_once("mods/HungryMina/files/DebugPrint.lua")
+dofile_once("mods/AdventureMode/files/DebugPrint.lua")
 
 --vars
 local DataStorage

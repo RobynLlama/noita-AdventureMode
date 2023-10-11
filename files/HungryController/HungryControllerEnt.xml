@@ -1,8 +1,0 @@
-<Entity>
-    <LuaComponent
-        script_source_file="mods/AdventureMode/files/HungryController/HungryController.lua"
-        execute_every_n_frame="120"
-        _tags="HungryController"
-    >
-    </LuaComponent>
-</Entity>

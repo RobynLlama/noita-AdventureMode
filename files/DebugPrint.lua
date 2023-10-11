@@ -10,9 +10,11 @@ Licensing:
 	https://www.creativecommons.org/licenses/by-nc/4.0/legalcode.en
 ]]--
 
+local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
+
 --Quick little hack to enable globally controlling print statements
 --without needing to comment out each one
-local DEBUG_PRINT = ModSettingGet("AdventureMode.DebugPrinting")
+local DEBUG_PRINT = Settings.DebugPrinting
 local MODULE_TAG = "[ADVENTURE] "
 
 ---@param message string

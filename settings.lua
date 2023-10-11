@@ -23,9 +23,11 @@ function mod_setting_bool_custom( mod_id, gui, in_main_menu, im_id, setting )
 	mod_setting_tooltip( mod_id, gui, in_main_menu, setting )
 end
 
+--[[
 function mod_setting_change_callback( mod_id, gui, in_main_menu, setting, old_value, new_value  )
-	print( tostring(new_value) )
+	
 end
+]]--
 
 local mod_id = "AdventureMode" -- This should match the name of your mod's folder.
 mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value. 
@@ -60,7 +62,7 @@ mod_settings =
 				ui_description = "Basic\n    Only considers if the player has anything in the\n    tummy for healing\nAdvanced\n    Demands a more healthy lifestyle with per-material\n    rules",
 				value_default = "BAS",
 				values = {{"OFF", "Disabled"}, {"BAS","Basic"}, {"ADV","Advanced"}},
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
 			},
 			{
 				ui_fn = mod_setting_vertical_spacing,
@@ -90,7 +92,7 @@ mod_settings =
 								value_min = 1,
 								value_max = 100,
 								value_display_formatting = " $0 Percent",
-								scope = MOD_SETTING_SCOPE_NEW_GAME,
+								scope = MOD_SETTING_SCOPE_RUNTIME,
 							},
 							{
 								id = "CostForPercent",
@@ -99,7 +101,7 @@ mod_settings =
 								value_default = "75",
 								text_max_length = 4,
 								allowed_characters = "0123456789",
-								scope = MOD_SETTING_SCOPE_NEW_GAME,
+								scope = MOD_SETTING_SCOPE_RUNTIME,
 							},
 						},
 					},
@@ -124,7 +126,7 @@ mod_settings =
 						value_min = 50,
 						value_max = 300,
 						value_display_formatting = " $0 Healing",
-						scope = MOD_SETTING_SCOPE_NEW_GAME,
+						scope = MOD_SETTING_SCOPE_RUNTIME,
 					},
 				},
 			},
@@ -135,7 +137,7 @@ mod_settings =
 		ui_name = "Enable debug printing",
 		ui_description = "Requires debug mode or the enable logging mod",
 		value_default = false,
-		scope = MOD_SETTING_SCOPE_NEW_GAME,
+		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
 }
 

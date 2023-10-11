@@ -83,7 +83,7 @@ function This.Tick(Context)
     ]]--
 
     --Load MaterialDataTable
-    dofile_once("mods/AdventureMode/files/HungryControllerAdv/MaterialDataTable.lua")
+    dofile_once("mods/AdventureMode/files/TummySim/MaterialDataTable.lua")
 
     local Material = GetMaterialInventoryMainMaterial(Player, false)
 

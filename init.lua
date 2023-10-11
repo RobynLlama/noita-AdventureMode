@@ -15,10 +15,8 @@ Licensing:
 		Combine the advanced and basic hungry controllers
 ]]--
 
---Load dPrint
 dofile_once("mods/AdventureMode/files/DebugPrint.lua")
-
-print("[ Adventure Mode Init ]")
+local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 
 -- all functions below are optional and can be left out
 --[[
@@ -53,85 +51,76 @@ end
 
 ]]--
 
-local ControllerType = ModSettingGet("AdventureMode.TummySimType")
-
 function OnPlayerSpawned(player_entity)
 
 	--Fetch controllers for checking
-	local ControllerBas = EntityGetFirstComponent(player_entity, "LuaComponent", "HungryController")
-	local ControllerAdv = EntityGetFirstComponent(player_entity, "LuaComponent", "HungryControllerAdv")
+	local TummyController = EntityGetFirstComponent(player_entity, "LuaComponent", "TummySimController")
+	local Icon
 
-	---@param Controller any
-	function RemoveController(Controller)
-		if (Controller ~= nil) then
-			dPrint("Deleting a controller", "Init")
-			EntityRemoveComponent(player_entity, Controller)
-		end
-	end
+	dPrint("Frame: "..tostring(GameGetFrameNum()), "Init")
 
 	---@param Delay integer
 	---@param NFrames integer
-	function SetPlayerIngestion(Delay, NFrames)
+	function SetPlayerMetabolism(Delay, NFrames)
 		local Comp = EntityGetFirstComponent(player_entity, "IngestionComponent")
 
-			if (Comp ~= nil) then
-				ComponentSetValue2(Comp, "ingestion_cooldown_delay_frames", Delay)
-				ComponentSetValue2(Comp, "ingestion_reduce_every_n_frame", NFrames)
-			end
-	end
-
-	function DisableAdvIcons()
-		local Comp = EntityGetFirstComponent(player_entity, "UIIconComponent", "HungryNourishIcon")
 		if (Comp ~= nil) then
-		EntityRemoveComponent(player_entity, Comp)
+			ComponentSetValue2(Comp, "ingestion_cooldown_delay_frames", Delay)
+			ComponentSetValue2(Comp, "ingestion_reduce_every_n_frame", NFrames)
 		end
 	end
 
-	if (ControllerType == "ADV") then
-		dPrint("Using advanced controller", "Init")
+	---@param Visible boolean
+	function SetNourishIconVisibility(Visible)
 
-		--Remove any existing basic controller
-		RemoveController(ControllerBas)
+		Icon = EntityGetFirstComponentIncludingDisabled(player_entity, "UIIconComponent", "NourishIcon")
+		dPrint("Changing Icon state to "..tostring(Visible), "Init")
 
-		--Add ADV controller if we need it
-		if (ControllerAdv == nil) then
-			dPrint("Adding a new advanced controller", "Init")
-			EntityLoadToEntity("mods/AdventureMode/files/HungryControllerAdv/HungryControllerAdvEnt.xml", player_entity)
-
-			--Modify player metabolism
-			SetPlayerIngestion(300, 3)
+		if (Visible) and (Icon == nil) then
+			dPrint("Adding Icon", "Init")
+			EntityLoadToEntity("mods/AdventureMode/files/TummySim/Icon.xml", player_entity)
+		elseif (not Visible) and (Icon ~= nil) then
+			dPrint("Removing Icon", "Init")
+			EntityRemoveComponent(player_entity, Icon)
 		end
-	elseif (ControllerType == "BAS") then
-		dPrint("Using Basic Controller", "Init")
 
-		--Remove any existing advanced controller
-		RemoveController(ControllerAdv)
-		DisableAdvIcons()
+	end
 
-		--Set metabolism to defaults
-		SetPlayerIngestion(600, 5)
+	dPrint("TummyType: "..tostring(Settings.TummyType), "Init")
+	if (Settings.TummyType ~= "OFF") then
+		--Load controller if we don't already have one
+		if (TummyController == nil) then
+			EntityLoadToEntity("mods/AdventureMode/files/TummySim/Entity.xml", player_entity)
+		end
 
-		--Add the basic controller if we need it
-		if (ControllerBas == nil) then
-			dPrint("Adding a new basic controller", "Init")
-			EntityLoadToEntity("mods/AdventureMode/files/HungryController/HungryControllerEnt.xml", player_entity)
+		--Specific controller checks
+		if (Settings.TummyType == "BAS") then
+
+			--Don't need this for the basic controller
+			SetNourishIconVisibility(false)
+
+			--Player metabolism is normal (this is in case we switched from advanced)
+			SetPlayerMetabolism(600, 5)
+		elseif (Settings.TummyType == "ADV") then
+
+			--Activate the icon (in case we switched from basic)
+			SetNourishIconVisibility(true)
+
+			--Setup faster metabolism (in case we switched from basic)
+			SetPlayerMetabolism(300, 3)
 		end
 
 	else
-		--Disabled
-		dPrint("TummySim disabled", "Init")
+		--This will be active if we switched from Advanced
+		SetNourishIconVisibility(false)
 
-		RemoveController(ControllerBas)
-		RemoveController(ControllerAdv)
-		DisableAdvIcons()
+		--Player metabolism is normal (this is in case we switched from advanced)
+		SetPlayerMetabolism(600, 5)
 	end
-
-	if (ModSettingGet("AdventureMode.StartingItems_Pouch")) then
-		local world = EntityGetFirstComponent(GameGetWorldStateEntity(), "WorldStateComponent")
-		local time = ComponentGetValue2(world, "time_total")
-
+	if (Settings.StartWithPouch) then
 		--This is the sloppy way I check if we're at the start of a run
-		if (time < 0.0003) then
+		--Always seems to start at frame 10 when I try so we'll see
+		if (GameGetFrameNum() < 12) then
 			local powder_bag = EntityLoad("mods/AdventureMode/files/StartingItems/RandomPouch.xml")
 			GamePickUpInventoryItem(player_entity, powder_bag, true)
 		end

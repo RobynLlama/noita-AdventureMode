@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch
  dofile_once("data/scripts/lib/utilities.lua")
 
 materials_standard = 

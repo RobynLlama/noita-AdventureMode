@@ -1,0 +1,17 @@
+<Entity>
+
+    <LuaComponent
+        script_source_file="mods/AdventureMode/files/TummySim/TummySimController.lua"
+        execute_every_n_frame="180"
+        _tags="TummySimController"
+    >
+    </LuaComponent>
+
+    <VariableStorageComponent
+        name="AdvTummySim_StoredHealing"
+        value_int="0"
+        _tags="HungryStorageComponent"
+    >
+    </VariableStorageComponent>
+
+</Entity>

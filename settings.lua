@@ -32,8 +32,24 @@ mod_settings_version = 1 -- This is a magic global that can be used to migrate s
 mod_settings = 
 {
 	{
-		category_id = "",
-		ui_name = "Tummy Simulation Settings",
+		category_id = "AdventureModeSettings_Root",
+		ui_name = "Adventure Settings",
+		ui_description = "Settings that tweak the game a bit",
+		foldable = true,
+		_folded = false,
+		settings = {
+			{
+				id = "StartingItems_Pouch",
+				ui_name = "Start with random pouch",
+				ui_description = "Gives the player a random pouch on new game start",
+				value_default = false,
+				scope = MOD_SETTING_SCOPE_NEW_GAME,
+			},
+		}
+	},
+	{
+		category_id = "HungryMinaSettings_Root",
+		ui_name = "Regneration Settings",
 		ui_description = "Settings for player healing from food",
 		foldable = true,
 		_folded = false,
@@ -43,7 +59,7 @@ mod_settings =
 				ui_name = "Tummy Simulation Type",
 				ui_description = "Basic\n    Only considers if the player has anything in the\n    tummy for healing\nAdvanced\n    Demands a more healthy lifestyle with per-material\n    rules",
 				value_default = "BAS",
-				values = { {"BAS","Basic"}, {"ADV","Advanced"}},
+				values = {{"OFF", "Disabled"}, {"BAS","Basic"}, {"ADV","Advanced"}},
 				scope = MOD_SETTING_SCOPE_NEW_GAME,
 			},
 			{
@@ -113,6 +129,13 @@ mod_settings =
 				},
 			},
 		}
+	},
+	{
+		id = "DebugPrinting",
+		ui_name = "Enable debug printing",
+		ui_description = "Requires debug mode or the enable logging mod",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_NEW_GAME,
 	},
 }
 

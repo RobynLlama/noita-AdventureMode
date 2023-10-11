@@ -19,7 +19,7 @@
         name="Nourishment (Waning)"
         description="Healing reserves: ?"
         is_perk="true"
-        _tags="HungryMinaNourishIcon"
+        _tags="HungryNourishIcon"
     >
     </UIIconComponent>
 

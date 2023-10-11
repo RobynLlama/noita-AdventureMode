@@ -5,7 +5,7 @@ dofile_once("mods/AdventureMode/files/HungryControllerAdv/HungryHealingControlle
 
 local Player = GetUpdatedEntityID()
 local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", "HungryStorageComponent")
-local Icon = EntityGetFirstComponent(Player, "UIIconComponent", "HungryMinaNourishIcon")
+local Icon = EntityGetFirstComponent(Player, "UIIconComponent", "HungryNourishIcon")
 local MaximumStoredHealing = ModSettingGet("AdventureMode.Adv_MaxStoredHealing")
 
 if (Storage == nil) then

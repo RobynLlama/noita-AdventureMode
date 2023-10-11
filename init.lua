@@ -1,5 +1,5 @@
 --[[
-Module: HungryMina
+Module: AdventureMode
 Authors: MamaLlama, Flowerful
 Licensing:
 	This module and all of it component files are provied under the CC-BY-NC-4 license
@@ -12,6 +12,8 @@ Licensing:
 
 --Load dPrint
 dofile_once("mods/AdventureMode/files/DebugPrint.lua")
+
+print("[ Adventure Mode Init ]")
 
 -- all functions below are optional and can be left out
 --[[
@@ -54,14 +56,37 @@ function OnPlayerSpawned(player_entity)
 	local ControllerBas = EntityGetFirstComponent(player_entity, "LuaComponent", "HungryController")
 	local ControllerAdv = EntityGetFirstComponent(player_entity, "LuaComponent", "HungryControllerAdv")
 
+	---@param Controller any
+	function RemoveController(Controller)
+		if (Controller ~= nil) then
+			dPrint("Deleting a controller", "Init")
+			EntityRemoveComponent(player_entity, Controller)
+		end
+	end
+
+	---@param Delay integer
+	---@param NFrames integer
+	function SetPlayerIngestion(Delay, NFrames)
+		local Comp = EntityGetFirstComponent(player_entity, "IngestionComponent")
+
+			if (Comp ~= nil) then
+				ComponentSetValue2(Comp, "ingestion_cooldown_delay_frames", Delay)
+				ComponentSetValue2(Comp, "ingestion_reduce_every_n_frame", NFrames)
+			end
+	end
+
+	function DisableAdvIcons()
+		local Comp = EntityGetFirstComponent(player_entity, "UIIconComponent", "HungryNourishIcon")
+		if (Comp ~= nil) then
+		EntityRemoveComponent(player_entity, Comp)
+		end
+	end
+
 	if (ControllerType == "ADV") then
 		dPrint("Using advanced controller", "Init")
 
 		--Remove any existing basic controller
-		if (ControllerBas ~= nil) then
-			dPrint("Deleting an existing basic controller", "Init")
-			EntityRemoveComponent(player_entity, ControllerBas)
-		end
+		RemoveController(ControllerBas)
 
 		--Add ADV controller if we need it
 		if (ControllerAdv == nil) then
@@ -69,29 +94,17 @@ function OnPlayerSpawned(player_entity)
 			EntityLoadToEntity("mods/AdventureMode/files/HungryControllerAdv/HungryControllerAdvEnt.xml", player_entity)
 
 			--Modify player metabolism
-			local Comp = EntityGetFirstComponent(player_entity, "IngestionComponent")
-
-			if (Comp ~= nil) then
-				ComponentSetValue2(Comp, "ingestion_cooldown_delay_frames", 300)
-				ComponentSetValue2(Comp, "ingestion_reduce_every_n_frame", 3)
-			end
+			SetPlayerIngestion(300, 3)
 		end
-	else
+	elseif (ControllerType == "BAS") then
 		dPrint("Using Basic Controller", "Init")
 
 		--Remove any existing advanced controller
-		if (ControllerAdv ~= nil) then
-			dPrint("Deleting an existing advanced controller", "Init")
-			EntityRemoveComponent(player_entity, ControllerAdv)
+		RemoveController(ControllerAdv)
+		DisableAdvIcons()
 
-			--Modify player metabolism to default
-			local Comp = EntityGetFirstComponent(player_entity, "IngestionComponent")
-
-			if (Comp ~= nil) then
-				ComponentSetValue2(Comp, "ingestion_cooldown_delay_frames", 600)
-				ComponentSetValue2(Comp, "ingestion_reduce_every_n_frame", 5)
-			end
-		end
+		--Set metabolism to defaults
+		SetPlayerIngestion(600, 5)
 
 		--Add the basic controller if we need it
 		if (ControllerBas == nil) then
@@ -99,9 +112,27 @@ function OnPlayerSpawned(player_entity)
 			EntityLoadToEntity("mods/AdventureMode/files/HungryController/HungryControllerEnt.xml", player_entity)
 		end
 
+	else
+		--Disabled
+		dPrint("TummySim disabled", "Init")
+
+		RemoveController(ControllerBas)
+		RemoveController(ControllerAdv)
+		DisableAdvIcons()
+	end
+
+	if (ModSettingGet("AdventureMode.StartingItems_Pouch")) then
+		local world = EntityGetFirstComponent(GameGetWorldStateEntity(), "WorldStateComponent")
+		local time = ComponentGetValue2(world, "time_total")
+
+		--This is the sloppy way I check if we're at the start of a run
+		if (time < 0.0003) then
+			local powder_bag = EntityLoad("mods/AdventureMode/files/StartingItems/RandomPouch.xml")
+			GamePickUpInventoryItem(player_entity, powder_bag, true)
+		end
 	end
 
 	dPrint("Setup complete", "Init")
 end
 
-print("Hungry Mina loaded")
+print("[ Adventure Mode Exit Init ]")

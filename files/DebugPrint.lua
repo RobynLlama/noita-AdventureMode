@@ -12,7 +12,7 @@ Licensing:
 
 --Quick little hack to enable globally controlling print statements
 --without needing to comment out each one
-local DEBUG_PRINT = false
+local DEBUG_PRINT = ModSettingGet("AdventureMode.DebugPrinting")
 local MODULE_TAG = "[ADVENTURE] "
 
 ---@param message string

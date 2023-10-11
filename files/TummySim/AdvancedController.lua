@@ -20,7 +20,7 @@ if (Storage == nil) then
 end
 
 --Load mod settings
-local MaximumStoredHealing = Settings.MaximumStoredHealing
+local MaximumStoredHealing = Settings.MaxNourishment
 
 --Initialize HealthStorage context for modules
 local HealthStorage = {

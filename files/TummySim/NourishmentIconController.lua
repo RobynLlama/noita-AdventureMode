@@ -1,7 +1,7 @@
 --Private vars
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
 local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
-local MaximumStoredHealing = Settings.MaximumStoredHealing
+local MaximumStoredHealing = Settings.MaxNourishment
 
 --Init new module
 local This = BaseModule.New("NourishmentIconController")

@@ -117,14 +117,27 @@ function OnPlayerSpawned(player_entity)
 		--Player metabolism is normal (this is in case we switched from advanced)
 		SetPlayerMetabolism(600, 5)
 	end
-	if (Settings.StartWithPouch) then
-		--This is the sloppy way I check if we're at the start of a run
-		--Always seems to start at frame 10 when I try so we'll see
-		if (GameGetFrameNum() < 12) then
+
+	--This is the sloppy way I check if we're at the start of a run
+	--Always seems to start at frame 10 when I try so we'll see
+	if (GameGetFrameNum() < 12) then
+		
+		--Powder bag starting item
+		if (Settings.StartWithPouch) then
 			local powder_bag = EntityLoad("mods/AdventureMode/files/StartingItems/RandomPouch.xml")
 			GamePickUpInventoryItem(player_entity, powder_bag, true)
 		end
+
+		--Set starting nourishment
+		if (Settings.TummyType ~= "OFF") then
+			local Storage = EntityGetFirstComponent(player_entity, "VariableStorageComponent", "HungryStorageComponent")
+
+			if (Storage ~= nil) then
+				ComponentSetValue2(Storage, "value_float", Settings.StartingNourshment)
+			end
+		end
 	end
+	
 
 	dPrint("Setup complete", "Init")
 end

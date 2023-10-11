@@ -1,12 +1,12 @@
 <Entity>
 
 <UIIconComponent
-        icon_sprite_file="mods/AdventureMode/files/TummySim/img/store_barren.png"
-        name="Nourishment"
-        description=""
-        is_perk="1"
-        _tags="NourishIcon"
-    >
-    </UIIconComponent>
+    icon_sprite_file="mods/AdventureMode/files/TummySim/img/store_barren.png"
+    name="Nourishment"
+    description=""
+    is_perk="1"
+    _tags="NourishIcon"
+>
+</UIIconComponent>
 
 </Entity>

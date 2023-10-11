@@ -10,6 +10,11 @@ Licensing:
 	https://www.creativecommons.org/licenses/by-nc/4.0/legalcode.en
 ]]--
 
+--[[
+	TODO List:
+		Combine the advanced and basic hungry controllers
+]]--
+
 --Load dPrint
 dofile_once("mods/AdventureMode/files/DebugPrint.lua")
 

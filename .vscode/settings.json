@@ -14,6 +14,7 @@
         "mod_settings_update",
         "mod_settings_gui_count",
         "mod_settings_gui",
-        "mod_settings_get_version"
+        "mod_settings_get_version",
+        "random_from_array"
     ]
 }

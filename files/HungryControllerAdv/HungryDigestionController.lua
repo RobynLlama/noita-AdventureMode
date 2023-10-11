@@ -1,18 +1,21 @@
---Load dPrint
-dofile_once("mods/AdventureMode/files/DebugPrint.lua")
+--Private vars
+local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
+
+--Init new module
+local This = BaseModule.New("HungryDigestionController")
 
 --Entities
 local Player
 local CellInventory
 local CellInventoryTable
-local DataStorage
 
 --Vars
 local DigestionPerFrame = 500
 local DigestedThisFrame
 
 ---@param Material integer
-function DigestMaterial(Material)
+---@param Context table
+function DigestMaterial(Material, Context)
 
     local Healing = 0
 
@@ -23,7 +26,7 @@ function DigestMaterial(Material)
     local DigestionLeftThisFrame = DigestionPerFrame - DigestedThisFrame
 
     if (Amount == 0) then
-        dPrint("[WARNING] amount is 0 for MaterialID: "..tostring(Material).." "..MaterialString, "AdvTummySim")
+        This:ModPrint("[WARNING] amount is 0 for MaterialID: "..tostring(Material).." "..MaterialString)
     end
 
     if (MaterialDataTable[MaterialString]) then
@@ -38,50 +41,46 @@ function DigestMaterial(Material)
         --Get healing
         Healing = MaterialDataTable[MaterialString] * Amount
         --Add healing
-        DataStorage:ModifyStoredHealth(Healing)
+        Context:ModifyStoredHealth(Healing)
         DigestedThisFrame = DigestedThisFrame + Amount
 
-        dPrint("Digesting "..tostring(Amount).." "..MaterialString.." for "..tostring(Healing).." healing.", "AdvTummySim")
+        This:ModPrint("Digesting "..tostring(Amount).." "..MaterialString.." for "..tostring(Healing).." healing.")
     else
         --Clear this material from the inventory
         AddMaterialInventoryMaterial(Player, MaterialString, 0)
 
-        dPrint("Skipping material "..MaterialString, "AdvTummySim")
+        This:ModPrint("Skipping material "..MaterialString)
     end
 end
 
----@param HealthStorage table
----@return nil
-function RunDigestHeartBeat(HealthStorage)
+---@param Context table
+function This.Tick(Context)
     --Get Entities
     Player = GetUpdatedEntityID()
     CellInventory = EntityGetFirstComponent(Player, "MaterialInventoryComponent")
-    DataStorage = HealthStorage
 
     --set variables
     DigestedThisFrame = 0
 
     if (CellInventory == nil) then
-        dPrint("Unable to find MaterialInventory on Player", "AdvTummySim")
+        This:ModPrint("Unable to find MaterialInventory on Player")
         return
     end
 
     CellInventoryTable = ComponentGetValue2(CellInventory, "count_per_material_type")
 
     if (CellInventoryTable == nil) then
-        dPrint("CellInventoryTable is nil", "AdvTummySim")
+        This:ModPrint("CellInventoryTable is nil")
         return
     end
 
     --[[
     for key, value in pairs(CellInventoryTable) do
         if (value > 0) then
-            dPrint(tostring(key), tostring(value))
+            print(tostring(key), tostring(value))
         end
     end
     ]]--
-
-
 
     --Load MaterialDataTable
     dofile_once("mods/AdventureMode/files/HungryControllerAdv/MaterialDataTable.lua")
@@ -91,8 +90,9 @@ function RunDigestHeartBeat(HealthStorage)
     --Consume the material we have the most of until we've hit our cap for the frame
     while((DigestedThisFrame < DigestionPerFrame) and (Material ~= 0))
     do
-        DigestMaterial(Material)
+        DigestMaterial(Material, Context)
         Material = GetMaterialInventoryMainMaterial(Player, false)
     end
 end
 
+return This

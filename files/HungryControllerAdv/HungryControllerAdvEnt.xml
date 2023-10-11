@@ -15,9 +15,9 @@
     </VariableStorageComponent>
 
     <UIIconComponent
-        icon_sprite_file="mods/AdventureMode/files/HungryControllerAdv/img/store_waning.png"
-        name="Nourishment (Waning)"
-        description="Healing reserves: ?"
+        icon_sprite_file="mods/AdventureMode/files/HungryControllerAdv/img/store_barren.png"
+        name="Nourishment"
+        description=""
         is_perk="true"
         _tags="HungryNourishIcon"
     >

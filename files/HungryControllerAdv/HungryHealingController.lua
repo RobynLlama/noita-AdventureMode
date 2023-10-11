@@ -1,20 +1,23 @@
 dofile_once("data/scripts/game_helpers.lua")
-dofile_once("mods/AdventureMode/files/DebugPrint.lua")
 
---vars
-local DataStorage
+--Private vars
+local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
 
----@param HealthStorage table
----@return nil
-function RunHealHeartBeat(HealthStorage)
+--Init new module
+local This = BaseModule.New("HungryHealingController")
+
+--Public vars
+This.Modifier = 1.0
+
+---@param Context table
+function This.Tick(Context)
 
     --Entities/Components
-    DataStorage = HealthStorage
     local Player = GetUpdatedEntityID()
     local HealthStatus = EntityGetFirstComponent(Player, "DamageModelComponent")
 
     --No healing available
-    if (DataStorage.StoredHealing == 0) then
+    if (Context.StoredHealing == 0) then
         return
     end
 
@@ -24,7 +27,7 @@ function RunHealHeartBeat(HealthStorage)
 
     --Check if Tummy or HealthStatus is missing
     if (HealthStatus == nil) then
-        dPrint("Unable to read Health Component", "AdvHealingController")
+        This:ModPrint("Unable to read Health Component")
         return
     end
 
@@ -45,22 +48,22 @@ function RunHealHeartBeat(HealthStorage)
     end
 
     --Don't use more healing than we have stored
-    if (ThisHealPercent * 100 > DataStorage.StoredHealing) then
-        ThisHealPercent = DataStorage.StoredHealing / 100
+    if (ThisHealPercent * 100 > Context.StoredHealing) then
+        ThisHealPercent = Context.StoredHealing / 100
     end
 
     if (ThisHealPercent == 0) then
         return
     end
 
-    dPrint("Doing heal for "..tostring(ThisHealPercent), "AdvHealingController")
+    This:ModPrint("Doing heal for "..tostring(ThisHealPercent))
 
     --Perform the heal
-    heal_entity(Player, HealthMax * ThisHealPercent)
+    heal_entity(Player, HealthMax * ThisHealPercent * This.Modifier)
 
     --Pay for the heal
-    DataStorage:ModifyStoredHealth(-ThisHealPercent * 100)
-    
-
+    Context:ModifyStoredHealth(-ThisHealPercent * 100)
 
 end
+
+return This

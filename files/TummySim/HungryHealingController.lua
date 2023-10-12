@@ -9,6 +9,16 @@ local This = BaseModule.New("HungryHealingController")
 --Public vars
 This.Modifier = 0
 
+---comment
+---@param MaxLife number
+---@return number
+function GetHealingPerPoint(MaxLife)
+    --Healing per point = 0.5% MaxLife + 1 + modifier
+    --Life is stored as a float where each 1.0 = 25 for some reason
+    MaxLife = MaxLife * 25
+    return (0.005 * MaxLife) + 1 + This.Modifier
+end
+
 ---@param Context table
 function This.Tick(Context)
 
@@ -22,7 +32,7 @@ function This.Tick(Context)
     end
 
     --Settings
-    local MaxHealthRestoredPerFrame = 0.05
+    local MaxHealthRestoredPerFrame = 0.025
     local ThisHealPercent
 
     --Check if Tummy or HealthStatus is missing
@@ -47,25 +57,31 @@ function This.Tick(Context)
         ThisHealPercent = MaxHealthRestoredPerFrame
     end
 
-    --Don't use more healing than we have stored
-    if (ThisHealPercent * 100 > Context.StoredHealing) then
-        ThisHealPercent = Context.StoredHealing / 100
+    --Calculate healing cost
+    local HealingPerPoint = GetHealingPerPoint(HealthMax)
+    local ThisHealingCost = (HealthMax * 25 * ThisHealPercent) / HealingPerPoint
+
+    This:ModPrint("Healing per point: "..tostring(HealingPerPoint))
+    This:ModPrint("Healing cost: "..tostring(ThisHealingCost))
+
+    if (ThisHealingCost > Context.StoredHealing) then
+
+        ThisHealingCost = Context.StoredHealing
+        if (ThisHealingCost < 0.25) then
+            This:ModPrint("Skipping heal, too low")
+            return
+        end
     end
 
-    --Experimental idea
-    ThisHealPercent = ThisHealPercent + This.Modifier
+    local ThisHealTotal = ThisHealingCost * HealingPerPoint
 
-    if (ThisHealPercent <= 0) then
-        return
-    end
-
-    This:ModPrint("Doing heal for "..tostring(ThisHealPercent))
+    This:ModPrint("Doing heal for "..tostring(ThisHealTotal))
 
     --Perform the heal
-    heal_entity(Player, HealthMax * ThisHealPercent)
+    heal_entity(Player, ThisHealTotal / 25)
 
     --Pay for the heal
-    Context:ModifyStoredHealth(-ThisHealPercent * 100)
+    Context:ModifyStoredHealth(-ThisHealingCost)
 
 end
 

@@ -27,19 +27,19 @@ function This.Tick(Context)
     if (Context.StoredHealing >= 0.75 * MaximumStoredHealing) then
         IconPath = "mods/AdventureMode/files/TummySim/img/store_good.png"
         IconName = "Nourishment (Good) "
-        This.Modifier = 0.01
+        This.Modifier = 0.75
     elseif (Context.StoredHealing >= 0.50 * MaximumStoredHealing) then
         IconPath = "mods/AdventureMode/files/TummySim/img/store_fair.png"
         IconName = "Nourishment (Satiated) "
-        This.Modifier = 0.005
+        This.Modifier = 0.50
     elseif (Context.StoredHealing >= 0.25 * MaximumStoredHealing) then
         IconPath = "mods/AdventureMode/files/TummySim/img/store_waning.png"
         IconName = "Nourishment (Meagre) "
-        This.Modifier = 0
+        This.Modifier = 0.00
     else
         IconPath = "mods/AdventureMode/files/TummySim/img/store_barren.png"
         IconName = "Nourishment (Barren) "
-        This.Modifier = -0.005
+        This.Modifier = -0.50
     end
 
     ComponentSetValue2(Icon, "icon_sprite_file", IconPath)

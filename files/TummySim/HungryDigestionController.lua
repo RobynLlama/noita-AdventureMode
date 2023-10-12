@@ -10,7 +10,7 @@ local CellInventory
 local CellInventoryTable
 
 --Vars
-local DigestionPerFrame = 500
+local DigestionPerFrame = 50
 local DigestedThisFrame
 
 ---@param Material integer

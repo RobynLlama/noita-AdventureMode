@@ -106,8 +106,8 @@ MaterialDataTable = {
 
         This only includes the two items right now. Not much prepared food in Noita
     ]]--
-    porridge = 0.320,
-    pea_soup = 0.320,
+    porridge = 0.280,
+    pea_soup = 0.280,
 
 
     --[[
@@ -119,9 +119,11 @@ MaterialDataTable = {
         TODO: Make this a table append and optional in settings
     ]]--
     magic_liquid_movement_faster = -0.030,
-    --Pretty sure ambrosia doesn't add its effect when quaffed so it won't have a penalty
-    --In fact, lets make it like drinking a steak, why not?
-    magic_liquid_protection_all = 0.130,
+    --[[
+        Finally decided on Ambrosia's use. A source of food poisoning that doesn't
+        also cause regular poisoning
+    ]]--
+    magic_liquid_protection_all = 0.070,
     magic_liquid_berserk = -0.030,
     magic_liquid_polymorph = -0.030,
     magic_liquid_random_polymorph = -0.030,

@@ -1,3 +1,5 @@
+dofile_once("mods/AdventureMode/files/DebugPrint.lua")
+
 --[[
     Material Data Table used to store healing for the advanced tummy simulation.
     Values are listed in StoredHealing / CellConsumed. A flask of liquid can store
@@ -6,7 +8,7 @@
     75 - 90 cells from the world while eating
 ]]--
 
-MaterialDataTable = {
+local MaterialDataTable = {
 
     --[[
         STANDARD MATERIALS:
@@ -25,11 +27,6 @@ MaterialDataTable = {
     ice = 0.009,
     --Pretty sure honey only shows up in the jungle
     honey = 0.085,
-    --I'm only familiar with 2 of these
-    fungi = 0.035,
-    fungi_green = 0.035,
-    fungi_creeping = 0.035,
-    fungi_creeping_secret = 0.035,
 
 
     --[[
@@ -47,29 +44,21 @@ MaterialDataTable = {
         things like water but most things don't leave behind much meat. Blood and
         water may be less valuable numerically but they're everywhere and you can
         bottle them.
-        Ratio: 20x Water
     ]]--
-    meat = 0.150,
+    meat = 0.130,
     --teehee
-    meat_helpless = 0.165,
-    meat_warm = 0.170,
-    meat_hot = 0.190,
-    meat_done = 0.220,
-    meat_confusion = 0.150,
-    meat_cursed = 0.150,
-    meat_cursed_dry = 0.150,
-    meat_teleport = 0.150,
-    meat_frog = 0.150,
-    meat_fast = 0.150,
-    meat_worm = 0.150,
+    meat_helpless = 0.145,
+    meat_warm = 0.160,
+    meat_hot = 0.180,
+    meat_done = 0.230,
     --This is called "Stinky Meat", it can't taste good
-    meat_polymorph_protection = 0.125,
+    meat_polymorph_protection = 0.115,
 
     --Bad Meat
-    meat_slime = -0.100,
-    meat_slime_green = -0.100,
-    meat_slime_cursed = -0.100,
-    meat_burned = -0.100,
+    meat_slime = -0.050,
+    meat_slime_green = -0.050,
+    meat_slime_cursed = -0.050,
+    meat_burned = -0.050,
 
     --[[
         BLOOD:
@@ -78,10 +67,10 @@ MaterialDataTable = {
         Can't say I'm opposed to the idea since its kinda works like dressing game
         Worm blood is certainly a bit harder to find and has no negative effects
     ]]--
-    blood = 0.025,
-    blood_fading = 0.020,
-    blood_fading_slow = 0.020,
-    blood_worm = 0.026,
+    blood = 0.020,
+    blood_fading = 0.015,
+    blood_fading_slow = 0.015,
+    blood_worm = 0.020,
     --No real analogue for this. Fungus don't really have blood, how nutritious is it?
     blood_fungi = 0.015,
 
@@ -106,38 +95,14 @@ MaterialDataTable = {
 
         This only includes the two items right now. Not much prepared food in Noita
     ]]--
-    porridge = 0.280,
-    pea_soup = 0.280,
+    porridge = 0.250,
+    pea_soup = 0.250,
 
-
-    --[[
-        POTIONS:
-
-        Hear me out, Magic potions should actually deplete some of the stored healing
-        based on how useful they are when ingested. Sorta like the magic needs something
-        to work with.
-        TODO: Make this a table append and optional in settings
-    ]]--
-    magic_liquid_movement_faster = -0.030,
     --[[
         Finally decided on Ambrosia's use. A source of food poisoning that doesn't
         also cause regular poisoning
     ]]--
-    magic_liquid_protection_all = 0.070,
-    magic_liquid_berserk = -0.030,
-    magic_liquid_polymorph = -0.030,
-    magic_liquid_random_polymorph = -0.030,
-    magic_liquid_unstable_polymorph = -0.030,
-    magic_liquid_mana_regeneration = -0.030,
-    material_confusion = -0.025,
-    magic_liquid_faster_levitation_and_movement = -0.060,
-    magic_liquid_faster_levitation = -0.030,
-    magic_liquid_hp_regeneration = -0.070,
-    magic_liquid_invisibility = -0.050,
-    magic_liquid_hp_regeneration_unstable = -0.050,
-    magic_liquid_unstable_teleportation = -0.030,
-    magic_liquid_teleportation = -0.030,
-    magic_liquid_worm_attractor = -0.030,
+    magic_liquid_protection_all = 0.060,
 
     --[[
         HARMFUL:
@@ -149,9 +114,6 @@ MaterialDataTable = {
     poison = -0.100,
     swamp = -0.010,
     water_swamp = -0.010,
-    radioactive_liquid = -0.020,
-    radioactive_liquid_fading = -0.020,
-    radioactive_liquid_yellow = -0.020,
     urine = -0.010,
 
     --[[
@@ -161,3 +123,80 @@ MaterialDataTable = {
     ]]
     material_rainbow = 0.001,
 }
+
+--[[
+        The numbers in this table are super suspect. I can't do any better
+        because it is based on generic tags to try and match mod content
+        or any I was too lazy to make into specific material matches
+]]--
+
+local GenericTagsTable = {
+    ["[food]"] = 0.080,
+    ["[blood]"] = 0.015,
+    ["[meat]"] = 0.100,
+    ["[magic_liquid]"] = -0.020,
+    ["[magic_liquid_faster]"] = -0.020,
+    ["[plant]"] = 0.004,
+    ["[radioactive]"] = -0.020,
+    ["[regnerative]"] = -0.010,
+    ["[water]"] = 0.006,
+    ["[cold]"] = -0.005,
+    ["[frozen]"] = -0.006,
+    ["[fungus]"] = 0.030,
+    ["[sand_ground]"] = -0.015,
+    ["[earth]"] = -0.015,
+    ["[molten_metal]"] = -0.05,
+    ["[slime]"] = -0.30,
+}
+
+--[[
+    With this beauty we don't look up the same material twice in a game session.
+    Since each lookup in the generic table can be up to 10+ iterations of the
+    whole generic table this saves a bit of overhead
+]]--
+
+local GenericMaterialCache = {
+
+}
+
+---@param Material string
+---@return boolean
+function GetIsInSpecificTable(Material)
+    return MaterialDataTable[Material] ~= nil
+end
+
+---@param Material string
+---@return number
+function GetSpecificMaterialValue(Material)
+    return MaterialDataTable[Material]
+end
+
+---comment
+---@param MaterialID integer
+---@return number
+function GetGenericMaterialValue(MaterialID)
+    
+    --Return cached material data
+    if (GenericMaterialCache[MaterialID]) then
+        dPrint("Using material cache for ID "..tostring(MaterialID), "MaterialDataTable")
+        return GenericMaterialCache[MaterialID]
+    end
+    
+    local Total = 0.0
+    local Tags = CellFactory_GetTags(MaterialID)
+
+    if (Tags == nil) then
+        return 0.0
+    end
+
+    for _, value in pairs(Tags) do
+        if (GenericTagsTable[value]) then
+            Total = Total + GenericTagsTable[value]
+        end
+    end
+
+    GenericMaterialCache[MaterialID] = Total
+    dPrint("Caching "..tostring(Total).." for generic material ID "..tostring(MaterialID), "MaterialDataTable")
+
+    return Total
+end

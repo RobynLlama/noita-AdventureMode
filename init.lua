@@ -129,12 +129,11 @@ function OnPlayerSpawned(player_entity)
 		end
 
 		--Set starting nourishment
-		if (Settings.TummyType ~= "OFF") then
-			local Storage = EntityGetFirstComponent(player_entity, "VariableStorageComponent", "HungryStorageComponent")
-
-			if (Storage ~= nil) then
-				ComponentSetValue2(Storage, "value_float", Settings.StartingNourshment)
-			end
+		local Storage = EntityGetFirstComponent(player_entity, "VariableStorageComponent", "HungryStorageComponent")
+		if (Storage ~= nil) then
+			dPrint("MaxNourishment is "..tostring(Settings.MaxNourishment), "Init")
+			dPrint("StartNourishment is "..tostring(Settings.StartingNourshment), "Init")
+			ComponentSetValue2(Storage, "value_float", Settings.StartingNourshment * Settings.MaxNourishment)
 		end
 	end
 	

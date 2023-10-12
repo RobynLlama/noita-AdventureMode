@@ -7,7 +7,7 @@ local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lu
 local This = BaseModule.New("HungryHealingController")
 
 --Public vars
-This.Modifier = 1.0
+This.Modifier = 0
 
 ---@param Context table
 function This.Tick(Context)
@@ -52,14 +52,17 @@ function This.Tick(Context)
         ThisHealPercent = Context.StoredHealing / 100
     end
 
-    if (ThisHealPercent == 0) then
+    --Experimental idea
+    ThisHealPercent = ThisHealPercent + This.Modifier
+
+    if (ThisHealPercent <= 0) then
         return
     end
 
     This:ModPrint("Doing heal for "..tostring(ThisHealPercent))
 
     --Perform the heal
-    heal_entity(Player, HealthMax * ThisHealPercent * This.Modifier)
+    heal_entity(Player, HealthMax * ThisHealPercent)
 
     --Pay for the heal
     Context:ModifyStoredHealth(-ThisHealPercent * 100)

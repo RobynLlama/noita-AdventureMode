@@ -47,7 +47,7 @@ function This.Tick(Context)
         return
     end
 
-    This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()))
+    --This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()))
 
     --Run heartbeats
     DigestionController.Tick(HealthStorage)

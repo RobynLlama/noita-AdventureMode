@@ -17,6 +17,12 @@ local DigestedThisFrame
 ---@param Context table
 function DigestMaterial(Material, Context)
 
+    --[[
+        Useful tags to consider in the future:
+        food, blood, cold, frozen, hot, meat, magic_liquid, magic_faster
+        plant, radioactive, regenerative, water
+    ]]--
+
     local Healing = 0
 
     --We have to do this because the table is off

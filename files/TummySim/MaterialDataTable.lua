@@ -118,23 +118,24 @@ MaterialDataTable = {
         to work with.
         TODO: Make this a table append and optional in settings
     ]]--
-    magic_liquid_movement_faster = -0.055,
+    magic_liquid_movement_faster = -0.030,
     --Pretty sure ambrosia doesn't add its effect when quaffed so it won't have a penalty
     --In fact, lets make it like drinking a steak, why not?
-    magic_liquid_protection_all = 0.150,
-    magic_liquid_berserk = -0.050,
-    magic_liquid_polymorph = -0.060,
-    magic_liquid_random_polymorph = -0.060,
-    magic_liquid_unstable_polymorph = -0.060,
-    magic_liquid_mana_regeneration = -0.060,
+    magic_liquid_protection_all = 0.130,
+    magic_liquid_berserk = -0.030,
+    magic_liquid_polymorph = -0.030,
+    magic_liquid_random_polymorph = -0.030,
+    magic_liquid_unstable_polymorph = -0.030,
+    magic_liquid_mana_regeneration = -0.030,
     material_confusion = -0.025,
-    magic_liquid_faster_levitation_and_movement = -0.075,
-    magic_liquid_hp_regeneration = -0.100,
-    magic_liquid_invisibility = -0.060,
-    magic_liquid_hp_regeneration_unstable = -0.09,
-    magic_liquid_unstable_teleportation = -0.060,
-    magic_liquid_teleportation = -0.060,
-    magic_liquid_worm_attractor = -0.050,
+    magic_liquid_faster_levitation_and_movement = -0.060,
+    magic_liquid_faster_levitation = -0.030,
+    magic_liquid_hp_regeneration = -0.070,
+    magic_liquid_invisibility = -0.050,
+    magic_liquid_hp_regeneration_unstable = -0.050,
+    magic_liquid_unstable_teleportation = -0.030,
+    magic_liquid_teleportation = -0.030,
+    magic_liquid_worm_attractor = -0.030,
 
     --[[
         HARMFUL:
@@ -142,7 +143,7 @@ MaterialDataTable = {
         The player will probably puke these up before long but its worth being thorough
         and having a punishment for the brief time they were in Mina's tummy.
     ]]--
-    vomit = -0.010,
+    vomit = -0.080,
     poison = -0.100,
     swamp = -0.010,
     water_swamp = -0.010,

@@ -23,7 +23,7 @@ function This.Tick(Context)
     local ThisHealPercent = 0.0
     local ThisSatCost = 0.0
 
-    This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()))
+    --This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()))
 
     --Check if Tummy or HealthStatus is missing
     if (Tummy == nil) or (HealthStatus == nil) then

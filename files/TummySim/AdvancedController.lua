@@ -42,6 +42,10 @@ local HealthStorage = {
 ---@param Context table
 function This.Tick(Context)
 
+    --Update entities in case we get polymorphed
+    Player = GetUpdatedEntityID()
+    Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", "HungryStorageComponent")
+
     if (Storage == nil) then
         This:ModPrint("Unable to load storage object")
         return

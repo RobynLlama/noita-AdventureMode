@@ -1,5 +1,6 @@
 --Private vars
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
+local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 
 --Init new module
 local This = BaseModule.New("HungryDigestionController")
@@ -67,6 +68,12 @@ function This.Tick(Context)
 
     --set variables
     DigestedThisFrame = 0
+
+    if (Context.StoredHealing == Settings.MaxNourishment) then
+        This:ModPrint("Slow metabolism this frame")
+        DigestionPerFrame = 5
+        return
+    end
 
     if (CellInventory == nil) then
         This:ModPrint("Unable to find MaterialInventory on Player")

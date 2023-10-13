@@ -51,7 +51,7 @@ mod_settings =
 	},
 	{
 		category_id = "HungryMinaSettings_Root",
-		ui_name = "Regneration Settings",
+		ui_name = "Tummy Simulation Settings",
 		ui_description = "Settings for player healing from food",
 		foldable = true,
 		_folded = false,
@@ -134,6 +134,41 @@ mod_settings =
 						value_default = "40",
 						values = {{"0", "Starving [0%]"}, {"20","Meagre [20%]"}, {"40","Satiated [40%]"}, {"60","Pleasantly Full [60%]"}, {"80","Well-Fed [80%]"}, {"100","Fit To Burst [100%]"}},
 						scope = MOD_SETTING_SCOPE_NEW_GAME,
+					},
+					{
+						ui_fn = mod_setting_vertical_spacing,
+						not_setting = true,
+					},
+					{
+						category_id = "Adv_Experimental_Root",
+						ui_name = "Experimental Settings",
+						ui_description="These settings don't generally need to be changed\nModify at your own risk\nTip: Right-click to reset most fields to default",
+						foldable = true,
+						_folded = true,
+						settings = {
+							{
+								ui_fn = mod_setting_vertical_spacing,
+								not_setting = true,
+							},
+							{
+								id = "Exp_SatiationRatio",
+								ui_name = "Cell Digestion Satiation Ratio",
+								ui_description = "How much satiation is used to consume 1 cell of material\nDefault: 0.40",
+								value_default = "0.40",
+								text_max_length = 5,
+								allowed_characters = "0123456789.",
+								scope = MOD_SETTING_SCOPE_RUNTIME,
+							},
+							{
+								id = "Exp_DigestionRate",
+								ui_name = "Cell Digestion Rate",
+								ui_description = "How many cells are digested per update\nDefault: 12.5",
+								value_default = "12.5",
+								text_max_length = 4,
+								allowed_characters = "0123456789.",
+								scope = MOD_SETTING_SCOPE_RUNTIME,
+							},
+						}
 					},
 				},
 			},

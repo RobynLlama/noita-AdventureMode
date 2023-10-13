@@ -7,7 +7,9 @@
     hasn't "relieved" themselves from the contents of their stomach early
 
     TODO:
-        1. Add more configuration options to the settings file
+        1. Possibly use material value to modify SatiationRatio
+            This would have the effect of making junkier food use
+            less satiation and make it harder to heal with ex: water
 ]]
 
 --Private vars
@@ -25,7 +27,7 @@ local Tummy
 
 --Vars
 local DigestionPerFrame
-local MaxDigestionAnyFrame = 12.5
+local MaxDigestionAnyFrame = Settings.ExpDigestionRate
 local MinDigestionAnyFrame = math.ceil(MaxDigestionAnyFrame * 0.1)
 local DigestedThisFrame
 --[[
@@ -37,7 +39,7 @@ local DigestedThisFrame
     character's MaterialInventoryComponent anymore and cells would just pile up
     forever and break the system at some point
 ]]--
-local SatiationRatio = 0.40
+local SatiationRatio = Settings.ExpSatiationRatio
 --This is to match a constant the game uses, do not modify
 local SatiationPerCell = 6
 

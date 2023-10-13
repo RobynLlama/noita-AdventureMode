@@ -88,31 +88,9 @@ function OnPlayerSpawned(player_entity)
 			EntityLoadToEntity("mods/AdventureMode/files/TummySim/Entity.xml", player_entity)
 		end
 
-		--Specific controller checks
-		if (Settings.TummyType == "BAS") then
-
-			--Don't need this for the basic controller
-			SetNourishIconVisibility(false)
-
-			--Removed bonus metabolism with new digestion feature
-			--SetPlayerMetabolism(600, 5)
-		elseif (Settings.TummyType == "ADV") then
-
-			--Activate the icon (in case we switched from basic)
-			SetNourishIconVisibility(true)
-
-			--Removed bonus metabolism with new digestion feature
-			--SetPlayerMetabolism(300, 3)
-		end
-
-	else
-		--This will be active if we switched from Advanced
-		SetNourishIconVisibility(false)
-
-		--Player metabolism is normal (this is in case we switched from advanced)
-		SetPlayerMetabolism(600, 5)
+		--Handle Icon
+		SetNourishIconVisibility(TummyController == "ADV")
 	end
-
 	--This is the sloppy way I check if we're at the start of a run
 	--Always seems to start at frame 10 when I try so we'll see
 	if (GameGetFrameNum() < 12) then

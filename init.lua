@@ -87,10 +87,11 @@ function OnPlayerSpawned(player_entity)
 		if (TummyController == nil) then
 			EntityLoadToEntity("mods/AdventureMode/files/TummySim/Entity.xml", player_entity)
 		end
-
-		--Handle Icon
-		SetNourishIconVisibility(TummyController == "ADV")
 	end
+
+	--Handle Icon
+	SetNourishIconVisibility(Settings.TummyType == "ADV")
+
 	--This is the sloppy way I check if we're at the start of a run
 	--Always seems to start at frame 10 when I try so we'll see
 	if (GameGetFrameNum() < 12) then

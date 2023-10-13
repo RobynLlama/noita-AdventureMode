@@ -14,6 +14,11 @@ function This.Tick(Context)
     local Tummy = EntityGetFirstComponent(Player, "IngestionComponent")
     local HealthStatus = EntityGetFirstComponent(Player, "DamageModelComponent")
 
+    --Check if we're healblocked
+    if (Context.HealBlocker:IsHealingBlocked()) then
+        return
+    end
+
     --Settings
     --Default max tummy size is 7500 so this is 1%
     local SatietyCostForEachPercent = Settings.SatietyCostForEachPercent

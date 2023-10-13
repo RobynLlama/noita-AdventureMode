@@ -4,7 +4,7 @@ local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 local MaximumStoredHealing = Settings.MaxNourishment
 
 --Init new module
-local This = BaseModule.New("NourishmentIconController")
+local This = BaseModule.New("NourishmentIconController", 10)
 
 --Public vars
 This.Modifier = 1.0

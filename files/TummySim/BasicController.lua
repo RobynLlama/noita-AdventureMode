@@ -5,7 +5,7 @@ local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lu
 local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 
 --Init new module
-local This = BaseModule.New("TummySimBasicController")
+local This = BaseModule.New("TummySimBasicController", 120)
 
 ---@param Context table
 function This.Tick(Context)

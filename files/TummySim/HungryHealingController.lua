@@ -4,7 +4,7 @@ dofile_once("data/scripts/game_helpers.lua")
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
 
 --Init new module
-local This = BaseModule.New("HungryHealingController")
+local This = BaseModule.New("HungryHealingController", 120)
 
 --Public vars
 This.Modifier = 0

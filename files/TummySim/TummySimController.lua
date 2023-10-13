@@ -3,7 +3,7 @@ local BASController = dofile_once("mods/AdventureMode/files/TummySim/BasicContro
 local ADVController = dofile_once("mods/AdventureMode/files/TummySim/AdvancedController.lua")
 
 if (Settings.TummyType == "BAS") then
-    BASController.Tick()
+    BASController.TickOnTimer()
 elseif (Settings.TummyType == "ADV") then
-    ADVController.Tick()
+    ADVController.TickOnTimer()
 end

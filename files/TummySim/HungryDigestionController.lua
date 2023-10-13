@@ -10,6 +10,8 @@
         1. Possibly use material value to modify SatiationRatio
             This would have the effect of making junkier food use
             less satiation and make it harder to heal with ex: water
+        2. Possibly stop digestion when the ingestion component is
+            on cooldown
 ]]
 
 --Private vars
@@ -17,7 +19,7 @@ local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lu
 local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 
 --Init new module
-local This = BaseModule.New("TummyDigestionController")
+local This = BaseModule.New("TummyDigestionController", 10)
 
 --Entities
 local Player

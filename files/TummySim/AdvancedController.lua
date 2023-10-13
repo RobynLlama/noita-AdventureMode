@@ -3,7 +3,7 @@ local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lu
 local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 
 --Init new module
-local This = BaseModule.New("TummySimAdvancedController")
+local This = BaseModule.New("TummySimAdvancedController", 0)
 
 --Load the Advanced controller components
 local DigestionController = dofile_once("mods/AdventureMode/files/TummySim/HungryDigestionController.lua")
@@ -57,9 +57,9 @@ function This.Tick(Context)
     HealingController.Modifier = IconController.Modifier
 
     --Run heartbeats
-    DigestionController.Tick(HealthStorage)
-    HealingController.Tick(HealthStorage)
-    IconController.Tick(HealthStorage)
+    DigestionController:TickOnTimer(HealthStorage)
+    HealingController:TickOnTimer(HealthStorage)
+    IconController:TickOnTimer(HealthStorage)
 
     --Store the new StoredHealing value
     ComponentSetValue2(Storage, "value_float", HealthStorage.StoredHealing)

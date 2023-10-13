@@ -67,7 +67,7 @@ function DigestMaterial(Material, Context)
 
     --Never digest less than a single cell
     if (Amount < 1) then
-        This:ModPrint("Skipping digestion this frame, too low contents")
+        This:ModPrint("Skipping digestion this frame, too low contents", 1)
         DigestedThisFrame = DigestionPerFrame
         return
     end
@@ -79,7 +79,7 @@ function DigestMaterial(Material, Context)
     local SkipHealing = false
 
     if (Amount == 0) then
-        This:ModPrint("[WARNING] amount is 0 for MaterialID: "..tostring(Material).." "..MaterialString)
+        This:ModPrint("Amount is 0 for MaterialID: "..tostring(Material).." "..MaterialString, 2)
     end
 
     if (GetIsInSpecificTable(MaterialString)) then
@@ -113,14 +113,14 @@ function DigestMaterial(Material, Context)
             Context:ModifyStoredHealth(Healing)
             DigestedThisFrame = DigestedThisFrame + Amount
 
-            This:ModPrint("Digesting "..tostring(Amount).." "..MaterialString.." for "..tostring(Healing).." healing.")
+            This:ModPrint("Digesting "..tostring(Amount).." "..MaterialString.." for "..tostring(Healing).." healing.", 1)
     else
         --Clear this material from the inventory
         AddMaterialInventoryMaterial(Player, MaterialString, 0)
 
         --I dunno if we should consume satiation for this action or not
 
-        This:ModPrint("Skipping material "..MaterialString)
+        This:ModPrint("Skipping material "..MaterialString, 1)
     end
 end
 
@@ -144,25 +144,25 @@ function This.Tick(Context)
     local IngestionCells = ComponentGetValue2(Tummy, "ingestion_size") / SatiationPerCell
     local MaxDigestionFromSat = IngestionCells * (1 / SatiationRatio)
     if (DigestionPerFrame > MaxDigestionFromSat) then
-        This:ModPrint("Digestion: "..tostring(DigestionPerFrame).." is too high for satiation: "..tostring(MaxDigestionFromSat))
+        This:ModPrint("Digestion: "..tostring(DigestionPerFrame).." is too high for satiation: "..tostring(MaxDigestionFromSat), 1)
         DigestionPerFrame = MaxDigestionFromSat
     end
 
     --Set digestion to low if we're at max healing
     if (Context.StoredHealing == Settings.MaxNourishment) or (MaxDigestionFromSat < MinDigestionAnyFrame) then
-        This:ModPrint("Slow digestion this frame (Full healing or empty tummy)")
+        This:ModPrint("Slow digestion this frame (Full healing or empty tummy)", 1)
         DigestionPerFrame = MinDigestionAnyFrame
     end
 
     if (CellInventory == nil) then
-        This:ModPrint("Unable to find MaterialInventory on Player")
+        This:ModPrint("Unable to find MaterialInventory on Player", 3)
         return
     end
 
     CellInventoryTable = ComponentGetValue2(CellInventory, "count_per_material_type")
 
     if (CellInventoryTable == nil) then
-        This:ModPrint("CellInventoryTable is nil")
+        This:ModPrint("CellInventoryTable is nil", 4)
         return
     end
 

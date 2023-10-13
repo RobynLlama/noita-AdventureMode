@@ -10,18 +10,36 @@ Licensing:
 	https://www.creativecommons.org/licenses/by-nc/4.0/legalcode.en
 ]]--
 
+local LogLevel = 1
+
+local Levels = {
+	[1] = "[INFO]",
+	[2] = "[WARN]",
+	[3] = "[ERROR]",
+	[4] = "[CRITICAL]",
+	[5] = "[DEBUG]",
+}
+
 local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 
 --Quick little hack to enable globally controlling print statements
 --without needing to comment out each one
-local DEBUG_PRINT = Settings.DebugPrinting
-local MODULE_TAG = "[ADVENTURE] "
+local DEBUG_PRINT = Settings.DebugPrintingLevel
+local MODULE_TAG = "[ADVENTURE]"
 
 ---@param message string
 ---@param from string
 ---@return nil
-function dPrint(message, from)
-    if (DEBUG_PRINT) then
-        print(MODULE_TAG..from.." > "..message)
-    end
+function dPrint(message, from, level)
+	if (DEBUG_PRINT == 0) then
+		return
+	end
+
+	if (level > DEBUG_PRINT - 1) then
+		if (level > 0) then
+			print(MODULE_TAG..Levels[level]..from.." > "..message)
+		else
+			print(MODULE_TAG..from.." > "..message)
+		end
+	end
 end

@@ -15,7 +15,7 @@ BaseObj.New("BaseModule")
 ---@param This table
 ---@param Context table
 function ThisFactory.Tick(This, Context)
-    ThisFactory:ModPrint("Undefined tick called on child of ObjModule")
+    ThisFactory:ModPrint("Undefined tick called on child of ObjModule", 2)
 end
 
 ---Initializes the calling object as a module

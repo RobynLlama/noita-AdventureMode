@@ -37,7 +37,7 @@ function This.Tick(Context)
 
     --Check if Tummy or HealthStatus is missing
     if (HealthStatus == nil) then
-        This:ModPrint("Unable to read Health Component")
+        This:ModPrint("Unable to read Health Component", 3)
         return
     end
 
@@ -61,21 +61,21 @@ function This.Tick(Context)
     local HealingPerPoint = GetHealingPerPoint(HealthMax)
     local ThisHealingCost = (HealthMax * 25 * ThisHealPercent) / HealingPerPoint
 
-    This:ModPrint("Healing per point: "..tostring(HealingPerPoint))
-    This:ModPrint("Healing cost: "..tostring(ThisHealingCost))
+    This:ModPrint("Healing per point: "..tostring(HealingPerPoint), 1)
+    This:ModPrint("Healing cost: "..tostring(ThisHealingCost), 1)
 
     if (ThisHealingCost > Context.StoredHealing) then
 
         ThisHealingCost = Context.StoredHealing
         if (ThisHealingCost < 0.25) then
-            This:ModPrint("Skipping heal, too low")
+            This:ModPrint("Skipping heal, too low", 1)
             return
         end
     end
 
     local ThisHealTotal = ThisHealingCost * HealingPerPoint
 
-    This:ModPrint("Doing heal for "..tostring(ThisHealTotal))
+    This:ModPrint("Doing heal for "..tostring(ThisHealTotal), 1)
 
     --Perform the heal
     heal_entity(Player, ThisHealTotal / 25)

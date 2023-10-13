@@ -18,13 +18,13 @@ local ThisFactory = {}
 ThisFactory.Name = "ObjObj"
 ThisFactory.Parent = nil
 
-function ThisFactory.ModPrint(This, Message)
+function ThisFactory.ModPrint(This, Message, Level)
     if (not This.Name) then
-        dPrint(Message, "[NameMissing]")
+        dPrint(Message, "[NameMissing]", Level)
         return
     end
 
-    dPrint(Message, This.Name)
+    dPrint(Message, This.Name, Level)
 end
 
 ---Initializes the calling table as an object

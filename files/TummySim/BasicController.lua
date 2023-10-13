@@ -23,7 +23,7 @@ function This.Tick(Context)
     local ThisHealPercent = 0.0
     local ThisSatCost = 0.0
 
-    --This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()))
+    This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()), 1)
 
     --Check if Tummy or HealthStatus is missing
     if (Tummy == nil) or (HealthStatus == nil) then
@@ -59,7 +59,7 @@ function This.Tick(Context)
         return
     end
 
-    This:ModPrint("Doing heal for "..tostring(ThisHealPercent).. " for "..tostring(ThisSatCost).." satiation")
+    This:ModPrint("Doing heal for "..tostring(ThisHealPercent).. " for "..tostring(ThisSatCost).." satiation", 1)
 
     --Perform the heal
     heal_entity(Player, HealthMax * ThisHealPercent)

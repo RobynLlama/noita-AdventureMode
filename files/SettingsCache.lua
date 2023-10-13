@@ -30,7 +30,7 @@ function Cache.UpdateCache()
         Cache.ExpDigestionRate = tonumber(ModSettingGet("AdventureMode.Exp_DigestionRate"))
 
     --Debug
-    Cache.DebugPrinting = ModSettingGet("AdventureMode.DebugPrinting")
+    Cache.DebugPrintingLevel = ModSettingGet("AdventureMode.DebugPrintingLevel")
 end
 
 --Initialize

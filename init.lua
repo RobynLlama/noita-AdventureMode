@@ -57,7 +57,7 @@ function OnPlayerSpawned(player_entity)
 	local TummyController = EntityGetFirstComponent(player_entity, "LuaComponent", "TummySimController")
 	local Icon
 
-	dPrint("Frame: "..tostring(GameGetFrameNum()), "Init")
+	dPrint("Frame: "..tostring(GameGetFrameNum()), "Init", 1)
 
 	---@param Delay integer
 	---@param NFrames integer
@@ -74,19 +74,19 @@ function OnPlayerSpawned(player_entity)
 	function SetNourishIconVisibility(Visible)
 
 		Icon = EntityGetFirstComponentIncludingDisabled(player_entity, "UIIconComponent", "NourishIcon")
-		dPrint("Changing Icon state to "..tostring(Visible), "Init")
+		dPrint("Changing Icon state to "..tostring(Visible), "Init", 1)
 
 		if (Visible) and (Icon == nil) then
-			dPrint("Adding Icon", "Init")
+			dPrint("Adding Icon", "Init", 1)
 			EntityLoadToEntity("mods/AdventureMode/files/TummySim/Icon.xml", player_entity)
 		elseif (not Visible) and (Icon ~= nil) then
-			dPrint("Removing Icon", "Init")
+			dPrint("Removing Icon", "Init", 1)
 			EntityRemoveComponent(player_entity, Icon)
 		end
 
 	end
 
-	dPrint("TummyType: "..tostring(Settings.TummyType), "Init")
+	dPrint("TummyType: "..tostring(Settings.TummyType), "Init", 1)
 	if (Settings.TummyType ~= "OFF") then
 		--Load controller if we don't already have one
 		if (TummyController == nil) then
@@ -131,14 +131,14 @@ function OnPlayerSpawned(player_entity)
 		--Set starting nourishment
 		local Storage = EntityGetFirstComponent(player_entity, "VariableStorageComponent", "HungryStorageComponent")
 		if (Storage ~= nil) then
-			dPrint("MaxNourishment is "..tostring(Settings.MaxNourishment), "Init")
-			dPrint("StartNourishment is "..tostring(Settings.StartingNourshment), "Init")
+			dPrint("MaxNourishment is "..tostring(Settings.MaxNourishment), "Init", 1)
+			dPrint("StartNourishment is "..tostring(Settings.StartingNourshment), "Init", 1)
 			ComponentSetValue2(Storage, "value_float", Settings.StartingNourshment * Settings.MaxNourishment)
 		end
 	end
 	
 
-	dPrint("Setup complete", "Init")
+	dPrint("Setup complete", "Init", 1)
 end
 
 print("[ Adventure Mode Exit Init ]")

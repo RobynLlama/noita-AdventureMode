@@ -15,7 +15,7 @@ local Player = GetUpdatedEntityID()
 local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", "HungryStorageComponent")
 
 if (Storage == nil) then
-    This:ModPrint("Unable to load player storage")
+    This:ModPrint("Unable to load player storage", 4)
     return
 end
 
@@ -47,11 +47,11 @@ function This.Tick(Context)
     Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", "HungryStorageComponent")
 
     if (Storage == nil) then
-        This:ModPrint("Unable to load storage object")
+        This:ModPrint("Unable to load storage object", 4)
         return
     end
 
-    --This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()))
+    This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()), 1)
 
     --Update the HealingController with the modifier
     HealingController.Modifier = IconController.Modifier

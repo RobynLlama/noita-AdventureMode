@@ -175,10 +175,11 @@ mod_settings =
 		}
 	},
 	{
-		id = "DebugPrinting",
-		ui_name = "Enable debug printing",
+		id = "DebugPrintingLevel",
+		ui_name = "Debug Printing Level",
 		ui_description = "Requires debug mode or the enable logging mod",
-		value_default = false,
+		value_default = "0",
+		values = {{"0", "OFF"}, {"1","ALL"}, {"2","WARNING+"}, {"3","ERROR+"}, {"4","CRITICAL ONLY"}},
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
 }

@@ -16,7 +16,7 @@ function This.Tick(Context)
 
     --UIManagement
     if (Icon == nil) then
-        This:ModPrint("Unable to access status icon")
+        This:ModPrint("Unable to access status icon", 3)
         return
     end
 

@@ -178,7 +178,7 @@ function GetGenericMaterialValue(MaterialID)
     
     --Return cached material data
     if (GenericMaterialCache[MaterialID]) then
-        dPrint("Using material cache for ID "..tostring(MaterialID), "MaterialDataTable")
+        dPrint("Using material cache for ID "..tostring(MaterialID), "MaterialDataTable", 1)
         return GenericMaterialCache[MaterialID]
     end
     
@@ -196,7 +196,7 @@ function GetGenericMaterialValue(MaterialID)
     end
 
     GenericMaterialCache[MaterialID] = Total
-    dPrint("Caching "..tostring(Total).." for generic material ID "..tostring(MaterialID), "MaterialDataTable")
+    dPrint("Caching "..tostring(Total).." for generic material ID "..tostring(MaterialID), "MaterialDataTable", 1)
 
     return Total
 end

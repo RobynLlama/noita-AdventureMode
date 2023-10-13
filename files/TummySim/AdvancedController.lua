@@ -26,15 +26,15 @@ local MaximumStoredHealing = Settings.MaxNourishment
 local HealthStorage = {
     StoredHealing=ComponentGetValue2(Storage, "value_float"),
     ModifyStoredHealth=
-    ---@param This table
+    ---@param Self table
     ---@param Amount integer
-    function(This, Amount)
-        This.StoredHealing = This.StoredHealing + Amount
+    function(Self, Amount)
+        Self.StoredHealing = Self.StoredHealing + Amount
 
-        if (This.StoredHealing > MaximumStoredHealing) then
-            This.StoredHealing = MaximumStoredHealing
-        elseif (This.StoredHealing < 0) then
-            This.StoredHealing = 0
+        if (Self.StoredHealing > MaximumStoredHealing) then
+            Self.StoredHealing = MaximumStoredHealing
+        elseif (Self.StoredHealing < 0) then
+            Self.StoredHealing = 0
         end
     end,
 }

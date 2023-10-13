@@ -99,15 +99,15 @@ function OnPlayerSpawned(player_entity)
 			--Don't need this for the basic controller
 			SetNourishIconVisibility(false)
 
-			--Player metabolism is normal (this is in case we switched from advanced)
-			SetPlayerMetabolism(600, 5)
+			--Removed bonus metabolism with new digestion feature
+			--SetPlayerMetabolism(600, 5)
 		elseif (Settings.TummyType == "ADV") then
 
 			--Activate the icon (in case we switched from basic)
 			SetNourishIconVisibility(true)
 
-			--Setup faster metabolism (in case we switched from basic)
-			SetPlayerMetabolism(300, 3)
+			--Removed bonus metabolism with new digestion feature
+			--SetPlayerMetabolism(300, 3)
 		end
 
 	else

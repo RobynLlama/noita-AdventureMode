@@ -8,26 +8,28 @@ dofile_once("mods/AdventureMode/files/DebugPrint.lua")
     75 - 90 cells from the world while eating
 ]]--
 
-local MaterialDataTable = {
+local MaterialDataTable = {}
+
+local function AddToMaterialTable(Material, Value)
+    MaterialDataTable[CellFactory_GetType(Material)] = Value
+end
 
     --[[
         STANDARD MATERIALS:
 
         Water is everywhere so the number has to be low or we can suck it up for healing
     ]]--
-    water = 0.010,
-    water_ice = 0.009,
-    water_salt = 0.008,
+    AddToMaterialTable("water" , 0.010)
+    AddToMaterialTable("water_ice" , 0.009)
+    AddToMaterialTable("water_salt" , 0.008)
+    --These two induce vomiting so they wil rarely do anything useful
+    AddToMaterialTable("swamp" , 0.005)
+    AddToMaterialTable("water_swamp" , 0.005)
     --I only know GRASS out of all of these, think they're just recolors
-    grass = 0.005,
-    grass_dark = 0.005,
-    grass_dry = 0.005,
-    --??
-    sand_herb = 0.005,
-    ice = 0.009,
-    --Pretty sure honey only shows up in the jungle
-    honey = 0.085,
-
+    AddToMaterialTable("grass" , 0.005)
+    AddToMaterialTable("grass_dark" , 0.005)
+    AddToMaterialTable("grass_dry" , 0.005)
+    AddToMaterialTable("ice" , 0.009)
 
     --[[
         Meat will not become "warm" "hot" "done" or "burnt" without oil so
@@ -35,7 +37,7 @@ local MaterialDataTable = {
         Either way, oil is unpleasant and the player will throw it up so we're not
         likely to get much out of it
     ]]--
-    oil = 0.015,
+    AddToMaterialTable("oil" , 0.015)
 
     --[[
         MEAT:
@@ -45,20 +47,20 @@ local MaterialDataTable = {
         water may be less valuable numerically but they're everywhere and you can
         bottle them.
     ]]--
-    meat = 0.130,
+    AddToMaterialTable("meat" , 0.130)
     --teehee
-    meat_helpless = 0.145,
-    meat_warm = 0.160,
-    meat_hot = 0.180,
-    meat_done = 0.230,
+    AddToMaterialTable("meat_helpless" , 0.145)
+    AddToMaterialTable("meat_warm" , 0.160)
+    AddToMaterialTable("meat_hot" , 0.180)
+    AddToMaterialTable("meat_done" , 0.230)
     --This is called "Stinky Meat", it can't taste good
-    meat_polymorph_protection = 0.115,
+    AddToMaterialTable("meat_polymorph_protection" , 0.115)
 
     --Bad Meat
-    meat_slime = -0.050,
-    meat_slime_green = -0.050,
-    meat_slime_cursed = -0.050,
-    meat_burned = -0.050,
+    AddToMaterialTable("meat_slime" , -0.050)
+    AddToMaterialTable("meat_slime_green" , -0.050)
+    AddToMaterialTable("meat_slime_cursed" , -0.050)
+    AddToMaterialTable("meat_burned" , -0.050)
 
     --[[
         BLOOD:
@@ -67,12 +69,12 @@ local MaterialDataTable = {
         Can't say I'm opposed to the idea since its kinda works like dressing game
         Worm blood is certainly a bit harder to find and has no negative effects
     ]]--
-    blood = 0.020,
-    blood_fading = 0.015,
-    blood_fading_slow = 0.015,
-    blood_worm = 0.020,
+    AddToMaterialTable("blood" , 0.020)
+    AddToMaterialTable("blood_fading" , 0.015)
+    AddToMaterialTable("blood_fading_slow" , 0.015)
+    AddToMaterialTable("blood_worm" , 0.020)
     --No real analogue for this. Fungus don't really have blood, how nutritious is it?
-    blood_fungi = 0.015,
+    AddToMaterialTable("blood_fungi" , 0.015)
 
     --[[
         ALCHOHOL:
@@ -86,23 +88,25 @@ local MaterialDataTable = {
         The other two are both types of Finnish Holiday Mead that only show up in game
         on their specific holdiays.
     ]]--
-    alcohol = 0.012,
-    sima = 0.016,
-    juhannussima = 0.016,
+    AddToMaterialTable("alcohol" , 0.012)
+    AddToMaterialTable("sima" , 0.016)
+    AddToMaterialTable("juhannussima" , 0.016)
 
     --[[
         PREPARED FOOD
 
         This only includes the two items right now. Not much prepared food in Noita
     ]]--
-    porridge = 0.250,
-    pea_soup = 0.250,
+    AddToMaterialTable("porridge" , 0.250)
+    AddToMaterialTable("pea_soup" , 0.250)
 
     --[[
-        Finally decided on Ambrosia's use. A source of food poisoning that doesn't
-        also cause regular poisoning
+        MAGIC:
+        
+        Ambrosia is an emetic and has no benefits taken orally so it may as well pay
+        out a bit of healing in the short time its in your tum
     ]]--
-    magic_liquid_protection_all = 0.060,
+    AddToMaterialTable("magic_liquid_protection_all" , 0.060)
 
     --[[
         HARMFUL:
@@ -110,19 +114,16 @@ local MaterialDataTable = {
         The player will probably puke these up before long but its worth being thorough
         and having a punishment for the brief time they were in Mina's tummy.
     ]]--
-    vomit = -0.080,
-    poison = -0.100,
-    swamp = -0.010,
-    water_swamp = -0.010,
-    urine = -0.010,
+    AddToMaterialTable("vomit" , -0.080)
+    AddToMaterialTable("poison" , -0.100)
+    AddToMaterialTable("urine" , -0.010)
 
     --[[
         OTHER:
 
         I dunno what to do with these, tbh.
     ]]
-    material_rainbow = 0.001,
-}
+    AddToMaterialTable("material_rainbow" , 0.001)
 
 --[[
         The numbers in this table are super suspect. I can't do any better
@@ -159,16 +160,16 @@ local GenericMaterialCache = {
 
 }
 
----@param Material string
----@return boolean
-function GetIsInSpecificTable(Material)
-    return MaterialDataTable[Material] ~= nil
+---@param MaterialID integer
+---@return number
+function GetSpecificMaterialValueByID(MaterialID)
+    return MaterialDataTable[MaterialID]
 end
 
 ---@param Material string
 ---@return number
-function GetSpecificMaterialValue(Material)
-    return MaterialDataTable[Material]
+function GetSpecificMaterialValueByName(Material)
+    return GetSpecificMaterialValueByID(CellFactory_GetType(Material))
 end
 
 ---comment
@@ -199,4 +200,15 @@ function GetGenericMaterialValue(MaterialID)
     dPrint("Caching "..tostring(Total).." for generic material ID "..tostring(MaterialID), "MaterialDataTable", 1)
 
     return Total
+end
+
+---comment
+---@param MaterialID integer
+---@return number
+function TryGetMaterialValue(MaterialID)
+    if (MaterialDataTable[MaterialID]) then
+        return MaterialDataTable[MaterialID]
+    end
+
+    return GetGenericMaterialValue(MaterialID)
 end

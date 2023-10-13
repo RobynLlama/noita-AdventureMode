@@ -27,7 +27,7 @@ function Cache.UpdateCache()
     Cache.StartingNourshment = tonumber(ModSettingGet("AdventureMode.Adv_StartingNourishment"))/100
         --Experimental Settings
         Cache.ExpSatiationRatio = tonumber(ModSettingGet("AdventureMode.Exp_SatiationRatio"))
-        Cache.ExpDigestionRate = tonumber(ModSettingGet("AdventureMode.Exp_DigestionRate"))
+        Cache.ExpSatiationTarget = tonumber(ModSettingGet("AdventureMode.Exp_SatiationTarget"))
 
     --Debug
     Cache.DebugPrintingLevel = ModSettingGet("AdventureMode.DebugPrintingLevel")

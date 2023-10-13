@@ -53,7 +53,7 @@ function This.Tick(Context)
 
     This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()), 1)
 
-    --Update the HealingController with the modifier
+    --Update the HealingController with the modifier, TODO: Move this into context
     HealingController.Modifier = IconController.Modifier
 
     --Run heartbeats

@@ -65,6 +65,16 @@ mod_settings =
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 			},
 			{
+				id = "RegenHealBlockFrames",
+				ui_name = "Healing Blocked in Combat",
+				ui_description = "In seconds, how long healing is blocked in combat",
+				value_default = 3,
+				value_min = 0,
+				value_max = 30,
+				value_display_formatting = " $0 Seconds",
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+			{
 				ui_fn = mod_setting_vertical_spacing,
 				not_setting = true,
 			},

@@ -6,13 +6,15 @@
     each time
 ]]
 
+local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
+
 local BlockHandler = {
     BlockedUntil = 0
 }
 
 ---@param Self table
 function BlockHandler.BlockHealing(Self)
-    Self.BlockedUntil = GameGetFrameNum() + 59
+    Self.BlockedUntil = GameGetFrameNum() + Settings.HealBlockFrames * 60
 end
 
 ---@param Self table

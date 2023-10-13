@@ -17,6 +17,8 @@ function Cache.UpdateCache()
     
     --Tummy Settings
     Cache.TummyType = ModSettingGet("AdventureMode.TummySimType")
+    Cache.HealBlockFrames = tonumber(ModSettingGet("AdventureMode.RegenHealBlockFrames"))
+    Cache.HealBlockFrames = math.floor(Cache.HealBlockFrames)
 
     --Basic Tummy Settings
     Cache.SatietyCostForEachPercent = tonumber(ModSettingGet("AdventureMode.CostForPercent"))

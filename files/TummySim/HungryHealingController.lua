@@ -4,7 +4,7 @@ dofile_once("data/scripts/game_helpers.lua")
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
 
 --Init new module
-local This = BaseModule.New("HungryHealingController", 120)
+local This = BaseModule.New("HungryHealingController", 180)
 
 --Public vars
 This.Modifier = 0
@@ -32,7 +32,7 @@ function This.Tick(Context)
     end
 
     --Settings
-    local MaxHealthRestoredPerFrame = 0.025
+    local MaxHealthRestoredPerFrame = 0.05
     local ThisHealPercent
 
     --Check if Tummy or HealthStatus is missing

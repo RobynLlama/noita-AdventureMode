@@ -90,7 +90,7 @@ function This.Tick(Context)
         --Consume materials
 
         --Seriously reduce digestion if we're at max healing
-        if (Context.StoredHealing == MaxStorage) then
+        if (Context.Health.StoredHealing == MaxStorage) then
             SatiationThisUpdate = SatiationThisUpdate + (SatiationMaxAnyUpdate * 0.7)
             This:ModPrint("Slow digestion this frame", 1)
         end
@@ -114,7 +114,7 @@ function This.Tick(Context)
         --Don't do health/tummy if tummy is empty
         if(Satiation > 0) then
             --Modify health storage
-            Context:ModifyStoredHealth(GetHealingAmount(NextMaterial, Amount))
+            Context.Health:ModifyStoredHealth(GetHealingAmount(NextMaterial, Amount))
             --Modify tummy storage
             ComponentSetValue2(Tummy, "ingestion_size", Satiation - (Cost * CellWasteRatio))
 

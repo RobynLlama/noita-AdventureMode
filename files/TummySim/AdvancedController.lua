@@ -51,15 +51,13 @@ function This.Tick(Context)
         return
     end
 
-    This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()), 1)
-
-    --Update the HealingController with the modifier, TODO: Move this into context
-    HealingController.Modifier = IconController.Modifier
+    --Setup context for the modules
+    Context.Health = HealthStorage
 
     --Run heartbeats
-    DigestionController:TickOnTimer(HealthStorage)
-    HealingController:TickOnTimer(HealthStorage)
-    IconController:TickOnTimer(HealthStorage)
+    DigestionController:TickOnTimer(Context)
+    HealingController:TickOnTimer(Context)
+    IconController:TickOnTimer(Context)
 
     --Store the new StoredHealing value
     ComponentSetValue2(Storage, "value_float", HealthStorage.StoredHealing)

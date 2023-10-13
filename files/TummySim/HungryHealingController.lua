@@ -6,28 +6,31 @@ local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lu
 --Init new module
 local This = BaseModule.New("HungryHealingController", 180)
 
---Public vars
-This.Modifier = 0
-
 ---comment
 ---@param MaxLife number
+---@param Context table
 ---@return number
-function GetHealingPerPoint(MaxLife)
+function GetHealingPerPoint(MaxLife, Context)
     --Healing per point = 0.5% MaxLife + 1 + modifier
     --Life is stored as a float where each 1.0 = 25 for some reason
     MaxLife = MaxLife * 25
-    return (0.005 * MaxLife) + 1 + This.Modifier
+    return (0.005 * MaxLife) + 1 + Context.Modifier
 end
 
 ---@param Context table
 function This.Tick(Context)
+
+    --Check if we're healblocked
+    if (Context.HealBlocker:IsHealingBlocked()) then
+        return
+    end
 
     --Entities/Components
     local Player = GetUpdatedEntityID()
     local HealthStatus = EntityGetFirstComponent(Player, "DamageModelComponent")
 
     --No healing available
-    if (Context.StoredHealing == 0) then
+    if (Context.Health.StoredHealing == 0) then
         return
     end
 
@@ -58,15 +61,15 @@ function This.Tick(Context)
     end
 
     --Calculate healing cost
-    local HealingPerPoint = GetHealingPerPoint(HealthMax)
+    local HealingPerPoint = GetHealingPerPoint(HealthMax, Context)
     local ThisHealingCost = (HealthMax * 25 * ThisHealPercent) / HealingPerPoint
 
     This:ModPrint("Healing per point: "..tostring(HealingPerPoint), 1)
     This:ModPrint("Healing cost: "..tostring(ThisHealingCost), 1)
 
-    if (ThisHealingCost > Context.StoredHealing) then
+    if (ThisHealingCost > Context.Health.StoredHealing) then
 
-        ThisHealingCost = Context.StoredHealing
+        ThisHealingCost = Context.Health.StoredHealing
         if (ThisHealingCost < 0.25) then
             This:ModPrint("Skipping heal, too low", 1)
             return
@@ -81,7 +84,7 @@ function This.Tick(Context)
     heal_entity(Player, ThisHealTotal / 25)
 
     --Pay for the heal
-    Context:ModifyStoredHealth(-ThisHealingCost)
+    Context.Health:ModifyStoredHealth(-ThisHealingCost)
 
 end
 

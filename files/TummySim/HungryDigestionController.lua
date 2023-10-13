@@ -5,13 +5,6 @@
     MaterialInventoryComponent each time Tick is called. Requires a small
     amount of satiation from the IngestionComponent to ensure the player
     hasn't "relieved" themselves from the contents of their stomach early
-
-    TODO:
-        1. Possibly use material value to modify SatiationRatio
-            This would have the effect of making junkier food use
-            less satiation and make it harder to heal with ex: water
-        2. Possibly stop digestion when the ingestion component is
-            on cooldown
 ]]
 
 --Private vars
@@ -67,6 +60,11 @@ function This.Tick(Context)
     --I see you, polymorph bug in the making
     if (Tummy == nil) then
         This:ModPrint("Player is probably polymorphed, skipping digestion", 1)
+        return
+    end
+
+    --Skip digestion when the tummy is on cooldown, solidarity okay?
+    if (ComponentGetValue2(Tummy, "m_ingestion_cooldown_frames") > 0) then
         return
     end
 

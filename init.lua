@@ -96,7 +96,7 @@ function CreateOrUpdateTummyController()
 	local States = {
 		["OFF"] = function() ClearControllerComponents(true, true, true) end,
 		["BAS"] = function() ClearControllerComponents(true, true, false) AddControllerNew("mods/AdventureMode/files/TummySim/TummyControllerBasic.xml") end,
-		["ADV"] = function() ClearControllerComponents(true, true, false) AddControllerNew("mods/AdventureMode/files/TummySim/TummyControllerAdvanced.xml") AddStorage("mods/AdventureMode/files/TummySim/TummyAdvancedStorage.xml", "HungryStorageComponent") end
+		["ADV"] = function() ClearControllerComponents(true, true, false) AddStorage("mods/AdventureMode/files/TummySim/TummyAdvancedStorage.xml", "HungryStorageComponent") AddControllerNew("mods/AdventureMode/files/TummySim/TummyControllerAdvanced.xml") end
 	}
 
 	States[Settings.TummyType]()
@@ -144,6 +144,11 @@ function OnPlayerSpawned(player_entity)
 			GamePickUpInventoryItem(player_entity, powder_bag, true)
 		end
 
+		if (Settings.StartWithMeal) then
+			local meal = EntityLoad("mods/AdventureMode/files/StartingItems/Meal.xml")
+			GamePickUpInventoryItem(player_entity, meal, true)
+		end
+
 		--Set starting nourishment
 		local Storage = EntityGetFirstComponent(player_entity, "VariableStorageComponent", "HungryStorageComponent")
 		if (Storage ~= nil) then
@@ -156,5 +161,15 @@ function OnPlayerSpawned(player_entity)
 
 	dPrint("Setup complete", "Init", 1)
 end
+
+--GunActions for new spells
+if (Settings.NewSpells) then
+	ModLuaFileAppend( "data/scripts/gun/gun_actions.lua", "mods/AdventureMode/files/Spells/GunActionsAppends.lua")
+end
+
+--Translations
+local TRANSLATIONS_FILE = "data/translations/common.csv"
+local translations = ModTextFileGetContent(TRANSLATIONS_FILE) .. ModTextFileGetContent("mods/AdventureMode/files/Strings.csv")
+ModTextFileSetContent(TRANSLATIONS_FILE, translations:gsub("\r\n","\n"):gsub("\n\n","\n"))
 
 print("[ Adventure Mode Exit Init ]")

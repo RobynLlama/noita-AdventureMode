@@ -15,6 +15,8 @@ local Cache = {
 function Cache.UpdateCache() 
     --Adventure Settings
     Cache.StartWithPouch = ModSettingGet("AdventureMode.StartingItems_Pouch")
+    Cache.StartWithMeal = ModSettingGet("AdventureMode.StartingItems_Meal")
+    Cache.NewSpells = ModSettingGet("AdventureMode.Adventure_NewSpells")
     
     --Tummy Type Change detection
     local NewTummy = ModSettingGet("AdventureMode.TummySimType")

@@ -1,0 +1,9 @@
+<Entity>
+    <Base file="mods/AdventureMode/files/Spells/MagicFlask.xml" />
+	<VariableStorageComponent
+		name="potion_material"
+		value_string="porridge"
+		value_float="800"
+	>
+	</VariableStorageComponent>
+</Entity>

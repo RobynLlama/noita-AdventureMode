@@ -47,6 +47,20 @@ mod_settings =
 				value_default = false,
 				scope = MOD_SETTING_SCOPE_NEW_GAME,
 			},
+			{
+				id = "StartingItems_Meal",
+				ui_name = "Start with a small meal",
+				ui_description = "Starts the player with a non-refillable flask of something edible",
+				value_default = false,
+				scope = MOD_SETTING_SCOPE_NEW_GAME,
+			},
+			{
+				id = "Adventure_NewSpells",
+				ui_name = "Enable new spells",
+				ui_description = "Enables some new spells to show up in the game world",
+				value_default = false,
+				scope = MOD_SETTING_SCOPE_RUNTIME_RESTART,
+			},
 		}
 	},
 	{

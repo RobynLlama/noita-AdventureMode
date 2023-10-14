@@ -22,5 +22,8 @@
     "Lua.diagnostics.disable": [
         "lowercase-global"
     ],
-    "Lua.completion.autoRequire": false
+    "Lua.completion.autoRequire": false,
+    "cSpell.words": [
+        "Noita"
+    ]
 }

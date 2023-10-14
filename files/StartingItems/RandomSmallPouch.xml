@@ -1,0 +1,11 @@
+<Entity>
+	<Base file="mods/AdventureMode/files/StartingItems/SmallPouch.xml" />
+
+	<LuaComponent
+		execute_on_added="1"
+		remove_after_executed="1"
+		call_init_function="1"
+		script_source_file="mods/AdventureMode/files/StartingItems/RandomStartingPouchMaterial.lua"
+	>
+	</LuaComponent>
+</Entity>

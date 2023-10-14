@@ -1,5 +1,5 @@
 ---@diagnostic disable: param-type-mismatch
- dofile_once("data/scripts/lib/utilities.lua")
+dofile_once("data/scripts/lib/utilities.lua")
 
 materials_standard = 
 {
@@ -55,6 +55,7 @@ materials_magic =
 	},
 	{
 		material="fungi",
+		amount = 100,
 	},
 }
 

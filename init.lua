@@ -137,16 +137,20 @@ function OnPlayerSpawned(player_entity)
 	--This is the sloppy way I check if we're at the start of a run
 	--Always seems to start at frame 10 when I try so we'll see
 	if (GameGetFrameNum() < 12) then
+
+		---@param ItemEntity string
+		function AddStartingItem(ItemEntity)
+			local Item = EntityLoad(ItemEntity)
+			GamePickUpInventoryItem(player_entity, Item, true)
+		end
 		
 		--Powder bag starting item
 		if (Settings.StartWithPouch) then
-			local powder_bag = EntityLoad("mods/AdventureMode/files/StartingItems/RandomPouch.xml")
-			GamePickUpInventoryItem(player_entity, powder_bag, true)
+			AddStartingItem("mods/AdventureMode/files/StartingItems/RandomSmallPouch.xml")
 		end
 
 		if (Settings.StartWithMeal) then
-			local meal = EntityLoad("mods/AdventureMode/files/StartingItems/Meal.xml")
-			GamePickUpInventoryItem(player_entity, meal, true)
+			AddStartingItem("mods/AdventureMode/files/StartingItems/Meal.xml")
 		end
 
 		--Set starting nourishment

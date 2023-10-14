@@ -16,8 +16,8 @@
         "mod_settings_gui",
         "mod_settings_get_version",
         "random_from_array",
-        "MOD_SETTING_SCOPE_RESTART",
-        "MOD_SETTING_SCOPE_RUNTIME"
+        "MOD_SETTING_SCOPE_RUNTIME",
+        "MOD_SETTING_SCOPE_RUNTIME_RESTART"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global"

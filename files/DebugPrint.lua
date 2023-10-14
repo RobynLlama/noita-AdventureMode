@@ -24,13 +24,14 @@ local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 
 --Quick little hack to enable globally controlling print statements
 --without needing to comment out each one
-local DEBUG_PRINT = Settings.DebugPrintingLevel
 local MODULE_TAG = "[ADVENTURE]"
 
 ---@param message string
 ---@param from string
+---@param level integer
 ---@return nil
 function dPrint(message, from, level)
+	local DEBUG_PRINT = Settings.DebugPrintingLevel
 	if (DEBUG_PRINT == 0) then
 		return
 	end

@@ -3,22 +3,28 @@
     
     Will cache all the mod settings in one place to avoid the overhead of reading
     them every update for certain components
-
-    Todo:
-        Refresh these settings after the player has unpaused using OnPausedChanged?
-        OnModSettingsChanged() doesn't work so we gotta hack around it
 ]]
 
-local Cache = {}
+--dofile_once("mods/AdventureMode/files/DebugPrint.lua")
+
+local Cache = {
+    TummyChanged = false,
+    TummyType = "NOTYPE",
+}
 
 function Cache.UpdateCache() 
     --Adventure Settings
     Cache.StartWithPouch = ModSettingGet("AdventureMode.StartingItems_Pouch")
     
-    --Tummy Settings
-    Cache.TummyType = ModSettingGet("AdventureMode.TummySimType")
+    --Tummy Type Change detection
+    local NewTummy = ModSettingGet("AdventureMode.TummySimType")
+    Cache.TummyChanged = not (Cache.TummyType == NewTummy)
+    Cache.TummyType = NewTummy
+
+    print("[SettingsCache] TType="..tostring(Cache.TummyType))
+
     Cache.HealBlockFrames = tonumber(ModSettingGet("AdventureMode.RegenHealBlockFrames"))
-    Cache.HealBlockFrames = math.floor(Cache.HealBlockFrames)
+    Cache.HealBlockFrames = math.floor(Cache.HealBlockFrames + 0.5)
 
     --Basic Tummy Settings
     Cache.SatietyCostForEachPercent = tonumber(ModSettingGet("AdventureMode.CostForPercent"))

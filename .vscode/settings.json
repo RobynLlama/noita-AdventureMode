@@ -17,7 +17,11 @@
         "mod_settings_get_version",
         "random_from_array",
         "MOD_SETTING_SCOPE_RUNTIME",
-        "MOD_SETTING_SCOPE_RUNTIME_RESTART"
+        "MOD_SETTING_SCOPE_RUNTIME_RESTART",
+        "ACTION_TYPE_MATERIAL",
+        "add_projectile",
+        "actions",
+        "ACTION_TYPE_UTILITY"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global"
@@ -25,5 +29,8 @@
     "Lua.completion.autoRequire": false,
     "cSpell.words": [
         "Noita"
+    ],
+    "cSpell.ignoreWords": [
+        "dofile"
     ]
 }

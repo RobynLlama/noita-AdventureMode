@@ -111,7 +111,7 @@ function SendUpdateSignal()
 
 	if (TummyController ~= nil) then
 		--Flick the lights, as it were
-		dPrint("Sending signal", "SendUpdateSignal", 5)
+		dPrint("Sending signal", "SendUpdateSignal", 1)
 		EntitySetComponentIsEnabled(Player, TummyController, false)
 		EntitySetComponentIsEnabled(Player, TummyController, true)
 	end

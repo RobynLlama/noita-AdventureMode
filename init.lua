@@ -47,7 +47,7 @@ end
 ]]--
 
 --Update the tummy controller
-function CreateOrUpdateTummyController(SendSignals)
+function CreateOrUpdateTummyController()
 
 	local Player = EntityGetWithTag( "player_unit" )[1]
 
@@ -58,79 +58,63 @@ function CreateOrUpdateTummyController(SendSignals)
 
 	dPrint("SimType="..tostring(Settings.TummyType), "UpdateTummyController", 1)
 
-	---@param AddController boolean
-	---@param AddIcon boolean
-	---@param AddStorage boolean
-	function SetControllerComponentStates(AddController, AddIcon, AddStorage)
+	function ClearControllerComponents(ClearController, ClearIcon, ClearStorage)
+		
+		---@param Component integer?
+		---@param Clear boolean
+		function RemoveIfExists(Component, Clear)
 
-		dPrint("Setting Controller States", "UpdateTummyController", 1)
-
-		--Do we want the controller?
-		if (AddController) then
-			dPrint("Adding Controller", "UpdateTummyController", 1)
-
-			if (TummyController ~= nil) then
-				--Always cycle the controller here, it needs to dofile again to change its type
-				EntityRemoveComponent(Player, TummyController)
+			--Short out of we're not actually clearing this item
+			if (not Clear) then
+				return
 			end
-
-			EntityLoadToEntity("mods/AdventureMode/files/TummySim/TummyController.xml", Player)
-		else
-			dPrint("Removing Controller", "UpdateTummyController", 1)
-			if (TummyController ~= nil) then
-				EntityRemoveComponent(Player, TummyController)
+			if (Component ~= nil) then
+				EntityRemoveComponent(Player, Component)
 			end
 		end
 
-		if (AddIcon) then
-			dPrint("Add Icon", "UpdateTummyController", 1)
-			if (Icon == nil) then
-				EntityLoadToEntity("mods/AdventureMode/files/TummySim/TummyIcon.xml", Player)
-			end
-		else
-			dPrint("Removing Icon", "UpdateTummyController", 1)
-			if (Icon ~= nil) then
-				EntityRemoveComponent(Player, Icon)
-			end
-		end
-
-		if (AddStorage) then
-			dPrint("Add Storage", "UpdateTummyController", 1)
-			if (Storage == nil) then
-				EntityLoadToEntity("mods/AdventureMode/files/TummySim/TummyStorage.xml", Player)
-			end
-		else
-			dPrint("Removing Storage", "UpdateTummyController", 1)
-			if (Storage ~= nil) then
-				EntityRemoveComponent(Player, Storage)
-			end
-		end
+		RemoveIfExists(TummyController, ClearController)
+		RemoveIfExists(Icon, ClearIcon)
+		RemoveIfExists(Storage, ClearStorage)
 	end
 
-	--Send an update signal to the component hosting our controller
-	function SendUpdateSignal()
+	---@param Entity string
+	function AddControllerNew(Entity)
+		EntityLoadToEntity(Entity, Player)
+	end
 
-		if (not SendSignals) then
-			return
-		end
+	---@param StorageEnt string
+	---@param StorageTag string
+	function AddStorage(StorageEnt, StorageTag)
+		local ent = EntityGetFirstComponent(Player, "VariableStorageComponent", StorageTag)
 
-		TummyController = EntityGetFirstComponent(Player, "LuaComponent", "TummySimController")
-
-		if (TummyController ~= nil) then
-			--Flick the lights, as it were
-			EntitySetComponentIsEnabled(Player, TummyController, false)
-			EntitySetComponentIsEnabled(Player, TummyController, true)
+		if (ent == nil) then
+			EntityLoadToEntity(StorageEnt, Player)
 		end
 	end
 
 	local States = {
-		["OFF"] = function() SetControllerComponentStates(false, false, false) end,
-		["BAS"] = function() SetControllerComponentStates(true, false, false) SendUpdateSignal() end,
-		["ADV"] = function() SetControllerComponentStates(true, true, true) SendUpdateSignal() end
+		["OFF"] = function() ClearControllerComponents(true, true, true) end,
+		["BAS"] = function() ClearControllerComponents(true, true, false) AddControllerNew("mods/AdventureMode/files/TummySim/TummyControllerBasic.xml") end,
+		["ADV"] = function() ClearControllerComponents(true, true, false) AddControllerNew("mods/AdventureMode/files/TummySim/TummyControllerAdvanced.xml") AddStorage("mods/AdventureMode/files/TummySim/TummyAdvancedStorage.xml", "HungryStorageComponent") end
 	}
 
 	States[Settings.TummyType]()
 	Settings.TummyChanged = false
+end
+
+--Send an update signal to the component hosting our controller
+function SendUpdateSignal()
+
+	local Player = EntityGetWithTag( "player_unit" )[1]
+	TummyController = EntityGetFirstComponent(Player, "LuaComponent", "TummySimController")
+
+	if (TummyController ~= nil) then
+		--Flick the lights, as it were
+		dPrint("Sending signal", "SendUpdateSignal", 5)
+		EntitySetComponentIsEnabled(Player, TummyController, false)
+		EntitySetComponentIsEnabled(Player, TummyController, true)
+	end
 end
 
 --Assume the player has modified mod settings in the pause screen cuz there is no way to know
@@ -138,9 +122,9 @@ function OnPausedChanged( is_paused, is_inventory_pause)
 	--If the player is unpausing
 	if (not is_paused) then
 		Settings.UpdateCache()
-
+		SendUpdateSignal()
 		if (Settings.TummyChanged) then
-			CreateOrUpdateTummyController(true)
+			CreateOrUpdateTummyController()
 		end
 	end
 end
@@ -148,7 +132,7 @@ end
 function OnPlayerSpawned(player_entity)
 	dPrint("Frame: "..tostring(GameGetFrameNum()), "Init", 1)
 
-	CreateOrUpdateTummyController(false)
+	CreateOrUpdateTummyController()
 
 	--This is the sloppy way I check if we're at the start of a run
 	--Always seems to start at frame 10 when I try so we'll see

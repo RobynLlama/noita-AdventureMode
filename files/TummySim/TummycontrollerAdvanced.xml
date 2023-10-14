@@ -1,0 +1,22 @@
+<Entity>
+
+    <LuaComponent
+        script_source_file="mods/AdventureMode/files/TummySim/TummySimControllerAdvanced.lua"
+        execute_every_n_frame="2"
+        script_damage_received="mods/AdventureMode/files/TummySim/TummySimControllerAdvanced.lua"
+        script_wand_fired="mods/AdventureMode/files/TummySim/TummySimControllerAdvanced.lua"
+        script_enabled_changed="mods/AdventureMode/files/TummySim/TummySimControllerAdvanced.lua"
+        _tags="TummySimController"
+    >
+    </LuaComponent>
+
+    <UIIconComponent
+    icon_sprite_file="mods/AdventureMode/files/TummySim/img/store_barren.png"
+    name="Nourishment"
+    description=""
+    is_perk="1"
+    _tags="NourishIcon"
+    >
+    </UIIconComponent>
+
+</Entity>

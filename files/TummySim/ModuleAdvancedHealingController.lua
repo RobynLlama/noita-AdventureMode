@@ -4,7 +4,7 @@ dofile_once("data/scripts/game_helpers.lua")
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
 
 --Init new module
-local This = BaseModule.New("HungryHealingController", 180)
+local This = BaseModule.New("AdvancedHealingController", 180)
 
 ---comment
 ---@param MaxLife number

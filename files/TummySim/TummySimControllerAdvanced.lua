@@ -1,12 +1,12 @@
 --Persist context between script runs
 local Context = dofile_once("mods/AdventureMode/files/TummySim/SharedContext.lua")
+local Controller = dofile_once("mods/AdventureMode/files/TummySim/ModuleAdvancedController.lua")
 dofile_once("mods/AdventureMode/files/DebugPrint.lua")
 
 --Super jank but we're using this as a signal to update our settings context
 function enabled_changed( entity_id, is_enabled)
     if (is_enabled) then
         Context.Settings.UpdateCache()
-        Context.Controller:ForceUpdate()
     end
 end
 
@@ -18,4 +18,4 @@ function wand_fired( gun_entity_id )
     Context.HealBlocker:BlockHealing()
 end
 
-Context.Controller.Type:TickOnTimer(Context)
+Controller:TickOnTimer(Context)

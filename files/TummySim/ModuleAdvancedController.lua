@@ -5,9 +5,9 @@ local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lu
 local This = BaseModule.New("TummySimAdvancedController", 0)
 
 --Load the Advanced controller components
-local DigestionController = dofile_once("mods/AdventureMode/files/TummySim/HungryDigestionController.lua")
-local HealingController = dofile_once("mods/AdventureMode/files/TummySim/HungryHealingController.lua")
-local IconController = dofile_once("mods/AdventureMode/files/TummySim/NourishmentIconController.lua")
+local DigestionController = dofile_once("mods/AdventureMode/files/TummySim/ModuleAdvancedDigestionController.lua")
+local HealingController = dofile_once("mods/AdventureMode/files/TummySim/ModuleAdvancedHealingController.lua")
+local IconController = dofile_once("mods/AdventureMode/files/TummySim/ModuleAdvancedIconController.lua")
 
 --Init variables
 local Player = GetUpdatedEntityID()

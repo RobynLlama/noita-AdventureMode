@@ -9,16 +9,10 @@
 
 --Private vars
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
-local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 dofile_once("mods/AdventureMode/files/TummySim/MaterialDataTable.lua")
 
 --Init new module
 local This = BaseModule.New("TummyDigestionController", 10)
-
---How much Satiation we want to spend from the MaterialInventory each frame
-local SatiationMaxAnyUpdate = Settings.ExpSatiationTarget
---Modifier for Satiation cost per cell
-local CellWasteRatio = Settings.ExpSatiationRatio
 --This is to match a constant the game uses, do not modify
 local SatiationPerCell = 6
 
@@ -83,22 +77,21 @@ function This.Tick(Context)
     local SatiationThisUpdate = 0
     local Satiation = ComponentGetValue2(Tummy, "ingestion_size")
     local NextMaterial = GetMaterialInventoryMainMaterial(Player, false)
-    local MaxStorage = Settings.MaxNourishment
 
     --Main loop
-    while (NextMaterial > 0) and (SatiationThisUpdate < SatiationMaxAnyUpdate) do
+    while (NextMaterial > 0) and (SatiationThisUpdate < Context.Settings.ExpSatiationTarget) do
         --Consume materials
 
         --Seriously reduce digestion if we're at max healing
-        if (Context.Health.StoredHealing == MaxStorage) then
-            SatiationThisUpdate = SatiationThisUpdate + (SatiationMaxAnyUpdate * 0.7)
+        if (Context.Health.StoredHealing == Context.Settings.MaxNourishment) then
+            SatiationThisUpdate = SatiationThisUpdate + (Context.Settings.ExpSatiationTarget * 0.7)
             This:ModPrint("Slow digestion this frame", 1)
         end
 
         --We have to do this because the table is off by 1 (??)
         local Amount = CellInventoryTable[NextMaterial+1]
         local TotalAmount = Amount
-        local MaxAmount = GetDigestableAmount(NextMaterial, SatiationMaxAnyUpdate - SatiationThisUpdate)
+        local MaxAmount = GetDigestableAmount(NextMaterial, Context.Settings.ExpSatiationTarget - SatiationThisUpdate)
 
         --Trim the amount we're digesting if it is too high
         if (MaxAmount < Amount) then
@@ -116,7 +109,7 @@ function This.Tick(Context)
             --Modify health storage
             Context.Health:ModifyStoredHealth(GetHealingAmount(NextMaterial, Amount))
             --Modify tummy storage
-            ComponentSetValue2(Tummy, "ingestion_size", Satiation - (Cost * CellWasteRatio))
+            ComponentSetValue2(Tummy, "ingestion_size", Satiation - (Cost * Context.Settings.ExpSatiationRatio))
 
             This:ModPrint("Added to health storage this update", 1)
 

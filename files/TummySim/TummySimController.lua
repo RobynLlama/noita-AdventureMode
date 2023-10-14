@@ -1,7 +1,14 @@
-local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
-local BASController = dofile_once("mods/AdventureMode/files/TummySim/BasicController.lua")
-local ADVController = dofile_once("mods/AdventureMode/files/TummySim/AdvancedController.lua")
+--Persist context between script runs
 local Context = dofile_once("mods/AdventureMode/files/TummySim/SharedContext.lua")
+dofile_once("mods/AdventureMode/files/DebugPrint.lua")
+
+--Super jank but we're using this as a signal to update our settings context
+function enabled_changed( entity_id, is_enabled)
+    if (is_enabled) then
+        Context.Settings.UpdateCache()
+        Context.Controller:ForceUpdate()
+    end
+end
 
 function damage_received( damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible)
     Context.HealBlocker:BlockHealing()
@@ -11,8 +18,4 @@ function wand_fired( gun_entity_id )
     Context.HealBlocker:BlockHealing()
 end
 
-if (Settings.TummyType == "BAS") then
-    BASController:TickOnTimer(Context)
-elseif (Settings.TummyType == "ADV") then
-    ADVController:TickOnTimer(Context)
-end
+Context.Controller.Type:TickOnTimer(Context)

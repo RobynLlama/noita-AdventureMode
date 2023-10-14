@@ -1,0 +1,11 @@
+<Entity>
+
+    <VariableStorageComponent
+        name="AdvTummySim_StoredHealing"
+        value_int="0"
+        value_float="0"
+        _tags="HungryStorageComponent"
+    >
+    </VariableStorageComponent>
+    
+</Entity>

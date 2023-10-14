@@ -1,6 +1,5 @@
 --Private vars
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
-local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
 
 --Init new module
 local This = BaseModule.New("TummySimAdvancedController", 0)
@@ -19,9 +18,6 @@ if (Storage == nil) then
     return
 end
 
---Load mod settings
-local MaximumStoredHealing = Settings.MaxNourishment
-
 --Initialize HealthStorage context for modules
 local HealthStorage = {
     StoredHealing=ComponentGetValue2(Storage, "value_float"),
@@ -31,8 +27,8 @@ local HealthStorage = {
     function(Self, Amount)
         Self.StoredHealing = Self.StoredHealing + Amount
 
-        if (Self.StoredHealing > MaximumStoredHealing) then
-            Self.StoredHealing = MaximumStoredHealing
+        if (Self.StoredHealing > Self.Parent.Settings.MaxNourishment) then
+            Self.StoredHealing = Self.Parent.MaxNourishment
         elseif (Self.StoredHealing < 0) then
             Self.StoredHealing = 0
         end
@@ -53,6 +49,7 @@ function This.Tick(Context)
 
     --Setup context for the modules
     Context.Health = HealthStorage
+    Context.Health.Parent = Context
 
     --Run heartbeats
     DigestionController:TickOnTimer(Context)

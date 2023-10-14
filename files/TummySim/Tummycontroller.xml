@@ -5,16 +5,9 @@
         execute_every_n_frame="2"
         script_damage_received="mods/AdventureMode/files/TummySim/TummySimController.lua"
         script_wand_fired="mods/AdventureMode/files/TummySim/TummySimController.lua"
+        script_enabled_changed="mods/AdventureMode/files/TummySim/TummySimController.lua"
         _tags="TummySimController"
     >
     </LuaComponent>
-
-    <VariableStorageComponent
-        name="AdvTummySim_StoredHealing"
-        value_int="0"
-        value_float="0"
-        _tags="HungryStorageComponent"
-    >
-    </VariableStorageComponent>
 
 </Entity>

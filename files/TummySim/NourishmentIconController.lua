@@ -1,7 +1,6 @@
 --Private vars
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
 local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
-local MaximumStoredHealing = Settings.MaxNourishment
 
 --Init new module
 local This = BaseModule.New("NourishmentIconController", 10)
@@ -21,15 +20,15 @@ function This.Tick(Context)
     local IconPath = "mods/AdventureMode/files/TummySim/img/store_waning.png"
     local IconName = "Nourishment (Barren) "
 
-    if (Context.Health.StoredHealing >= 0.75 * MaximumStoredHealing) then
+    if (Context.Health.StoredHealing >= 0.75 * Settings.MaxNourishment) then
         IconPath = "mods/AdventureMode/files/TummySim/img/store_good.png"
         IconName = "Nourishment (Good) "
         Context.Modifier = 0.75
-    elseif (Context.Health.StoredHealing >= 0.50 * MaximumStoredHealing) then
+    elseif (Context.Health.StoredHealing >= 0.50 * Settings.MaxNourishment) then
         IconPath = "mods/AdventureMode/files/TummySim/img/store_fair.png"
         IconName = "Nourishment (Satiated) "
         Context.Modifier = 0.50
-    elseif (Context.Health.StoredHealing >= 0.25 * MaximumStoredHealing) then
+    elseif (Context.Health.StoredHealing >= 0.25 * Settings.MaxNourishment) then
         IconPath = "mods/AdventureMode/files/TummySim/img/store_waning.png"
         IconName = "Nourishment (Meagre) "
         Context.Modifier = 0.00

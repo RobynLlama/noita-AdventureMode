@@ -30,6 +30,6 @@ A Noita mod about going on an adventure
      *  Cell Digestion Waste Ratio
      *  Satiation Target
 
-See [Changes.md](https://github.com/Crunchepillar/noita-AdventureMode/blob/master/files/Docs/Changes.md) for a complete list of changes
+See [Changes.md](https://github.com/Crunchepillar/noita-AdventureMode/blob/master/Docs/Changes.md) for a complete list of changes
 
 Download from the [releases section](https://github.com/Crunchepillar/noita-AdventureMode/releases) and check out the [tags section](https://github.com/Crunchepillar/noita-AdventureMode/tags) for tagged versions of interest that weren't given a stand alone release

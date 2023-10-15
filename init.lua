@@ -122,10 +122,12 @@ function OnPausedChanged( is_paused, is_inventory_pause)
 	--If the player is unpausing
 	if (not is_paused) then
 		Settings.UpdateCache()
-		SendUpdateSignal()
+		
 		if (Settings.TummyChanged) then
 			CreateOrUpdateTummyController()
 		end
+
+		SendUpdateSignal()
 	end
 end
 

@@ -4,7 +4,7 @@
     Helper to initialize the Context state for Tummysim
 ]]
 
-local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
+local Settings = dofile_once("mods/AdventureMode/files/utils/SettingsCache.lua")
 
 local BlockHandler = {
     BlockedUntil = 0

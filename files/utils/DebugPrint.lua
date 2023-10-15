@@ -20,7 +20,7 @@ local Levels = {
 	[5] = "[DEBUG]",
 }
 
-local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
+local Settings = dofile_once("mods/AdventureMode/files/utils/SettingsCache.lua")
 
 --Quick little hack to enable globally controlling print statements
 --without needing to comment out each one

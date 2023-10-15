@@ -5,7 +5,7 @@
     them every update for certain components
 ]]
 
---dofile_once("mods/AdventureMode/files/DebugPrint.lua")
+--dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
 
 local Cache = {
     TummyChanged = false,

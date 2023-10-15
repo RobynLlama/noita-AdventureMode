@@ -1,4 +1,4 @@
-dofile_once("mods/AdventureMode/files/DebugPrint.lua")
+dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
 
 --[[
     ObjModule

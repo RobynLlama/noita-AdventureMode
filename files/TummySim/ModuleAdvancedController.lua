@@ -9,47 +9,79 @@ local DigestionController = dofile_once("mods/AdventureMode/files/TummySim/Modul
 local HealingController = dofile_once("mods/AdventureMode/files/TummySim/ModuleAdvancedHealingController.lua")
 local IconController = dofile_once("mods/AdventureMode/files/TummySim/ModuleAdvancedIconController.lua")
 
---Init variables
-local Player = GetUpdatedEntityID()
-local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", "HungryStorageComponent")
+---@return number
+local function ReadVariableStorage()
+    local tag = "HungryStorageComponent"
+    local Player = GetUpdatedEntityID()
+    local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", tag)
+    if (Storage == nil) then
+        This:ModPrint("Unable to load player storage", 4)
+        return 0
+    end
 
-if (Storage == nil) then
-    This:ModPrint("Unable to load player storage", 4)
-    return
+    local Value = ComponentGetValue2(Storage, "value_float")
+
+    if (Value == nil) then
+        This:ModPrint("Unable to read value from storage", 4)
+        return 0
+    end
+
+    return Value
+end
+
+---@param Value number
+local function WriteVariableStorage(Value)
+    local tag = "HungryStorageComponent"
+    local Player = GetUpdatedEntityID()
+    local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", tag)
+
+    if (Value == nil) then
+        This:ModPrint("Nil value passed in WriteVariableStorage", 3)
+        return
+    end
+    if (Storage == nil) then
+        This:ModPrint("Unable to load player storage for writing", 4)
+        return
+    end
+
+    ComponentSetValue2(Storage, "value_float", Value)
 end
 
 --Initialize HealthStorage context for modules
 local HealthStorage = {
-    StoredHealing=ComponentGetValue2(Storage, "value_float"),
-    ModifyStoredHealth=
-    ---@param Self table
-    ---@param Amount integer
-    function(Self, Amount)
-        Self.StoredHealing = Self.StoredHealing + Amount
-
-        if (Self.StoredHealing > Self.Parent.Settings.MaxNourishment) then
-            Self.StoredHealing = Self.Parent.MaxNourishment
-        elseif (Self.StoredHealing < 0) then
-            Self.StoredHealing = 0
-        end
-    end,
+    StoredHealing=ReadVariableStorage(),
+    ParentContext = nil,
 }
+
+---@param Self table
+---@param Amount integer
+function HealthStorage.ModifyStoredHealth(Self, Amount)
+
+    if (Amount == nil) then
+        This:ModPrint("Amount is nil", 4)
+        return
+    end
+
+    if (Self.ParentContext == nil) then
+        This:ModPrint("ParentContext is nil", 4)
+        return
+    end
+
+    Self.StoredHealing = Self.StoredHealing + Amount
+
+    if (Self.StoredHealing > Self.ParentContext.Settings.MaxNourishment) then
+        Self.StoredHealing = Self.ParentContext.Settings.MaxNourishment
+    elseif (Self.StoredHealing < 0) then
+        Self.StoredHealing = 0
+    end
+end
 
 ---@param Context table
 function This.Tick(Context)
 
-    --Update entities in case we get polymorphed
-    Player = GetUpdatedEntityID()
-    Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", "HungryStorageComponent")
-
-    if (Storage == nil) then
-        This:ModPrint("Unable to load storage object", 4)
-        return
-    end
-
-    --Setup context for the modules
+    --Prepare context
     Context.Health = HealthStorage
-    Context.Health.Parent = Context
+    Context.Health.ParentContext = Context
 
     --Run heartbeats
     DigestionController:TickOnTimer(Context)
@@ -57,7 +89,7 @@ function This.Tick(Context)
     IconController:TickOnTimer(Context)
 
     --Store the new StoredHealing value
-    ComponentSetValue2(Storage, "value_float", HealthStorage.StoredHealing)
+    WriteVariableStorage(Context.Health.StoredHealing)
 end
 
 return This

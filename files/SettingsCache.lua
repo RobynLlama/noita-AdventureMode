@@ -23,8 +23,6 @@ function Cache.UpdateCache()
     Cache.TummyChanged = not (Cache.TummyType == NewTummy)
     Cache.TummyType = NewTummy
 
-    print("[SettingsCache] TType="..tostring(Cache.TummyType))
-
     Cache.HealBlockFrames = tonumber(ModSettingGet("AdventureMode.RegenHealBlockFrames"))
     Cache.HealBlockFrames = math.floor(Cache.HealBlockFrames + 0.5)
 

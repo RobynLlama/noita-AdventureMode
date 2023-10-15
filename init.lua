@@ -8,7 +8,7 @@ Licensing:
 
 	See the full legal code here:
 	https://www.creativecommons.org/licenses/by-nc/4.0/legalcode.en
-]]--
+]]
 
 dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
 dofile_once("mods/AdventureMode/files/utils/ComponentUtils.lua")
@@ -45,12 +45,11 @@ function OnWorldPostUpdate() -- This is called every time the game has finished 
 	GamePrint( "Post-update hook " .. tostring(GameGetFrameNum()) )
 end
 
-]]--
+]]
 
 --Add a new controller
 function AddTummyController()
-
-	local Player = EntityGetWithTag( "player_unit" )[1]
+	local Player = EntityGetWithTag("player_unit")[1]
 
 	---@param EntityFile string
 	function AddController(EntityFile)
@@ -68,8 +67,7 @@ end
 
 --Send an update signal to the component hosting our controller
 function SendUpdateSignal()
-
-	local Player = EntityGetWithTag( "player_unit" )[1]
+	local Player = EntityGetWithTag("player_unit")[1]
 	local UpdateComponent = GetComponentByName(Player, "VariableStorageComponent", "TummySim_NeedsUpdating")
 	if (UpdateComponent) then
 		ComponentSetValue2(UpdateComponent, "value_bool", true)
@@ -78,7 +76,7 @@ function SendUpdateSignal()
 end
 
 --Assume the player has modified mod settings in the pause screen cuz there is no way to know
-function OnPausedChanged( is_paused, is_inventory_pause)
+function OnPausedChanged(is_paused, is_inventory_pause)
 	--If the player is unpausing
 	if (not is_paused) then
 		Settings.UpdateCache()
@@ -90,7 +88,6 @@ function OnPlayerSpawned(player_entity)
 	--This is the sloppy way I check if we're at the start of a run
 	--Always seems to start at frame 10 when I try so we'll see
 	if (GameGetFrameNum() < 12) then
-
 		dPrint("Adding Tummy Controller ", "Init", 1)
 		AddTummyController()
 
@@ -99,7 +96,7 @@ function OnPlayerSpawned(player_entity)
 			local Item = EntityLoad(ItemEntity)
 			GamePickUpInventoryItem(player_entity, Item, true)
 		end
-		
+
 		--Powder bag starting item
 		if (Settings.StartWithPouch) then
 			AddStartingItem("mods/AdventureMode/files/StartingItems/RandomSmallPouch.xml")
@@ -111,29 +108,28 @@ function OnPlayerSpawned(player_entity)
 
 		--Set starting nourishment
 		if (Settings.TummyType == "ADV") then
-
 			local Storage = GetComponentByName(player_entity, "VariableStorageComponent", "AdvTummySim_StoredHealing")
 			if (Storage ~= nil) then
-				dPrint("MaxNourishment is "..tostring(Settings.MaxNourishment), "Init", 1)
-				dPrint("StartNourishment is "..tostring(Settings.StartingNourshment), "Init", 1)
+				dPrint("MaxNourishment is " .. tostring(Settings.MaxNourishment), "Init", 1)
+				dPrint("StartNourishment is " .. tostring(Settings.StartingNourshment), "Init", 1)
 				ComponentSetValue2(Storage, "value_float", Settings.StartingNourshment * Settings.MaxNourishment)
-			end	
-			
+			end
 		end
 	end
-	
+
 
 	dPrint("Setup complete", "Init", 1)
 end
 
 --GunActions for new spells
 if (Settings.NewSpells) then
-	ModLuaFileAppend( "data/scripts/gun/gun_actions.lua", "mods/AdventureMode/files/Spells/GunActionsAppends.lua")
+	ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/AdventureMode/files/Spells/GunActionsAppends.lua")
 end
 
 --Translations
 local TRANSLATIONS_FILE = "data/translations/common.csv"
-local translations = ModTextFileGetContent(TRANSLATIONS_FILE) .. ModTextFileGetContent("mods/AdventureMode/files/Strings.csv")
-ModTextFileSetContent(TRANSLATIONS_FILE, translations:gsub("\r\n","\n"):gsub("\n\n","\n"))
+local translations = ModTextFileGetContent(TRANSLATIONS_FILE) ..
+	ModTextFileGetContent("mods/AdventureMode/files/Strings.csv")
+ModTextFileSetContent(TRANSLATIONS_FILE, translations:gsub("\r\n", "\n"):gsub("\n\n", "\n"))
 
 print("[ Adventure Mode Exit Init ]")

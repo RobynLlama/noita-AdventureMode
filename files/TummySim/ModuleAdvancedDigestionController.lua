@@ -1,6 +1,6 @@
 --[[
     HungryDigestionController
-    
+
     Attempts to digest whatever material is most prominent in the player's
     MaterialInventoryComponent each time Tick is called. Requires a small
     amount of satiation from the IngestionComponent to ensure the player
@@ -89,7 +89,7 @@ function This.Tick(Context)
         end
 
         --We have to do this because the table is off by 1 (??)
-        local Amount = CellInventoryTable[NextMaterial+1]
+        local Amount = CellInventoryTable[NextMaterial + 1]
         local TotalAmount = Amount
         local MaxAmount = GetDigestableAmount(NextMaterial, Context.Settings.ExpSatiationTarget - SatiationThisUpdate)
 
@@ -100,12 +100,14 @@ function This.Tick(Context)
 
         local Cost = GetSatiationCostToDigest(NextMaterial, Amount)
 
-        This:ModPrint("Material "..tostring(CellFactory_GetName(NextMaterial).." amount: "..tostring(Amount).." cost: "..tostring(Cost)), 1)
+        This:ModPrint(
+        "Material " ..
+        tostring(CellFactory_GetName(NextMaterial) .. " amount: " .. tostring(Amount) .. " cost: " .. tostring(Cost)), 1)
 
         SatiationThisUpdate = SatiationThisUpdate + Cost
-        
+
         --Don't do health/tummy if tummy is empty
-        if(Satiation > 0) then
+        if (Satiation > 0) then
             --Modify health storage
             Context.Health:ModifyStoredHealth(GetHealingAmount(NextMaterial, Amount))
             --Modify tummy storage

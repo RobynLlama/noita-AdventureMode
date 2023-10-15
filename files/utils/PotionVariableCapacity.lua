@@ -4,14 +4,14 @@
 ]]
 
 local Entity = GetUpdatedEntityID()
-local components = EntityGetComponent( Entity, "VariableStorageComponent")
+local components = EntityGetComponent(Entity, "VariableStorageComponent")
 
-if( components ~= nil ) then
-    for _ , comp_id in pairs(components) do 
-        local var_name = ComponentGetValue2( comp_id, "name" )
-        if( var_name == "potion_material") then
-            potion_material = ComponentGetValue2( comp_id, "value_string" )
-            potion_capacity = ComponentGetValue2( comp_id, "value_float" )
+if (components ~= nil) then
+    for _, comp_id in pairs(components) do
+        local var_name = ComponentGetValue2(comp_id, "name")
+        if (var_name == "potion_material") then
+            potion_material = ComponentGetValue2(comp_id, "value_string")
+            potion_capacity = ComponentGetValue2(comp_id, "value_float")
         end
     end
 end

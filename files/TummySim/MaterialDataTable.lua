@@ -6,7 +6,7 @@ dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
     1000 cells of material. Other notable measures include: The player's default maximum
     ingestion size (their whole stomach) is about 7500 cells. A player will consume around
     75 - 90 cells from the world while eating
-]]--
+]]
 
 local MaterialDataTable = {}
 
@@ -18,7 +18,7 @@ end
         STANDARD MATERIALS:
 
         Water is everywhere so the number has to be low or we can suck it up for healing
-    ]]--
+    ]]
     AddToMaterialTable("water" , 0.010)
     AddToMaterialTable("water_ice" , 0.009)
     AddToMaterialTable("water_salt" , 0.008)
@@ -36,7 +36,7 @@ end
         it seems there is an oil that is suited both to burning and cooking in Noita
         Either way, oil is unpleasant and the player will throw it up so we're not
         likely to get much out of it
-    ]]--
+    ]]
     AddToMaterialTable("oil" , 0.015)
 
     --[[
@@ -46,7 +46,7 @@ end
         things like water but most things don't leave behind much meat. Blood and
         water may be less valuable numerically but they're everywhere and you can
         bottle them.
-    ]]--
+    ]]
     AddToMaterialTable("meat" , 0.130)
     --teehee
     AddToMaterialTable("meat_helpless" , 0.145)
@@ -68,7 +68,7 @@ end
         Blood is plentiful and can sorta be farmed by using a plasma cutter on a corpse.
         Can't say I'm opposed to the idea since its kinda works like dressing game
         Worm blood is certainly a bit harder to find and has no negative effects
-    ]]--
+    ]]
     AddToMaterialTable("blood" , 0.020)
     AddToMaterialTable("blood_fading" , 0.015)
     AddToMaterialTable("blood_fading_slow" , 0.015)
@@ -87,7 +87,7 @@ end
 
         The other two are both types of Finnish Holiday Mead that only show up in game
         on their specific holdiays.
-    ]]--
+    ]]
     AddToMaterialTable("alcohol" , 0.012)
     AddToMaterialTable("sima" , 0.016)
     AddToMaterialTable("juhannussima" , 0.016)
@@ -96,7 +96,7 @@ end
         PREPARED FOOD
 
         This only includes the two items right now. Not much prepared food in Noita
-    ]]--
+    ]]
     AddToMaterialTable("porridge" , 0.250)
     AddToMaterialTable("pea_soup" , 0.250)
 
@@ -105,7 +105,7 @@ end
         
         Ambrosia is an emetic and has no benefits taken orally so it may as well pay
         out a bit of healing in the short time its in your tum
-    ]]--
+    ]]
     AddToMaterialTable("magic_liquid_protection_all" , 0.060)
 
     --[[
@@ -113,7 +113,7 @@ end
 
         The player will probably puke these up before long but its worth being thorough
         and having a punishment for the brief time they were in Mina's tummy.
-    ]]--
+    ]]
     AddToMaterialTable("vomit" , -0.080)
     AddToMaterialTable("poison" , -0.100)
     AddToMaterialTable("urine" , -0.010)
@@ -129,7 +129,7 @@ end
         The numbers in this table are super suspect. I can't do any better
         because it is based on generic tags to try and match mod content
         or any I was too lazy to make into specific material matches
-]]--
+]]
 
 local GenericTagsTable = {
     ["[food]"] = 0.080,
@@ -154,7 +154,7 @@ local GenericTagsTable = {
     With this beauty we don't look up the same material twice in a game session.
     Since each lookup in the generic table can be up to 10+ iterations of the
     whole generic table this saves a bit of overhead
-]]--
+]]
 
 local GenericMaterialCache = {
 

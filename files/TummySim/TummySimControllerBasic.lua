@@ -4,11 +4,11 @@ local Controller = dofile_once("mods/AdventureMode/files/TummySim/ModuleBasicCon
 local Updater = dofile_once("mods/AdventureMode/files/TummySim/ModuleContextUpdater.lua")
 dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
 
-function damage_received( damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible)
+function damage_received(damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible)
     Context.HealBlocker:BlockHealing()
 end
 
-function wand_fired( gun_entity_id )
+function wand_fired(gun_entity_id)
     Context.HealBlocker:BlockHealing()
 end
 

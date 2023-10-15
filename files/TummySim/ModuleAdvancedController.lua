@@ -51,14 +51,13 @@ end
 
 --Initialize HealthStorage context for modules
 local HealthStorage = {
-    StoredHealing=ReadVariableStorage(),
+    StoredHealing = ReadVariableStorage(),
     ParentContext = nil,
 }
 
 ---@param Self table
 ---@param Amount integer
 function HealthStorage.ModifyStoredHealth(Self, Amount)
-
     if (Amount == nil) then
         This:ModPrint("Amount is nil", 4)
         return
@@ -80,7 +79,6 @@ end
 
 ---@param Context table
 function This.Tick(Context)
-
     --Prepare context
     Context.Health = HealthStorage
     Context.Health.ParentContext = Context

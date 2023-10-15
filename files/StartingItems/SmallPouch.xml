@@ -13,30 +13,35 @@
     auto_clean="0"
     on_death_leave_physics_body="1"
     hax_fix_going_through_ground="1"
-  ></PhysicsBodyComponent>
+  >
+  </PhysicsBodyComponent>
 
   <PhysicsImageShapeComponent
     body_id="1"
     centered="1"
     image_file="data/items_gfx/pouch.png"
     material="cloth_box2d"
-  ></PhysicsImageShapeComponent>
+  >
+  </PhysicsImageShapeComponent>
 
   <PhysicsThrowableComponent
     max_throw_speed="180"
     throw_force_coeff="1.5"
-  ></PhysicsThrowableComponent>
+  >
+  </PhysicsThrowableComponent>
 
   <ProjectileComponent
     _tags="enabled_in_world"
     lifetime="-1"
     penetrate_entities="1"
     collide_with_entities="0"
-  ></ProjectileComponent>
+  >
+  </ProjectileComponent>
 
   <VelocityComponent
     _tags="enabled_in_world"
-  ></VelocityComponent>
+  >
+  </VelocityComponent>
 
   <!--
 	<LuaComponent 
@@ -50,7 +55,8 @@
     spray_velocity_coeff="75"
     spray_velocity_normalized_min="0.75"
     never_color="1"
-  ></PotionComponent>
+  >
+  </PotionComponent>
 
   <MaterialSuckerComponent
     _tags="enabled_in_world,enabled_in_hand"
@@ -61,7 +67,8 @@
     randomized_position.max_x="4"
     randomized_position.min_y="-2"
     randomized_position.max_y="7"
-  ></MaterialSuckerComponent>
+  >
+  </MaterialSuckerComponent>
 
   <MaterialInventoryComponent
     _tags="enabled_in_world,enabled_in_hand"
@@ -70,7 +77,8 @@
     leak_pressure_min="0.07"
     leak_on_damage_percent="1"
     min_damage_to_leak="0.0"
-    death_throw_particle_velocity_coeff="0.5">
+    death_throw_particle_velocity_coeff="0.5"
+  >
     <count_per_material_type>
     </count_per_material_type>
   </MaterialInventoryComponent>
@@ -92,14 +100,16 @@
     materials_how_much_damage="0.001"
     ragdoll_filenames_file=""
     ragdoll_material=""
-  ></DamageModelComponent>
+  >
+  </DamageModelComponent>
 
   <ExplodeOnDamageComponent
     _tags="enabled_in_world"
     explode_on_death_percent="1"
     explode_on_damage_percent="0"
     physics_body_destruction_required="0.51"
-    physics_body_modified_death_probability="1">
+    physics_body_modified_death_probability="1"
+    >
     <config_explosion
       never_cache="0"
       damage="0"
@@ -119,7 +129,8 @@
       sparks_enabled="1"
       spark_material="wood_prop"
       stains_enabled="1"
-      stains_radius="8">
+      stains_radius="8"
+    >
     </config_explosion>
   </ExplodeOnDamageComponent>
 
@@ -131,7 +142,8 @@
     offset_x="4"
     offset_y="4"
     image_file="data/items_gfx/material_pouch.png"
-  ></SpriteComponent>
+  >
+  </SpriteComponent>
 
   <ItemComponent
     _tags="enabled_in_world"
@@ -143,7 +155,8 @@
     ui_description="A small pouchette for carrying materials"
     preferred_inventory="QUICK"
     drinkable="0"
-  ></ItemComponent>
+  >
+  </ItemComponent>
 
   <AbilityComponent
     ui_name="$small_pouch_with_material"
@@ -151,12 +164,14 @@
   >
     <gun_config
       deck_capacity="0"
-    ></gun_config>
+    >
+    </gun_config>
   </AbilityComponent>
 
   <UIInfoComponent
     _tags="enabled_in_world"
-    name="">
+    name=""
+  >
   </UIInfoComponent>
 
   <SpriteParticleEmitterComponent
@@ -186,21 +201,24 @@
     randomize_velocity.max_x="30"
     randomize_velocity.min_y="-30"
     randomize_velocity.max_y="30"
-    velocity_always_away_from_center="1">
+    velocity_always_away_from_center="1"
+  >
   </SpriteParticleEmitterComponent>
 
   <AudioLoopComponent
     _tags="sound_spray,enabled_in_world,enabled_in_hand"
     file="data/audio/Desktop/materials.bank"
     event_name="materials/spray_powder"
-    volume_autofade_speed="0.1">
+    volume_autofade_speed="0.1"
+  >
   </AudioLoopComponent>
 
   <AudioComponent
     _tags="enabled_in_world"
     file="data/audio/Desktop/materials.bank"
     event_root="collision/wood_crate"
-    set_latest_event_position="1">
+    set_latest_event_position="1"
+  >
   </AudioComponent>
 
 </Entity>

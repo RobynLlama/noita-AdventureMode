@@ -31,7 +31,7 @@ function GetComponentByName(Entity, ComponentType, ComponentName)
     end
 
     for _, Comp in pairs(Components) do
-        if (ComponentGetValue2( Comp, "name" ) == ComponentName) then
+        if (ComponentGetValue2(Comp, "name") == ComponentName) then
             return Comp
         end
     end

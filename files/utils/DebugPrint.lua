@@ -8,7 +8,7 @@ Licensing:
 
 	See the full legal code here:
 	https://www.creativecommons.org/licenses/by-nc/4.0/legalcode.en
-]]--
+]]
 
 local LogLevel = 1
 
@@ -38,9 +38,9 @@ function dPrint(message, from, level)
 
 	if (level > DEBUG_PRINT - 1) then
 		if (level > 0) then
-			print(MODULE_TAG..Levels[level]..from.." > "..message)
+			print(MODULE_TAG .. Levels[level] .. from .. " > " .. message)
 		else
-			print(MODULE_TAG..from.." > "..message)
+			print(MODULE_TAG .. from .. " > " .. message)
 		end
 	end
 end

@@ -31,7 +31,6 @@ end
 ---@param ObjName string
 ---@return table
 function ThisFactory.New(ObjName)
-
     local NewObject = {}
 
     --Setup Members

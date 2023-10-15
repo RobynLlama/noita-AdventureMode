@@ -7,7 +7,6 @@ dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
         UpdateNext
         UpdateEvery
 
-
     Methods
         Tick
         TickOnTimer
@@ -39,7 +38,6 @@ end
 ---@param ObjName string
 ---@return table
 function ThisFactory.New(ObjName, Ticks)
-
     --Give access to our parent
     local NewObject = BaseObj.New(ObjName)
 

@@ -9,7 +9,6 @@ local This = BaseModule.New("NourishmentIconController", 10)
 
 ---@param Context table
 function This.Tick(Context)
-
     local Icon = GetComponentByName(GetUpdatedEntityID(), "UIIconComponent", "Nourishment")
 
     --UIManagement
@@ -44,7 +43,7 @@ function This.Tick(Context)
 
     --Update description
     local FormattedAmount = string.format("%.1f", Context.Health.StoredHealing)
-    ComponentSetValue2(Icon, "description", "Nourishment"..IconName.."\nStored: "..FormattedAmount)
+    ComponentSetValue2(Icon, "description", "Nourishment" .. IconName .. "\nStored: " .. FormattedAmount)
 end
 
 return This

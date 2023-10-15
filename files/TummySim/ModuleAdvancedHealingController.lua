@@ -19,7 +19,6 @@ end
 
 ---@param Context table
 function This.Tick(Context)
-
     --Check if we're healblocked
     if (Context.HealBlocker:IsHealingBlocked()) then
         return
@@ -64,11 +63,10 @@ function This.Tick(Context)
     local HealingPerPoint = GetHealingPerPoint(HealthMax, Context)
     local ThisHealingCost = (HealthMax * 25 * ThisHealPercent) / HealingPerPoint
 
-    This:ModPrint("Healing per point: "..tostring(HealingPerPoint), 1)
-    This:ModPrint("Healing cost: "..tostring(ThisHealingCost), 1)
+    This:ModPrint("Healing per point: " .. tostring(HealingPerPoint), 1)
+    This:ModPrint("Healing cost: " .. tostring(ThisHealingCost), 1)
 
     if (ThisHealingCost > Context.Health.StoredHealing) then
-
         ThisHealingCost = Context.Health.StoredHealing
         if (ThisHealingCost < 0.25) then
             This:ModPrint("Skipping heal, too low", 1)
@@ -78,14 +76,13 @@ function This.Tick(Context)
 
     local ThisHealTotal = ThisHealingCost * HealingPerPoint
 
-    This:ModPrint("Doing heal for "..tostring(ThisHealTotal), 1)
+    This:ModPrint("Doing heal for " .. tostring(ThisHealTotal), 1)
 
     --Perform the heal
     heal_entity(Player, ThisHealTotal / 25)
 
     --Pay for the heal
     Context.Health:ModifyStoredHealth(-ThisHealingCost)
-
 end
 
 return This

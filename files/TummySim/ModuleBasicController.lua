@@ -22,13 +22,13 @@ function This.Tick(Context)
     --Settings
     --Default max tummy size is 7500 so this is 1%
     local SatietyCostForEachPercent = Settings.SatietyCostForEachPercent
-    local MaxHealthRestoredPerFrame = Settings.MaxHealthRestoredPerFrame/100
+    local MaxHealthRestoredPerFrame = Settings.MaxHealthRestoredPerFrame / 100
 
     --Cost tracking
     local ThisHealPercent = 0.0
     local ThisSatCost = 0.0
 
-    This:ModPrint("Tick on frame "..tostring(GameGetFrameNum()), 1)
+    This:ModPrint("Tick on frame " .. tostring(GameGetFrameNum()), 1)
 
     --Check if Tummy or HealthStatus is missing
     if (Tummy == nil) or (HealthStatus == nil) then
@@ -64,7 +64,7 @@ function This.Tick(Context)
         return
     end
 
-    This:ModPrint("Doing heal for "..tostring(ThisHealPercent).. " for "..tostring(ThisSatCost).." satiation", 1)
+    This:ModPrint("Doing heal for " .. tostring(ThisHealPercent) .. " for " .. tostring(ThisSatCost) .. " satiation", 1)
 
     --Perform the heal
     heal_entity(Player, HealthMax * ThisHealPercent)

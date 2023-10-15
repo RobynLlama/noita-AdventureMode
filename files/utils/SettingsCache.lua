@@ -19,9 +19,7 @@ function Cache.UpdateCache()
     Cache.NewSpells = ModSettingGet("AdventureMode.Adventure_NewSpells")
     
     --Tummy Type Change detection
-    local NewTummy = ModSettingGet("AdventureMode.TummySimType")
-    Cache.TummyChanged = not (Cache.TummyType == NewTummy)
-    Cache.TummyType = NewTummy
+    Cache.TummyType = ModSettingGet("AdventureMode.TummySimType")
 
     Cache.HealBlockFrames = tonumber(ModSettingGet("AdventureMode.RegenHealBlockFrames"))
     Cache.HealBlockFrames = math.floor(Cache.HealBlockFrames + 0.5)

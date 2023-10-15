@@ -10,8 +10,9 @@ Licensing:
 	https://www.creativecommons.org/licenses/by-nc/4.0/legalcode.en
 ]]--
 
-dofile_once("mods/AdventureMode/files/DebugPrint.lua")
-local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
+dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
+dofile_once("mods/AdventureMode/files/utils/ComponentUtils.lua")
+local Settings = dofile_once("mods/AdventureMode/files/utils/SettingsCache.lua")
 
 -- all functions below are optional and can be left out
 --[[
@@ -46,74 +47,33 @@ end
 
 ]]--
 
---Update the tummy controller
-function CreateOrUpdateTummyController()
+--Add a new controller
+function AddTummyController()
 
 	local Player = EntityGetWithTag( "player_unit" )[1]
 
-	--Fetch controllers for checking
-	local TummyController = EntityGetFirstComponent(Player, "LuaComponent", "TummySimController")
-	local Icon = EntityGetFirstComponentIncludingDisabled(Player, "UIIconComponent", "NourishIcon")
-	local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", "HungryStorageComponent")
-
-	dPrint("SimType="..tostring(Settings.TummyType), "UpdateTummyController", 1)
-
-	function ClearControllerComponents(ClearController, ClearIcon, ClearStorage)
-		
-		---@param Component integer?
-		---@param Clear boolean
-		function RemoveIfExists(Component, Clear)
-
-			--Short out of we're not actually clearing this item
-			if (not Clear) then
-				return
-			end
-			if (Component ~= nil) then
-				EntityRemoveComponent(Player, Component)
-			end
-		end
-
-		RemoveIfExists(TummyController, ClearController)
-		RemoveIfExists(Icon, ClearIcon)
-		RemoveIfExists(Storage, ClearStorage)
-	end
-
-	---@param Entity string
-	function AddControllerNew(Entity)
-		EntityLoadToEntity(Entity, Player)
-	end
-
-	---@param StorageEnt string
-	---@param StorageTag string
-	function AddStorage(StorageEnt, StorageTag)
-		local ent = EntityGetFirstComponent(Player, "VariableStorageComponent", StorageTag)
-
-		if (ent == nil) then
-			EntityLoadToEntity(StorageEnt, Player)
-		end
+	---@param EntityFile string
+	function AddController(EntityFile)
+		EntityLoadToEntity(EntityFile, Player)
 	end
 
 	local States = {
-		["OFF"] = function() ClearControllerComponents(true, true, true) end,
-		["BAS"] = function() ClearControllerComponents(true, true, false) AddControllerNew("mods/AdventureMode/files/TummySim/TummyControllerBasic.xml") end,
-		["ADV"] = function() ClearControllerComponents(true, true, false) AddStorage("mods/AdventureMode/files/TummySim/TummyAdvancedStorage.xml", "HungryStorageComponent") AddControllerNew("mods/AdventureMode/files/TummySim/TummyControllerAdvanced.xml") end
+		["OFF"] = function() end,
+		["BAS"] = function() AddController("mods/AdventureMode/files/TummySim/TummyControllerBasic.xml") end,
+		["ADV"] = function() AddController("mods/AdventureMode/files/TummySim/TummyControllerAdvanced.xml") end
 	}
 
 	States[Settings.TummyType]()
-	Settings.TummyChanged = false
 end
 
 --Send an update signal to the component hosting our controller
 function SendUpdateSignal()
 
 	local Player = EntityGetWithTag( "player_unit" )[1]
-	TummyController = EntityGetFirstComponent(Player, "LuaComponent", "TummySimController")
-
-	if (TummyController ~= nil) then
-		--Flick the lights, as it were
-		dPrint("Sending signal", "SendUpdateSignal", 1)
-		EntitySetComponentIsEnabled(Player, TummyController, false)
-		EntitySetComponentIsEnabled(Player, TummyController, true)
+	local UpdateComponent = GetComponentByName(Player, "VariableStorageComponent", "TummySim_NeedsUpdating")
+	if (UpdateComponent) then
+		ComponentSetValue2(UpdateComponent, "value_bool", true)
+		dPrint("Signal sent", "SendUpdateSignal", 5)
 	end
 end
 
@@ -122,23 +82,17 @@ function OnPausedChanged( is_paused, is_inventory_pause)
 	--If the player is unpausing
 	if (not is_paused) then
 		Settings.UpdateCache()
-		
-		if (Settings.TummyChanged) then
-			CreateOrUpdateTummyController()
-		end
-
 		SendUpdateSignal()
 	end
 end
 
 function OnPlayerSpawned(player_entity)
-	dPrint("Frame: "..tostring(GameGetFrameNum()), "Init", 1)
-
-	CreateOrUpdateTummyController()
-
 	--This is the sloppy way I check if we're at the start of a run
 	--Always seems to start at frame 10 when I try so we'll see
 	if (GameGetFrameNum() < 12) then
+
+		dPrint("Adding Tummy Controller ", "Init", 5)
+		AddTummyController()
 
 		---@param ItemEntity string
 		function AddStartingItem(ItemEntity)
@@ -156,11 +110,15 @@ function OnPlayerSpawned(player_entity)
 		end
 
 		--Set starting nourishment
-		local Storage = EntityGetFirstComponent(player_entity, "VariableStorageComponent", "HungryStorageComponent")
-		if (Storage ~= nil) then
-			dPrint("MaxNourishment is "..tostring(Settings.MaxNourishment), "Init", 1)
-			dPrint("StartNourishment is "..tostring(Settings.StartingNourshment), "Init", 1)
-			ComponentSetValue2(Storage, "value_float", Settings.StartingNourshment * Settings.MaxNourishment)
+		if (Settings.TummyType == "ADV") then
+
+			local Storage = GetComponentByName(player_entity, "VariableStorageComponent", "AdvTummySim_StoredHealing")
+			if (Storage ~= nil) then
+				dPrint("MaxNourishment is "..tostring(Settings.MaxNourishment), "Init", 1)
+				dPrint("StartNourishment is "..tostring(Settings.StartingNourshment), "Init", 1)
+				ComponentSetValue2(Storage, "value_float", Settings.StartingNourshment * Settings.MaxNourishment)
+			end	
+			
 		end
 	end
 	

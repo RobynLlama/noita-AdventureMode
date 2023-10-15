@@ -1,3 +1,5 @@
+dofile_once("mods/AdventureMode/files/utils/ComponentUtils.lua")
+
 --Private vars
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
 
@@ -11,18 +13,18 @@ local IconController = dofile_once("mods/AdventureMode/files/TummySim/ModuleAdva
 
 ---@return number
 local function ReadVariableStorage()
-    local tag = "HungryStorageComponent"
+    local name = "AdvTummySim_StoredHealing"
     local Player = GetUpdatedEntityID()
-    local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", tag)
+    local Storage = GetComponentByName(Player, "VariableStorageComponent", name)
     if (Storage == nil) then
-        This:ModPrint("Unable to load player storage", 4)
+        This:ModPrint("Unable to load healing storage", 4)
         return 0
     end
 
     local Value = ComponentGetValue2(Storage, "value_float")
 
     if (Value == nil) then
-        This:ModPrint("Unable to read value from storage", 4)
+        This:ModPrint("Unable to read value from healing storage", 4)
         return 0
     end
 
@@ -31,16 +33,16 @@ end
 
 ---@param Value number
 local function WriteVariableStorage(Value)
-    local tag = "HungryStorageComponent"
+    local name = "AdvTummySim_StoredHealing"
     local Player = GetUpdatedEntityID()
-    local Storage = EntityGetFirstComponent(Player, "VariableStorageComponent", tag)
+    local Storage = GetComponentByName(Player, "VariableStorageComponent", name)
 
     if (Value == nil) then
         This:ModPrint("Nil value passed in WriteVariableStorage", 3)
         return
     end
     if (Storage == nil) then
-        This:ModPrint("Unable to load player storage for writing", 4)
+        This:ModPrint("Unable to load healing storage for writing", 4)
         return
     end
 

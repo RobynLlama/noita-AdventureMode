@@ -2,7 +2,7 @@ dofile_once("data/scripts/game_helpers.lua")
 
 --Private vars
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
-local Settings = dofile_once("mods/AdventureMode/files/SettingsCache.lua")
+local Settings = dofile_once("mods/AdventureMode/files/utils/SettingsCache.lua")
 
 --Init new module
 local This = BaseModule.New("TummySimBasicController", 120)

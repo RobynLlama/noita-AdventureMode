@@ -1,13 +1,17 @@
-<Entity>
+<Entity name="TummySim">
 
     <LuaComponent
         script_source_file="mods/AdventureMode/files/TummySim/TummySimControllerBasic.lua"
         execute_every_n_frame="2"
         script_damage_received="mods/AdventureMode/files/TummySim/TummySimControllerBasic.lua"
         script_wand_fired="mods/AdventureMode/files/TummySim/TummySimControllerBasic.lua"
-        script_enabled_changed="mods/AdventureMode/files/TummySim/TummySimControllerBasic.lua"
-        _tags="TummySimController"
     >
     </LuaComponent>
+
+    <VariableStorageComponent
+        name="TummySim_NeedsUpdating"
+        value_bool="0"
+    >
+    </VariableStorageComponent>
 
 </Entity>

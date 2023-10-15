@@ -73,7 +73,7 @@ function SendUpdateSignal()
 	local UpdateComponent = GetComponentByName(Player, "VariableStorageComponent", "TummySim_NeedsUpdating")
 	if (UpdateComponent) then
 		ComponentSetValue2(UpdateComponent, "value_bool", true)
-		dPrint("Signal sent", "SendUpdateSignal", 5)
+		dPrint("Signal sent", "SendUpdateSignal", 1)
 	end
 end
 
@@ -91,7 +91,7 @@ function OnPlayerSpawned(player_entity)
 	--Always seems to start at frame 10 when I try so we'll see
 	if (GameGetFrameNum() < 12) then
 
-		dPrint("Adding Tummy Controller ", "Init", 5)
+		dPrint("Adding Tummy Controller ", "Init", 1)
 		AddTummyController()
 
 		---@param ItemEntity string

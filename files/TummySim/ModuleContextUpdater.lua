@@ -16,7 +16,7 @@ function This.Tick(Context)
         NeedsUpdating = ComponentGetValue2(UpdateComponent, "value_bool")
 
         if (NeedsUpdating) then
-            This:ModPrint("Updating Context", 5)
+            This:ModPrint("Updating Context", 1)
             Context.Settings.UpdateCache()
             ComponentSetValue2(UpdateComponent, "value_bool", false)
         end

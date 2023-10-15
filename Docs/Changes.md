@@ -9,6 +9,14 @@
     *  Fixed a serious issue in Version-4 that would overwrite the player's nourishment value with nil if it ever hit maximum.
     *  Lots of housekeeping with the intent to remove all new entity and component tags that weren't 100% mission critical.
 
+### Version 5
+* Added or updated in this patch:
+    #### Removed Features
+    *  No longer possible to switch simulation types mid save. Simulation scripts will only be added to the player at the start of a game, as well. It was becoming too much work to support switching while adding features.
+    #### Bugfixes / Small Changes
+    *  Fixed a serious issue in Version-4 that would overwrite the player's nourishment value with nil if it ever hit maximum.
+    *  Lots of housekeeping with the intent to remove all new entity and component tags that weren't 100% mission critical.
+
 ### Update Oct-14-23#1
 * Added or updated in this patch:
     #### New Features

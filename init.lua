@@ -94,16 +94,20 @@ function OnPlayerSpawned(player_entity)
 		---@param ItemEntity string
 		function AddStartingItem(ItemEntity)
 			local Item = EntityLoad(ItemEntity)
-			GamePickUpInventoryItem(player_entity, Item, true)
+			local Inventory = GetChildByName(player_entity, "inventory_quick")
+
+			if (Inventory) then
+				EntityAddChild(Inventory, Item)
+			end
 		end
 
 		--Powder bag starting item
 		if (Settings.StartWithPouch) then
-			AddStartingItem("mods/AdventureMode/files/StartingItems/RandomSmallPouch.xml")
+			AddStartingItem("mods/AdventureMode/files/Items/RandomSmallPouch.xml")
 		end
 
 		if (Settings.StartWithMeal) then
-			AddStartingItem("mods/AdventureMode/files/StartingItems/Meal.xml")
+			AddStartingItem("mods/AdventureMode/files/Items/Meal.xml")
 		end
 
 		--Set starting nourishment
@@ -125,6 +129,10 @@ end
 if (Settings.NewSpells) then
 	ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/AdventureMode/files/Spells/GunActionsAppends.lua")
 end
+
+--Potion/Pouch append
+ModLuaFileAppend("data/scripts/items/powder_stash.lua", "mods/AdventureMode/files/utils/PotionVariableCapacity.lua")
+ModLuaFileAppend("data/scripts/items/potion.lua", "mods/AdventureMode/files/utils/PotionVariableCapacity.lua")
 
 --Translations
 local TRANSLATIONS_FILE = "data/translations/common.csv"

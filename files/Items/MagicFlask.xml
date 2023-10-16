@@ -1,0 +1,67 @@
+<Entity tags="projectile_player">
+  <Base file="data/entities/items/pickup/potion.xml">
+    <ProjectileComponent
+      _tags="enabled_in_world"
+      speed_min="10"
+      speed_max="15"
+      muzzle_flash_file="data/entities/particles/poof_white_appear.xml"
+      do_moveto_update="false"
+      lifetime="-1"
+      penetrate_entities="1"
+    >
+    </ProjectileComponent>
+
+    <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="mods/AdventureMode/files/Items/img/MagicFlask_Normals.png"
+    material="potion_glass_box2d"
+  ></PhysicsImageShapeComponent>
+
+    <MaterialSuckerComponent
+      _tags="enabled_in_world,enabled_in_hand"
+      barrel_size="1000"
+      num_cells_sucked_per_frame="0"
+    >
+    </MaterialSuckerComponent>
+
+      <SpriteComponent
+      _tags="enabled_in_hand"
+      _enabled="0"
+      offset_x="4"
+      offset_y="4"
+      image_file="mods/AdventureMode/files/Items/img/MagicFlask.png"
+    >
+    </SpriteComponent>
+
+    <ItemComponent
+      _tags="enabled_in_world"
+      item_name="$magic_flask"
+      max_child_items="0"
+      is_pickable="1"
+      is_equipable_forced="1"
+      ui_sprite="mods/AdventureMode/files/Items/img/MagicFlask_UI.png"
+      ui_description="$magic_flask_desc"
+      preferred_inventory="QUICK"
+    >
+    </ItemComponent>
+
+    <AbilityComponent
+      ui_name="$magic_flask_with_material"
+      throw_as_item="1"
+    >
+      <gun_config
+        deck_capacity="0"
+      >
+      </gun_config>
+    </AbilityComponent>
+  </Base>
+
+  <LuaComponent
+    execute_on_added="1"
+    remove_after_executed="1"
+    script_source_file="mods/AdventureMode/files/utils/RemovePotionEffect.lua"
+  >
+  </LuaComponent>
+
+</Entity>

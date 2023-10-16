@@ -1,0 +1,53 @@
+<Entity tags="hittable,teleportable_NOT,item_physics,item_pickup">
+  <Base file="data/entities/items/pickup/powder_stash.xml">
+
+    <PhysicsImageShapeComponent
+      image_file="data/items_gfx/pouch.png"
+    >
+    </PhysicsImageShapeComponent>
+
+    <MaterialSuckerComponent
+      barrel_size="500"
+    >
+    </MaterialSuckerComponent>
+
+    <ItemComponent
+      _tags="enabled_in_world"
+      item_name="$small_pouch"
+      max_child_items="0"
+      is_pickable="1"
+      is_equipable_forced="1"
+      ui_sprite="data/ui_gfx/items/material_pouch.png"
+      ui_description="$small_pouch_desc"
+      preferred_inventory="QUICK"
+      drinkable="0"
+    >
+    </ItemComponent>
+
+    <AbilityComponent
+      ui_name="$small_pouch_with_material"
+      throw_as_item="1"
+    >
+      <gun_config
+        deck_capacity="0"
+      >
+      </gun_config>
+    </AbilityComponent>
+
+  </Base>
+
+  <!-- value_bool controls if we delete the existing material or not -->
+  <VariableStorageComponent
+		name="potion_material"
+    value_bool="1"
+	>
+	</VariableStorageComponent>
+
+  <LuaComponent
+    execute_on_added="1"
+    remove_after_executed="1"
+    script_source_file="mods/AdventureMode/files/utils/RemovePotionEffect.lua"
+  >
+  </LuaComponent>
+
+</Entity>

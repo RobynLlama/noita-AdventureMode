@@ -25,7 +25,7 @@ table.insert(actions,
     {
         id                  = "ADV_SUMMON_SNACK",
         name                = "Summon Snack",
-        description         = "Summons a tasty snack to fill your belly. Magic Flasks cannot be refilled.",
+        description         = "Summons a tasty snack to fill your belly. Eat it before it disappears!",
         sprite              = "mods/AdventureMode/files/Spells/img/summon_snack.png",
         sprite_unidentified = "data/ui_gfx/gun_actions/rocket_unidentified.png",
         related_projectiles = { "mods/AdventureMode/files/Spells/SummonedSnack.xml" },
@@ -36,7 +36,7 @@ table.insert(actions,
         mana                = 100,
         max_uses            = 5,
         action              = function()
-            add_projectile("mods/AdventureMode/files/Spells/SummonedSnack.xml")
+                        add_projectile("mods/AdventureMode/files/Spells/SummonedSnack.xml")
         end,
     }
 )
@@ -46,7 +46,7 @@ table.insert(actions,
     {
         id                  = "ADV_SUMMON_FEAST",
         name                = "Summon Sumptuous Feast",
-        description         = "Summons a hearty meal to stop the rumbling in your tummy. Magic Flasks cannot be refilled.",
+        description         = "Summons a hearty meal to stop the rumbling in your tummy. Eat it before it disappears!",
         sprite              = "mods/AdventureMode/files/Spells/img/summon_feast.png",
         sprite_unidentified = "data/ui_gfx/gun_actions/rocket_unidentified.png",
         related_projectiles = { "mods/AdventureMode/files/Spells/SummonedFeast.xml" },

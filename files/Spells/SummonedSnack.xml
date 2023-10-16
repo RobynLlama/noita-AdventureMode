@@ -6,4 +6,11 @@
 		value_float="300"
 	>
 	</VariableStorageComponent>
+
+	<LifetimeComponent
+		_tags="enabled_in_world,enabled_in_hand,enabled_in_inventory"
+		lifetime="600"
+	>
+	</LifetimeComponent>
+
 </Entity>

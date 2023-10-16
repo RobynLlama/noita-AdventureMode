@@ -21,7 +21,8 @@
         "ACTION_TYPE_MATERIAL",
         "add_projectile",
         "actions",
-        "ACTION_TYPE_UTILITY"
+        "ACTION_TYPE_UTILITY",
+        "ACTION_TYPE_OTHER"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global"

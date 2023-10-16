@@ -1,22 +1,11 @@
-<Entity tags="projectile_player">
+<Entity>
   <Base file="data/entities/items/pickup/potion.xml">
-    <ProjectileComponent
-      _tags="enabled_in_world"
-      speed_min="10"
-      speed_max="15"
-      muzzle_flash_file="data/entities/particles/poof_white_appear.xml"
-      do_moveto_update="false"
-      lifetime="-1"
-      penetrate_entities="1"
-    >
-    </ProjectileComponent>
-
-    <PhysicsImageShapeComponent 
-    body_id="1"
-    centered="1"
-    image_file="mods/AdventureMode/files/Items/img/MagicFlask_Normals.png"
-    material="potion_glass_box2d"
-  ></PhysicsImageShapeComponent>
+    <PhysicsImageShapeComponent
+      body_id="1"
+      centered="1"
+      image_file="mods/AdventureMode/files/Items/img/MagicFlask_Normals.png"
+      material="potion_glass_box2d"
+    ></PhysicsImageShapeComponent>
 
     <MaterialSuckerComponent
       _tags="enabled_in_world,enabled_in_hand"
@@ -25,7 +14,7 @@
     >
     </MaterialSuckerComponent>
 
-      <SpriteComponent
+    <SpriteComponent
       _tags="enabled_in_hand"
       _enabled="0"
       offset_x="4"

@@ -1,0 +1,14 @@
+<Entity tags="projectile_player">
+    <Base file="mods/AdventureMode/files/Items/MagicFlask.xml">
+        <ProjectileComponent
+            _tags="enabled_in_world"
+            speed_min="10"
+            speed_max="15"
+            muzzle_flash_file="data/entities/particles/poof_white_appear.xml"
+            do_moveto_update="false"
+            lifetime="-1"
+            penetrate_entities="1"
+        >
+        </ProjectileComponent>
+    </Base>
+</Entity>

@@ -3,7 +3,7 @@
 	<VariableStorageComponent
 		name="potion_material"
 		value_string="pea_soup"
-		value_float="500"
+		value_float="150"
 	>
 	</VariableStorageComponent>
 </Entity>

@@ -77,7 +77,7 @@ mod_settings =
 				"Basic\n    Only considers if the player has anything in the\n    tummy for healing\nAdvanced\n    Demands a more healthy lifestyle with per-material\n    rules",
 				value_default = "BAS",
 				values = { { "OFF", "Disabled" }, { "BAS", "Basic" }, { "ADV", "Advanced" } },
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
 			},
 			{
 				id = "RegenHealBlockFrames",

@@ -36,6 +36,10 @@ function dPrint(message, from, level)
 		return
 	end
 
+	if (level == nil) then
+		print(string.format("Invalid level sent by %s", from))
+	end
+
 	if (level > DEBUG_PRINT - 1) then
 		if (level > 0) then
 			print(MODULE_TAG .. Levels[level] .. from .. " > " .. message)

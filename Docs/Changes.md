@@ -1,6 +1,19 @@
 # Adventure Mode Changelog
 ### Note: not all updates get releases
 
+### Update:Next (Todo: Name update/release)
+* Added or updated in this patch:
+  #### New Features
+    *  New type of item: Wonderous Item. These are equippable items that give perk-like effects. Mina has 6 slots to equip Wonderous Items to: Head, Body, Feet, Hands, Outer Body and Finery.
+    *  New Wonderous Item: Boots of Leaping. Gives Mina's running jump a bit of extra oomph when equipped.
+  #### Removed Features
+    *  (Space Reserved)
+    #### Bugfixes / Small Changes
+    *  Starting small meal item now only contains 150 units of pea soup.
+    *  All summoned meals now finally have a working timed life component and will disappear after 10 seconds, so eat up.
+    *  Tons of code cleanup around the object system and finally scrapping the way New() worked for meta tables.
+    *  Once again possible to switch simulation type mid-save. The object/module rewrite drastically reduced the burden to maintain this feature.
+
 ### Update Oct-15-23#1
 * Added or updated in this patch:
     #### Removed Features

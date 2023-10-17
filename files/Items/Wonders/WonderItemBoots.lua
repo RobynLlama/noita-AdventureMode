@@ -10,7 +10,7 @@ local DefaultJumpY = -95.0
 local EnhancedJumpX = 250.0
 local EnhancedJumpY = -190.0
 
-function This:OnEquip(_, Entity)
+function This.OnEquip(_, Entity)
     local Comp = EntityGetFirstComponent(Entity, "CharacterPlatformingComponent")
 
     if (Comp) then
@@ -20,7 +20,7 @@ function This:OnEquip(_, Entity)
     This.Parent.OnEquip(This, Entity)
 end
 
-function This:OnUnEquip(_, Entity)
+function This.OnUnEquip(_, Entity)
     local Comp = EntityGetFirstComponent(Entity, "CharacterPlatformingComponent")
 
     if (Comp) then

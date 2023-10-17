@@ -114,6 +114,9 @@ if (Settings.NewSpells) then
 	ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/AdventureMode/files/Spells/GunActionsAppends.lua")
 end
 
+--Spawnlist append
+ModLuaFileAppend("data/scripts/item_spawnlists.lua", "mods/AdventureMode/files/Items/spawnlist_append.lua")
+
 --Potion/Pouch append
 ModLuaFileAppend("data/scripts/items/powder_stash.lua", "mods/AdventureMode/files/utils/PotionVariableCapacity.lua")
 ModLuaFileAppend("data/scripts/items/potion.lua", "mods/AdventureMode/files/utils/PotionVariableCapacity.lua")

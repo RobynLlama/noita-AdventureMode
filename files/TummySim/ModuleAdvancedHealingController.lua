@@ -18,7 +18,7 @@ function GetHealingPerPoint(MaxLife, Context)
 end
 
 ---@param Context table
-function This.Tick(Context)
+function This.Tick(_, Context)
     --Check if we're healblocked
     if (Context.HealBlocker:IsHealingBlocked()) then
         return

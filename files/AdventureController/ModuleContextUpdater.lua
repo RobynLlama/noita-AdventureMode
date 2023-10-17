@@ -7,10 +7,10 @@ local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lu
 local This = BaseModule.New("ContextUpdater", 30)
 
 ---@param Context table
-function This.Tick(Context)
+function This.Tick(_, Context)
     --Check if we need updating
     local Self = GetUpdatedEntityID()
-    local UpdateComponent = GetComponentByName(Self, "VariableStorageComponent", "TummySim_NeedsUpdating")
+    local UpdateComponent = GetComponentByName(Self, "VariableStorageComponent", "AdventureController_NeedsUpdating")
 
     if (UpdateComponent) then
         NeedsUpdating = ComponentGetValue2(UpdateComponent, "value_bool")

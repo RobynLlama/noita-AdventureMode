@@ -1,0 +1,18 @@
+<Entity>
+
+    <LuaComponent
+        script_source_file = "mods/AdventureMode/files/AdventureController/AdventureController.lua"
+        execute_on_added = "1"
+        execute_every_n_frame = "2"
+        call_init_function = "1"
+        script_damage_received = "mods/AdventureMode/files/AdventureController/AdventureController.lua"
+        script_wand_fired = "mods/AdventureMode/files/AdventureController/AdventureController.lua"
+    >
+    </LuaComponent>
+
+    <VariableStorageComponent
+        name = "AdventureController_NeedsUpdating"
+        value_bool = "0"
+    >
+    </VariableStorageComponent>
+</Entity>

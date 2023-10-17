@@ -47,28 +47,10 @@ end
 
 ]]
 
---Add a new controller
-function AddTummyController()
-	local Player = EntityGetWithTag("player_unit")[1]
-
-	---@param EntityFile string
-	function AddController(EntityFile)
-		EntityLoadToEntity(EntityFile, Player)
-	end
-
-	local States = {
-		["OFF"] = function() end,
-		["BAS"] = function() AddController("mods/AdventureMode/files/TummySim/TummyControllerBasic.xml") end,
-		["ADV"] = function() AddController("mods/AdventureMode/files/TummySim/TummyControllerAdvanced.xml") end
-	}
-
-	States[Settings.TummyType]()
-end
-
 --Send an update signal to the component hosting our controller
 function SendUpdateSignal()
 	local Player = EntityGetWithTag("player_unit")[1]
-	local UpdateComponent = GetComponentByName(Player, "VariableStorageComponent", "TummySim_NeedsUpdating")
+	local UpdateComponent = GetComponentByName(Player, "VariableStorageComponent", "AdventureController_NeedsUpdating")
 	if (UpdateComponent) then
 		ComponentSetValue2(UpdateComponent, "value_bool", true)
 		dPrint("Signal sent", "SendUpdateSignal", 1)
@@ -88,8 +70,9 @@ function OnPlayerSpawned(player_entity)
 	--This is the sloppy way I check if we're at the start of a run
 	--Always seems to start at frame 10 when I try so we'll see
 	if (GameGetFrameNum() < 12) then
-		dPrint("Adding Tummy Controller ", "Init", 1)
-		AddTummyController()
+		dPrint("Adding adventure controller", "Init", 1)
+
+		EntityLoadToEntity("mods/AdventureMode/files/AdventureController/AdventureController.xml", player_entity)
 
 		---@param ItemEntity string
 		function AddStartingItem(ItemEntity)
@@ -110,7 +93,7 @@ function OnPlayerSpawned(player_entity)
 			AddStartingItem("mods/AdventureMode/files/Items/Meal.xml")
 		end
 
-		--Set starting nourishment
+		--[[Set starting nourishment
 		if (Settings.TummyType == "ADV") then
 			local Storage = GetComponentByName(player_entity, "VariableStorageComponent", "AdvTummySim_StoredHealing")
 			if (Storage ~= nil) then
@@ -119,6 +102,7 @@ function OnPlayerSpawned(player_entity)
 				ComponentSetValue2(Storage, "value_float", Settings.StartingNourshment * Settings.MaxNourishment)
 			end
 		end
+		]]
 	end
 
 

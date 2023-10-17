@@ -1,13 +1,4 @@
-<Entity name="TummySim">
-
-    <LuaComponent
-        script_source_file="mods/AdventureMode/files/TummySim/TummySimControllerAdvanced.lua"
-        execute_every_n_frame="2"
-        script_damage_received="mods/AdventureMode/files/TummySim/TummySimControllerAdvanced.lua"
-        script_wand_fired="mods/AdventureMode/files/TummySim/TummySimControllerAdvanced.lua"
-    >
-    </LuaComponent>
-
+<Entity name="TummySimAdvanced">
     <UIIconComponent
         name="Nourishment"
         icon_sprite_file="mods/AdventureMode/files/TummySim/img/store_barren.png"
@@ -21,11 +12,4 @@
         value_float="0"
     >
     </VariableStorageComponent>
-
-    <VariableStorageComponent
-        name="TummySim_NeedsUpdating"
-        value_bool="0"
-    >
-    </VariableStorageComponent>
-
 </Entity>

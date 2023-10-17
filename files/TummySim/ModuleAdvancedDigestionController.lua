@@ -45,7 +45,7 @@ function GetDigestableAmount(Material, Satiety)
 end
 
 ---@param Context table
-function This.Tick(Context)
+function This.Tick(_, Context)
     --Get Entities
     local Player = GetUpdatedEntityID()
     local CellInventory = EntityGetFirstComponent(Player, "MaterialInventoryComponent")

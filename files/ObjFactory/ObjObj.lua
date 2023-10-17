@@ -27,6 +27,13 @@ function ThisFactory.ModPrint(This, Message, Level)
     dPrint(Message, This.Name, Level)
 end
 
+--MetaFunction
+function ThisFactory.MetaFunction(Table, Index)
+    --dPrint(string.format("Searching for index %s", Index), ThisFactory.Name, 5)
+    --print(string.format("%s searching for index %s in %s", Table, Index, ThisFactory.Name))
+    return ThisFactory[Index]
+end
+
 ---Initializes the calling table as an object
 ---@param ObjName string
 ---@return table
@@ -36,8 +43,8 @@ function ThisFactory.New(ObjName)
     --Setup Members
     NewObject.Name = ObjName
 
-    --Give Access to methods
-    NewObject.ModPrint = ThisFactory.ModPrint
+    --Set the metatable to point to us
+    setmetatable(NewObject,{ __index = ThisFactory.MetaFunction });
 
     --Set parent
     NewObject.Parent = ThisFactory

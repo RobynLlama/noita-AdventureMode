@@ -2,13 +2,42 @@ dofile_once("data/scripts/game_helpers.lua")
 
 --Private vars
 local BaseModule = dofile_once("mods/AdventureMode/files/ObjFactory/ObjModule.lua")
-local Settings = dofile_once("mods/AdventureMode/files/utils/SettingsCache.lua")
+local Enabled = true
 
 --Init new module
 local This = BaseModule.New("TummySimBasicController", 120)
 
+local function CombatCallBack(Context)
+
+    if (not Enabled) then
+        return
+    end
+
+    This:ModPrint("Combat call back recieved", 1)
+    Context.HealBlocker:BlockHealing(Context.Settings.HealBlockFrames)
+end
+
+---@param EntityID integer
 ---@param Context table
-function This.Tick(Context)
+function This.Init(EntityID, Context)
+    Context.HealBlocker = dofile_once("mods/AdventureMode/files/Tummysim/HealBlocker.lua")
+
+    --Callbacks
+    This:AddCallback(CB_TYPE_DAMAGE, CombatCallBack)
+    This:AddCallback(CB_TYPE_WAND_FIRED, CombatCallBack)
+    This:AddCallback(CB_TYPE_PROJECTILE, CombatCallBack)
+end
+
+---@param Context table
+function This.Tick(_, Context)
+
+    --Update Enabled status
+    Enabled = Context.Settings.TummyType == "BAS"
+
+    if (not Enabled) then
+        return
+    end
+
     --Entities/Components
     local Player = GetUpdatedEntityID()
     local Tummy = EntityGetFirstComponent(Player, "IngestionComponent")
@@ -21,8 +50,8 @@ function This.Tick(Context)
 
     --Settings
     --Default max tummy size is 7500 so this is 1%
-    local SatietyCostForEachPercent = Settings.SatietyCostForEachPercent
-    local MaxHealthRestoredPerFrame = Settings.MaxHealthRestoredPerFrame / 100
+    local SatietyCostForEachPercent = Context.Settings.SatietyCostForEachPercent
+    local MaxHealthRestoredPerFrame = Context.Settings.MaxHealthRestoredPerFrame / 100
 
     --Cost tracking
     local ThisHealPercent = 0.0

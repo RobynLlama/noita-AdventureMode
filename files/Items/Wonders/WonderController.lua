@@ -52,7 +52,7 @@ end
 
 ---@param WonderItem table
 function RegisterWonderItem(WonderItem)
-    This:ModPrint(string.format("Registered item: %s", WonderItem.EquipID), 5)
+    This:ModPrint(string.format("Registered item: %s", WonderItem.EquipID), 1)
     AllWonderItems[WonderItem.EquipID] = WonderItem
 end
 

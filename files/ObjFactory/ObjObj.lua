@@ -29,7 +29,6 @@ end
 
 --MetaFunction
 function ThisFactory.MetaFunction(Table, Index)
-    --dPrint(string.format("Searching for index %s", Index), ThisFactory.Name, 5)
     --print(string.format("%s searching for index %s in %s", Table, Index, ThisFactory.Name))
     return ThisFactory[Index]
 end

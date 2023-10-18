@@ -39,14 +39,14 @@ dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
 
 ---@param Module table
 function RegisterModule(Module)
-    dPrint(string.format("Registering module %s", Module.Name), "AdventureController", 5)
+    dPrint(string.format("Registering module %s", Module.Name), "AdventureController", 1)
     table.insert(Context.Modules, Module)
     Module.Init(GetUpdatedEntityID(), Context)
 end
 
 --Modders: Detour this function to add your own modules here
 function init(entity_id)
-    dPrint("Adventure Controller startup", "AdventureController", 5)
+    dPrint("Adventure Controller startup", "AdventureController", 1)
 
     --default modules
     RegisterModule(dofile_once("mods/AdventureMode/files/TummySim/ModuleBasicController.lua"))
@@ -56,7 +56,7 @@ end
 
 --Check out if we don't have modules yet
 if (#Context.Modules == 0) then
-    dPrint("Skipping Modules this frame", "AdventureController", 5)
+    dPrint("Skipping Modules this frame", "AdventureController", 1)
     return
 end
 
@@ -70,7 +70,7 @@ end
 
 function damage_received(damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible)
     --Run all callbacks for this message
-    dPrint("Sending Event CB_TYPE_DAMAGE", "AdventureController", 5)
+    dPrint("Sending Event CB_TYPE_DAMAGE", "AdventureController", 1)
     for _, Module in pairs(Context.Modules) do
         if (Module.EventCallBacks[CB_TYPE_DAMAGE]) then
             Module.EventCallBacks[CB_TYPE_DAMAGE](Context, damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible)
@@ -80,7 +80,7 @@ end
 
 function wand_fired( gun_entity_id )
     --Run all callbacks for this message
-    dPrint("Sending Event CB_TYPE_WAND_FIRED", "AdventureController", 5)
+    dPrint("Sending Event CB_TYPE_WAND_FIRED", "AdventureController", 1)
     for _, Module in pairs(Context.Modules) do
         if (Module.EventCallBacks[CB_TYPE_WAND_FIRED]) then
             Module.EventCallBacks[CB_TYPE_WAND_FIRED](Context, gun_entity_id)

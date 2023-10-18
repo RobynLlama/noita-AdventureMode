@@ -121,6 +121,12 @@ function CreateObject()
         EntityAddChild(GetUpdatedEntityID(), EntityLoad("mods/AdventureMode/files/TummySim/TummyControllerAdvanced.xml"))
         HealthStorage.StoredHealing = ReadVariableStorage()
         ObjectExists = true
+
+        --Initial Nourishment
+        if (GameGetFrameNum() < 14) then
+            HealthStorage.StoredHealing = HealthStorage.ParentContext.Settings.MaxNourishment *
+            HealthStorage.ParentContext.Settings.StartingNourshment
+        end
     end
 end
 

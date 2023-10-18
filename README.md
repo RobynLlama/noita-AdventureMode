@@ -3,6 +3,7 @@ A Noita mod about going on an adventure
 
 ## Features
 *  Optional extra starting items
+*  Wonderous Items can be found most places potions can spawn. These items are equipped to one of 6 slots and have passive, perk-like effects. Currently only one added item.
 *  Passive Regeneration based on eating. Comes in Basic or Advanced flavor
     #### Basic Tummy mode
     *  Heal 1% max life at the cost of 1% Satiation from eaten items

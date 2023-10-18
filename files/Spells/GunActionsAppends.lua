@@ -36,7 +36,7 @@ table.insert(actions,
         mana                = 100,
         max_uses            = 5,
         action              = function()
-                        add_projectile("mods/AdventureMode/files/Spells/SummonedSnack.xml")
+            add_projectile("mods/AdventureMode/files/Spells/SummonedSnack.xml")
         end,
     }
 )

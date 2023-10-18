@@ -2,43 +2,43 @@
 <Entity name="WonderSystem">
     <VariableStorageComponent
         name="EQUIP_HEAD"
-        value_string = ""
-        value_bool = "0"
+        value_string=""
+        value_bool="0"
     >
     </VariableStorageComponent>
 
     <VariableStorageComponent
         name="EQUIP_BODY"
-        value_string = ""
-        value_bool = "0"
+        value_string=""
+        value_bool="0"
     >
     </VariableStorageComponent>
 
     <VariableStorageComponent
         name="EQUIP_FEET"
-        value_string = ""
-        value_bool = "0"
+        value_string=""
+        value_bool="0"
     >
     </VariableStorageComponent>
 
     <VariableStorageComponent
         name="EQUIP_OUTER_BODY"
-        value_string = ""
-        value_bool = "0"
+        value_string=""
+        value_bool="0"
     >
     </VariableStorageComponent>
 
     <VariableStorageComponent
         name="EQUIP_FINERY"
-        value_string = ""
-        value_bool = "0"
+        value_string=""
+        value_bool="0"
     >
     </VariableStorageComponent>
 
     <VariableStorageComponent
         name="EQUIP_CARRIED"
-        value_string = ""
-        value_bool = "0"
+        value_string=""
+        value_bool="0"
     >
     </VariableStorageComponent>
 </Entity>

@@ -32,7 +32,7 @@ function ThisFactory.TickOnTimer(This, Context)
     if (This.UpdateEvery < 0) then
         return
     end
-    
+
     --Check if we're ready to update
     local frame = GameGetFrameNum()
     if (frame >= This.UpdateNext) then
@@ -77,7 +77,7 @@ function ThisFactory.New(ObjName, Ticks)
     --Methods
 
     --Set the metatable to point to us
-    setmetatable(NewObject,{ __index = ThisFactory.MetaFunction });
+    setmetatable(NewObject, { __index = ThisFactory.MetaFunction });
 
     --Set parent type to Module
     NewObject.Parent = ThisFactory

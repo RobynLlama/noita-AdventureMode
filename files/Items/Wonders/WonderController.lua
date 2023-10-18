@@ -72,7 +72,6 @@ end
 ---@param DoEffect boolean
 function EquipItem(EquipID, DoEffect)
     if (AllWonderItems[EquipID]) then
-
         local Item = AllWonderItems[EquipID]
 
         if (EquippedItems[Item.SlotID]) then
@@ -114,7 +113,6 @@ end
 
 ---@param Context table
 function This.Tick(_, Context)
-
     --Tick each item that is equipped
     if (EquippedItems[WONDER_SLOT_HEAD]) then
         EquippedItems[WONDER_SLOT_HEAD]:TickOnTimer(Context)

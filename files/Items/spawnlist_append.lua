@@ -4,7 +4,6 @@
 ---@param Item table
 ---@param Weight integer
 function AddToSpawnList(ListName, Weight, Item)
-
     if (spawnlists == nil) then
         print("Spawnlist no good")
         return
@@ -27,7 +26,7 @@ end
 
 AddToSpawnList("potion_spawnlist", 3,
     {
-		load_entity = "mods/AdventureMode/files/Items/Wonders/WonderBoots.xml",
-		offset_y = -2,
+        load_entity = "mods/AdventureMode/files/Items/Wonders/WonderBoots.xml",
+        offset_y = -2,
     }
 )

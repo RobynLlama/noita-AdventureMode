@@ -101,8 +101,9 @@ function This.Tick(_, Context)
         local Cost = GetSatiationCostToDigest(NextMaterial, Amount)
 
         This:ModPrint(
-        "Material " ..
-        tostring(CellFactory_GetName(NextMaterial) .. " amount: " .. tostring(Amount) .. " cost: " .. tostring(Cost)), 1)
+            "Material " ..
+            tostring(CellFactory_GetName(NextMaterial) .. " amount: " .. tostring(Amount) .. " cost: " .. tostring(Cost)),
+            1)
 
         SatiationThisUpdate = SatiationThisUpdate + Cost
 

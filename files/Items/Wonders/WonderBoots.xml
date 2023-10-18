@@ -20,10 +20,10 @@
         play_spinning_animation="0"
         preferred_inventory="QUICK"
         ui_description="$wonder_desc"
-        ui_sprite="mods/AdventureMode/files/Items/img/WonderBoots.png" 
+        ui_sprite="mods/AdventureMode/files/Items/img/WonderBoots.png"
         custom_pickup_string="$wonder_equip" />
 
-    <VariableStorageComponent 
+    <VariableStorageComponent
         name="WonderItemData"
         value_string="WonderItem_BootsOfLeaping"
     />

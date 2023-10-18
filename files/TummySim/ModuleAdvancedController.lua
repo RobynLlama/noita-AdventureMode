@@ -95,7 +95,6 @@ function HealthStorage.ModifyStoredHealth(Self, Amount)
 end
 
 local function CombatCallBack(Context)
-
     if (not Enabled) then
         return
     end
@@ -118,7 +117,7 @@ function This.Init(EntityID, Context)
 end
 
 function CreateObject()
-    if ( not ObjectExists) then
+    if (not ObjectExists) then
         EntityAddChild(GetUpdatedEntityID(), EntityLoad("mods/AdventureMode/files/TummySim/TummyControllerAdvanced.xml"))
         HealthStorage.StoredHealing = ReadVariableStorage()
         ObjectExists = true
@@ -127,7 +126,6 @@ end
 
 function CleanupObject()
     if (ObjectExists) then
-
         local AdvObj = GetChildByName(GetUpdatedEntityID(), ObjectName)
 
         if (AdvObj) then
@@ -135,12 +133,10 @@ function CleanupObject()
             ObjectExists = false
         end
     end
-
 end
 
 ---@param Context table
 function This.Tick(_, Context)
-
     --Update Enabled status
     Enabled = Context.Settings.TummyType == "ADV"
 

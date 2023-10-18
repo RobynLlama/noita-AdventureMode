@@ -8,7 +8,6 @@ local Enabled = true
 local This = BaseModule.New("TummySimBasicController", 120)
 
 local function CombatCallBack(Context)
-
     if (not Enabled) then
         return
     end
@@ -30,7 +29,6 @@ end
 
 ---@param Context table
 function This.Tick(_, Context)
-
     --Update Enabled status
     Enabled = Context.Settings.TummyType == "BAS"
 

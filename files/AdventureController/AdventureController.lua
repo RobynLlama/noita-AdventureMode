@@ -9,7 +9,7 @@
     CallBackIDs:
         script_damage_received
         OnDamage(context, damage:number, message:string, entity_thats_responsible:int, is_fatal:bool, projectile_thats_responsible:int ))
-        
+
         script_shot
         OnShotProjectile(context, projectile_entity_id )
 
@@ -73,12 +73,13 @@ function damage_received(damage, message, entity_thats_responsible, is_fatal, pr
     dPrint("Sending Event CB_TYPE_DAMAGE", "AdventureController", 1)
     for _, Module in pairs(Context.Modules) do
         if (Module.EventCallBacks[CB_TYPE_DAMAGE]) then
-            Module.EventCallBacks[CB_TYPE_DAMAGE](Context, damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible)
+            Module.EventCallBacks[CB_TYPE_DAMAGE](Context, damage, message, entity_thats_responsible, is_fatal,
+                projectile_thats_responsible)
         end
     end
 end
 
-function wand_fired( gun_entity_id )
+function wand_fired(gun_entity_id)
     --Run all callbacks for this message
     dPrint("Sending Event CB_TYPE_WAND_FIRED", "AdventureController", 1)
     for _, Module in pairs(Context.Modules) do

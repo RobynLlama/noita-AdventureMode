@@ -9,7 +9,6 @@ dofile_once("mods/AdventureMode/files/utils/DebugPrint.lua")
 local OriginalInit = init
 
 function DetourInit(Entity)
-
     --Run the original init first
     OriginalInit(Entity)
 
@@ -18,7 +17,7 @@ function DetourInit(Entity)
     local potion_capacity
     local potion_clear
 
-    dPrint("Running on Entity: "..tostring(Entity), "PotionVariableCapacity", 1)
+    dPrint("Running on Entity: " .. tostring(Entity), "PotionVariableCapacity", 1)
     if (components ~= nil) then
         dPrint("Found VariableStorageComponent", "PotionVariableCapacity", 1)
         for _, comp_id in pairs(components) do
@@ -36,7 +35,7 @@ function DetourInit(Entity)
         --Clear any other material and set it to the amount we specified
         local Material = GetMaterialInventoryMainMaterial(Entity, false)
         while (Material > 0) do
-            dPrint("Clearing "..CellFactory_GetName(Material), "PotionVariableCapacity", 1)
+            dPrint("Clearing " .. CellFactory_GetName(Material), "PotionVariableCapacity", 1)
             AddMaterialInventoryMaterial(Entity, CellFactory_GetName(Material), 0)
             Material = GetMaterialInventoryMainMaterial(Entity, false)
         end

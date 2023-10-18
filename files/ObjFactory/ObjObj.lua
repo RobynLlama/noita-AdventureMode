@@ -43,7 +43,7 @@ function ThisFactory.New(ObjName)
     NewObject.Name = ObjName
 
     --Set the metatable to point to us
-    setmetatable(NewObject,{ __index = ThisFactory.MetaFunction });
+    setmetatable(NewObject, { __index = ThisFactory.MetaFunction });
 
     --Set parent
     NewObject.Parent = ThisFactory

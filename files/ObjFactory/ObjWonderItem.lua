@@ -37,7 +37,7 @@ function ThisFactory.OnUnEquip(This, Entity)
 end
 
 --MetaFunction
-function ThisFactory.MetaFunction(Table, Index) 
+function ThisFactory.MetaFunction(Table, Index)
     --print(string.format("%s searching for index %s in %s", Table, Index, ThisFactory.Name))
     return ThisFactory[Index]
 end
@@ -61,7 +61,7 @@ function ThisFactory.New(EquipID, FriendlyName, SlotID, Ticks)
     --Methods
 
     --Set the metatable to point to us
-    setmetatable(NewObject,{ __index = ThisFactory.MetaFunction });
+    setmetatable(NewObject, { __index = ThisFactory.MetaFunction });
 
     --Set parent type to WonderItem
     NewObject.Parent = ThisFactory

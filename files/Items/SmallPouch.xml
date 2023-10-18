@@ -38,10 +38,10 @@
 
   <!-- value_bool controls if we delete the existing material or not -->
   <VariableStorageComponent
-		name="potion_material"
+    name="potion_material"
     value_bool="1"
-	>
-	</VariableStorageComponent>
+  >
+  </VariableStorageComponent>
 
   <LuaComponent
     execute_on_added="1"
